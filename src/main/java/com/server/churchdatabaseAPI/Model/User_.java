@@ -1,6 +1,7 @@
 package com.server.churchdatabaseAPI.Model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -24,11 +25,13 @@ public class User_ {
     private String Surname;
     private String Email;
     private String Role;
-    private Date CreatedDate;
+    private LocalDate CreatedDate;
     private String Status;
     private String Message;
+    public User_() {
+    }
 
-    public User_(String username, String password, String firstName, String surname, String email, String role, Date createdDate, String status) {
+    public User_(String username, String password, String firstName, String surname, String email, String role, LocalDate createdDate, String status) {
         Username = username;
         Password = password;
         FirstName = firstName;
@@ -87,11 +90,11 @@ public class User_ {
         Role = role;
     }
 
-    public Date getCreatedDate() {
+    public LocalDate getCreatedDate() {
         return CreatedDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(LocalDate createdDate) {
         CreatedDate = createdDate;
     }
 
