@@ -9,13 +9,13 @@ import java.util.Date;
 public class User_ {
     @Id
     @SequenceGenerator(
-            name="church_sequence",
-            sequenceName="church_sequence",
+            name="user_sequence",
+            sequenceName="user_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy= GenerationType.SEQUENCE,
-            generator = "church_sequence")
+            generator = "user_sequence")
     private Long Id;
     @Column(name = "user_name")
     private String Username;
