@@ -33,70 +33,26 @@ public class LoginController{
     @GetMapping("/login")
     public String login(Model model) {
         return "login";
-
-    }
-
-    @GetMapping("/admin")
-    public ModelAndView admin() {
-        String currentUserName = null;
-        User_ gitUser = null;
-        currentUserName = getUsername();
-        if (currentUserName != null)
-            gitUser = userRepository.findByEmail(currentUserName);
-        else
-            throw new NullPointerException();
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home");
-        String name = gitUser.getFirstName() + " " + gitUser.getLastName();
-        String email = gitUser.getEmail();
-        //List<Repository> repoList = httpconnections.getUserRepo(gitUser.getFirstName()+gitUser.getLastName());
-//        modelAndView.addObject("repolist",repoList);
-//        modelAndView.addObject("gituser",name);
-//        modelAndView.addObject("git",gitUser.getFirstName()+gitUser.getLastName());
-
-        return modelAndView;
     }
 
     @GetMapping("/")
     public ModelAndView home() {
-//        String currentUserName = null;
-//        User gitUser = null;
-//        currentUserName = getUsername();
-//        if (currentUserName!=null)
-//            gitUser = userRepository.findByEmail(currentUserName);
-//        else
-//            throw new NullPointerException();
-//        String roleVal = getRole(gitUser.getRoles());
-//
-//        if (roleVal.equals("ROLE_ADMIN")){
-//            List<GitUser> userList = userRepository.findAll();
-//            List<GitUser> userList2  = getUserList(userList);
-//
-           ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("ahome");
-//            String name = gitUser.getFirstName() +" "+ gitUser.getLastName();
-//            String email = gitUser.getEmail();
-//            modelAndView.addObject("userList",userList2);
-//            modelAndView.addObject("gituser",name);
-//            modelAndView.addObject("git",gitUser.getFirstName()+gitUser.getLastName());
+       String currentUserName = null;
+        User_ user = null;
+        currentUserName = getUsername();
+       if (currentUserName!=null)
+           user = userRepository.findByEmail(currentUserName);
+        else
+            throw new NullPointerException();
+        //String roleVal = getRole(user.getRoles());
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("home");
+        String name = user.getFirstName();
+        String email = user.getEmail();
+
+        modelAndView.addObject("firstName",name);
 
         return modelAndView;
-
-    //}
-
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("home");
-//        String name = gitUser.getFirstName() +" "+ gitUser.getLastName();
-//        String email = gitUser.getEmail();
-//
-//        List<Repository> repoList = httpconnections.getUserRepo(gitUser.getFirstName()+gitUser.getLastName());
-//        System.out.println("repoList: " + repoList);
-//        modelAndView.addObject("repolist",repoList);
-//        modelAndView.addObject("gituser",name);
-//        modelAndView.addObject("git",gitUser.getFirstName()+gitUser.getLastName());
-//
-//        return modelAndView;
 }
 
     private String getRole(Collection<Role> roleList){
@@ -114,21 +70,6 @@ public class LoginController{
         else
             return null;
     }
-    private List<User_> getUserList(List<User_> userList){
-        List<User_> userList2 = new ArrayList<>();
-        for(var user:userList){
-            System.out.println("User role: " + user.getRole());
-            String roleVal2 = null;
-            for(Role role:user.getRoles()){
-                roleVal2 = role.getName();
-            }
-            System.out.println("User role name 2: " +  roleVal2);
-           // String firstName, String lastName, String email, String role, LocalDate createdDate
-            User_ userData = new User_(user.getId(),user.getFirstName(),user.getLastName(),
-                    user.getEmail(),user.getRole(),user.getCreatedDate());
-            userList2.add(userData);
-        }
-        return userList2;
-    }
+
 
 }

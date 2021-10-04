@@ -1,0 +1,49 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="app-main__inner">
+        <div class="row">
+        </div>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="table-responsive" style="height: 600px;overflow: scroll;">
+                        <input type="text" id="myInput" onkeyup="myFunction()"  placeholder="Type to search for name">
+                        <!--table id="myTable" class="align-middle mb-0 table table-borderless table-striped table-hover">
+                            <tr>
+                                <th class="text-center">Id</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Description</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                            <tr th:each="repo: ${repolist}">
+                                <td th:text="${repo.id}">2</td>
+                                <td th:text="${repo.name}">Spring in Action</td>
+                                <td th:text="${repo.description}">Spring in Action</td>
+                                <td><a th:href="@{'/repository/user/'+${git}+'/name/'+${repo.name}}">Details</a></td>
+
+                            </tr>
+
+                            </tr>
+
+                        </table-->
+<!--                        </form>-->
+                    </div>
+
+                    <div class="d-block text-center card-footer">
+                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button>
+                        <button class="btn-wide btn btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
