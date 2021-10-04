@@ -17,10 +17,7 @@ public class UserRegistrationDto {
     private String firstName;
 
        //@NotEmpty
-    private String birthDate;
-
-    @NotEmpty
-    private String gender;
+    //private String birthDate;
 
     @NotEmpty
     private String lastName;
@@ -34,14 +31,6 @@ public class UserRegistrationDto {
     @Email
     @NotEmpty
     private String email;
-    //    @NotEmpty
-//    private String gender;
-    @NotEmpty
-    private String mobilephone;
-
-
-    private String role;
-
     @Email
     @NotEmpty
     private String confirmEmail;
@@ -52,24 +41,7 @@ public class UserRegistrationDto {
     public String getFirstName() {
         return firstName;
     }
-    //    public String getGender() {
-//        return gender;
-//    }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -98,14 +70,6 @@ public class UserRegistrationDto {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -130,10 +94,4 @@ public class UserRegistrationDto {
         this.terms = terms;
     }
 
-    public void setMobilephone(String mobilephone) {
-        this.mobilephone = mobilephone;
-    }
-    public String getMobilephone() {
-        return mobilephone;
-    }
 }

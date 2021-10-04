@@ -30,7 +30,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/alayout**",
                         "/ahome**",
                         "/edituser**",
-                        "/assets/**",
                         "/scripts/**",
                         "/css/**",
                         "/img/**",

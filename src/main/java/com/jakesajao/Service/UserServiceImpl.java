@@ -43,19 +43,18 @@ public class UserServiceImpl implements UserService {
     }
 
     public User_ save(UserRegistrationDto registration) {
-        User_ user = new User_();
-        user.setFirstName(registration.getFirstName());
-        user.setLastName(registration.getLastName());
-        user.setEmail(registration.getEmail());
-        user.setGender(registration.getGender());
-        user.setMobilephone(registration.getMobilephone());
+        User_ user = new User_(registration.getFirstName(), registration.getLastName()
+                ,passwordEncoder.encode(registration.getPassword()),registration.getEmail(), Arrays.asList(new Role("ROLE_ADMIN")), LocalDate.now());
 
-        user.setBirthdate(registration.getBirthDate());
-
-        user.setPassword(passwordEncoder.encode(registration.getPassword()));
-        //user.setRoles(Arrays.asList(new Role("ROLE_USER")));
-        System.out.println("Save Role as : "+registration.getRole());
-        user.setRoles(Arrays.asList(new Role(registration.getRole())));
+//        user.setFirstName(registration.getFirstName());
+//        System.out.println("Save Last Name as : "+registration.getLastName());
+//
+//        user.setLastName(registration.getLastName());
+//        user.setEmail(registration.getEmail());
+//        System.out.println("Save email Name as : "+registration.getEmail());
+//        user.setPassword(passwordEncoder.encode(registration.getPassword()));
+//        user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
+        System.out.println("Save user as : "+user);
         return userRepository.save(user);
     }
 
@@ -80,13 +79,8 @@ public class UserServiceImpl implements UserService {
         }
         user.setFirstName(user.getFirstName());
         user.setLastName(user.getLastName());
-        user.setMobilephone(user.getMobilephone());
         user.setEmail(user.getEmail());
         List<Role> role = new ArrayList<>();
-        role.add(new Role(user.getRole()));
-        user.setBirthdate(user.getBirthdate());
-        user.setGender(user.getGender());
-        user.setRoles(role);
         userRepository.save(user);
         System.out.println("User Saved successfully. User: "+user);
     }

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
@@ -19,40 +22,66 @@
 					<div class="card fat">
 						<div class="card-body">
 							<h4 class="card-title">Register</h4>
-							<form method="POST" class="my-login-validation" novalidate="">
-								<div class="form-group">
-									<label for="name">Name</label>
-									<input id="name" type="text" class="form-control" name="name" required autofocus>
-									<div class="invalid-feedback">
-										What's your name?
-									</div>
+							<a class="navbar-brand" href="#" th:href="@{/}">Registration and
+								Login Module
+							</a>
+							<div style ="color:green;" th:if="${param.success}">
+								<div>You've successfully registered to our awesome app!</div>
+							</div>
+<!--							<form method="POST" class="my-login-validation" novalidate="">-->
+								<form th:action="@{/register}" class="my-login-validation" th:object="${user}" method="POST">
+									<p style="color:red" th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error
+									</p>
+								<div class="form-group" th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
+									<label for="firstName">First Name</label>
+									<input id="firstName" type="text" class="form-control" name="firstName" required autofocus>
+									<p style="color:red" th:each="error: ${#fields.errors('firstName')}" th:text="${error}">
+										First Name
+									</p>
 								</div>
-
-								<div class="form-group">
-									<label for="email">E-Mail Address</label>
+								<div class="form-group" th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
+									<label for="lastName">Last Name</label>
+									<input id="lastName" type="text" class="form-control" name="lastName" required autofocus>
+									<p style="color:red" th:each="error: ${#fields.errors('lastName')}" th:text="${error}">
+										Last Name
+									</p>
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+									<label for="email">E-mail Address</label>
 									<input id="email" type="email" class="form-control" name="email" required>
-									<div class="invalid-feedback">
+									<p  style="color:red" th:each="error: ${#fields.errors('email')}" th:text="${error}">
 										Your email is invalid
-									</div>
+									</p>
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('confirmEmail')}? 'has-error':''">
+									<label for="confirmEmail">Confirm Email Address</label>
+									<input id="confirmEmail" type="email" class="form-control" name="confirmEmail" required>
+									<p  style="color:red" th:each="error: ${#fields.errors('confirmEmail')}" th:text="${error}">
+										Your Confirm email is invalid
+									</p>
 								</div>
 
-								<div class="form-group">
+								<div class="form-group"  th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
 									<label for="password">Password</label>
 									<input id="password" type="password" class="form-control" name="password" required data-eye>
-									<div class="invalid-feedback">
-										Password is required
-									</div>
+									<p style="color:red" th:each="error: ${#fields.errors('password')}" th:text="${error}">Validation error</p>
+								</div>
+								<div class="form-group" th:classappend="${#fields.hasErrors('confirmPassword')}? 'has-error':''">
+									<label for="confirmPassword">Confirm Password</label>
+									<input id="confirmPassword" type="password" class="form-control" name="confirmPassword" required data-eye>
+									<p style="color:red" class="invalid-feedback" th:each="error: ${#fields.errors('confirmPassword')}" th:text="${error}">Validation error</p>
 								</div>
 
-								<div class="form-group">
-									<div class="custom-checkbox custom-control">
-										<input type="checkbox" name="agree" id="agree" class="custom-control-input" required="">
-										<label for="agree" class="custom-control-label">I agree to the <a href="#">Terms and Conditions</a></label>
-										<div class="invalid-feedback">
-											You must agree with our Terms and Conditions
-										</div>
-									</div>
-								</div>
+
+<!--								<div class="form-group">-->
+<!--									<div class="custom-checkbox custom-control">-->
+<!--										<input type="checkbox" name="agree" id="agree" class="custom-control-input" required="">-->
+<!--										<label for="agree" class="custom-control-label">I agree to the <a href="#">Terms and Conditions</a></label>-->
+<!--										<div class="invalid-feedback">-->
+<!--											You must agree with our Terms and Conditions-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
 
 								<div class="form-group m-0">
 									<button type="submit" class="btn btn-primary btn-block">
@@ -60,13 +89,13 @@
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									Already have an account? <a href="index.html">Login</a>
+									Already have an account? <a href="/">Login</a>
 								</div>
 							</form>
 						</div>
 					</div>
 					<div class="footer">
-						Copyright &copy; 2017 &mdash; Your Company 
+						Copyright &copy; 2021 &mdash; JakesB
 					</div>
 				</div>
 			</div>

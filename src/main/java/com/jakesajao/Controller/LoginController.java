@@ -33,10 +33,7 @@ public class LoginController{
     @GetMapping("/login")
     public String login(Model model) {
         return "login";
-    }
-    @GetMapping("/register")
-    public String register() {
-        return "register";
+
     }
 
     @GetMapping("/admin")
@@ -126,9 +123,9 @@ public class LoginController{
                 roleVal2 = role.getName();
             }
             System.out.println("User role name 2: " +  roleVal2);
-
-            User_ userData = new User_(user.getId(),user.getFirstName(),user.getLastName(),user.getMobilephone(),
-                    user.getEmail(),user.getRole(),user.getCreatedDate(),user.getBirthdate(),user.getGender(),roleVal2);
+           // String firstName, String lastName, String email, String role, LocalDate createdDate
+            User_ userData = new User_(user.getId(),user.getFirstName(),user.getLastName(),
+                    user.getEmail(),user.getRole(),user.getCreatedDate());
             userList2.add(userData);
         }
         return userList2;

@@ -9,59 +9,50 @@ import java.util.Collection;
 public class User_ {
 
     @Id
-    @SequenceGenerator(
-            name="user_sequence",
-            sequenceName="user_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy= GenerationType.SEQUENCE,
-            generator = "user_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
-    @Transient
-    @Column(name = "pwd")
     private String password;//
     private String firstName;
     private String lastName;
-    private String mobilephone;
     private String email;
     private String role;
     private LocalDate CreatedDate;
-    private String birthdate;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
+                    name = "user_id", referencedColumnName = "Id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
-    //String firstName, String lastName, String mobilephone, String email, String role, LocalDate createdDate, String birthdate, String gender, String message
-    public User_(Long id, String firstName, String lastName, String mobilephone, String email, String role, LocalDate createdDate, String birthdate, String gender, String message) {
+    public User_(long id, String firstName, String lastName, String email, String role, LocalDate createdDate) {
         this.Id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.mobilephone = mobilephone;
         this.email = email;
         this.role = role;
         CreatedDate = createdDate;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        Message = message;
     }
-
-    public User_(String firstName, String lastName, String mobilephone, String email, String role, LocalDate createdDate, String birthdate, String gender, String message) {
-        //this.password = password;
+    public User_(String firstName, String lastName, String password, String email, Collection<Role> role, LocalDate createdDate) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.mobilephone = mobilephone;
         this.email = email;
-        this.role = role;
+        this.password = password;
+        this.roles = role;
         CreatedDate = createdDate;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        Message = message;
+    }
+    @Override
+    public String toString() {
+        return "User_{" +
+                "Id=" + Id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", roles='" + roles + '\'' +
+                ", CreatedDate=" + CreatedDate +
+                '}';
     }
 
     public String getLastName() {
@@ -71,10 +62,6 @@ public class User_ {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
-    private String gender;
-    @Transient
-    private String Message;
 
     public User_() {
     }
@@ -125,34 +112,7 @@ public class User_ {
         CreatedDate = createdDate;
     }
 
-    public String getMessage() {
-        return Message;
-    }
-
-    public void setMessage(String message) {
-        Message = message;
-    }
-
-    public String getMobilephone() {
-        return mobilephone;
-    }
-
-    public void setMobilephone(String mobilephone) {
-        this.mobilephone = mobilephone;
-    }
-    public String getGender() {
-        return gender;
-    }
-
-    public String getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public Long getId() {
+   public Long getId() {
         return Id;
     }
 
@@ -160,25 +120,6 @@ public class User_ {
         Id = id;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-    @Override
-    public String toString() {
-        return "User_{" +
-                "Id=" + Id +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mobilephone='" + mobilephone + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                ", CreatedDate=" + CreatedDate +
-                ", birthdate=" + birthdate +
-                ", gender='" + gender + '\'' +
-                ", Message='" + Message + '\'' +
-                '}';
-    }
 
 
 }
