@@ -14,8 +14,16 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
+                    <div style="margin-left:20px;margin-right:20px;">
                     <div class="table-responsive">
-                        <h3 style="margin-top:15px;font-weight:bold;">Update Member</h3>
+                        <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Update Member</h3>
+
+                        <div>
+                            <label>Start date:</label>
+                            <input type="date" id="theDate">
+                        </div>
+                        <p>Type something in the input field to search the table for first names, last names:</p>
+                        <input class="form-control" id="myInput" type="text" placeholder="Search..">
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
@@ -29,7 +37,7 @@
                                             <th scope="col">Mobilephone</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="myTable">
                                         <tr>
                                             <td>
                                                 <div class="custom-control custom-checkbox">
@@ -70,10 +78,13 @@
                                     </table>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <div>
+                                <button type="submit" class="btn btn-primary" th:onclick="showAlert()">Update</button>
+                                <button type="submit" class="btn btn-primary">Refresh</button>
+                            </div>
                         </div>
                     </div>
-
+                </div>
                 </div>
             </div>
         </div>
