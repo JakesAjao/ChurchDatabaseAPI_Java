@@ -27,7 +27,6 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-
     @GetMapping("/index")
     public String index(){
         return "index";
@@ -37,5 +36,18 @@ public class HomeController {
     public String logout(){
         System.out.println("Log out...1");
         return "login";
+    }
+    @GetMapping("/membership")
+    public String membership(){
+        return "membership";
+    }
+
+    @GetMapping("/add")
+    public String addMember(){
+        return "add";
+    }
+    @GetMapping("/update")
+    public String updateMember(){
+        return "update";
     }
 }

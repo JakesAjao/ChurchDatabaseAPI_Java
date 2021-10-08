@@ -1,0 +1,39 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="app-main__inner">
+        <div class="row">
+        </div>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="table-responsive" style="height: 600px;overflow: scroll;">
+                        <ul class="nav nav-pills nav-fill">
+                            <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/add' ? 'active':''}">
+                                <a class="nav-link active" th:href="@{/add}">Add</a>
+                            </li>
+                            <li class="nav-item" th:classappend="${#httpServletRequest.getRequestURI() == '/add' ? 'active':''}">
+                                <a class="nav-link"  th:href="@{/add}">Details</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+<!--                    <div class="d-block text-center card-footer">-->
+<!--                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button>-->
+<!--                        <button class="btn-wide btn btn-success">Save</button>-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

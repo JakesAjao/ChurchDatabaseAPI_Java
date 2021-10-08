@@ -1,0 +1,82 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="app-main__inner">
+        <div class="row">
+        </div>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="table-responsive">
+                        <h3 style="margin-top:15px;font-weight:bold;">Update Member</h3>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-bordered" >
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Mobilephone</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="chkStatus1" checked>
+                                                    <label class="custom-control-label" for="chkStatus1">1</label>
+                                                </div>
+                                            </td>
+                                            <td>Jacob</td>
+                                            <td>Jacob</td>
+                                            <td>Male</td>
+                                            <td>Ajao</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="chkStatus2">
+                                                    <label class="custom-control-label" for="chkStatus2">2</label>
+                                                </div>
+                                            </td>
+                                            <td>Ayo</td>
+                                            <td>Kunle</td>
+                                            <td>Female</td>
+                                            <td>0555555555</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="chkStatus">
+                                                    <label class="custom-control-label" for="chkStatus">3</label>
+                                                </div>
+                                            </td>
+                                            <td>Margaret</td>
+                                            <td>Martin</td>
+                                            <td>Female</td>
+                                            <td>080999999999</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
