@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
-@RequestMapping("/add")
 public class MemberController {
     @Autowired
     private MemberRepository memberRepository;
@@ -31,11 +32,35 @@ public class MemberController {
         return new MemberCreationDto();
     }
 
-    @GetMapping
+    @GetMapping("/add")
     public String addMember(Model model){
         return "add";
     }
-    @PostMapping
+
+    @GetMapping("/attendance")
+    public ModelAndView updateMember() {
+        //return "update";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("attendance");
+
+        List<Member> memberList = memberRepository.findAll();
+        modelAndView.addObject("memberList",memberList);
+        return modelAndView;
+        //Put the modelAndView object in the update html. Thereafter iterate the object on the table
+    }
+    /*@GetMapping("/update")
+    public ModelAndView updateMember() {
+        //return "update";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("update");
+
+        List<Member> memberList = memberRepository.findAll();
+        modelAndView.addObject("memberList",memberList);
+        return modelAndView;
+        //Put the modelAndView object in the update html. Thereafter iterate the object on the table
+    }*/
+
+    @PostMapping("/add")
     public String addNewMember(@ModelAttribute("member") @Valid MemberCreationDto memberDto,
                                BindingResult result) {
         System.out.println("Entry member");

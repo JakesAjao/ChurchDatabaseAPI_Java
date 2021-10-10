@@ -45,8 +45,4 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/update")
-    public String updateMember(){
-        return "update";
-    }
 }

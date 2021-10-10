@@ -27,6 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/membership**",
                         "/add**",
                         "/update**",
+                        "/attendance**",
                         "/analytic**",
                         "/layout**",
                         "/alayout**",

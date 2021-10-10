@@ -16,7 +16,7 @@
                 <div class="main-card mb-3 card">
                     <div style="margin-left:20px;margin-right:20px;">
                     <div class="table-responsive">
-                        <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Update Member</h3>
+                        <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Attendance</h3>
 
                         <div>
                             <label>Start date:</label>
@@ -38,18 +38,18 @@
                                         </tr>
                                         </thead>
                                         <tbody id="myTable">
-                                        <tr th:each="member : ${memberList}">
+                                        <tr th:each="attend : ${attendanceList}">
                                             <td>
                                                 <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="chkStatus1" checked>
-                                                <label class="custom-control-label"  th:text="${member.id}" for="chkStatus1">5</label>
+                                                <label class="custom-control-label"  th:text="${attend.id}" for="chkStatus1">5</label>
                                                 </div>
                                               </td>
 <!--                                            <td th:text="${member.id}">Id</td>-->
-                                            <td th:text="${member.firstName}">First Name</td>
-                                            <td th:text="${member.lastName}">last Name</td>
-                                            <td th:text="${member.mobilephone1}">mobile Phone</td>
-                                            <td th:text="${member.gender}">Gender</td>
+                                            <td th:text="${attend.firstName}">First Name</td>
+                                            <td th:text="${attend.lastName}">last Name</td>
+                                            <td th:text="${attend.status}">mobile Phone</td>
+                                            <td th:text="${attend.createdDate}">Gender</td>
                                         </tr>
 <!--                                        <tr>-->
 <!--                                            <td>-->
