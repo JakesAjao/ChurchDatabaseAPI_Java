@@ -9,9 +9,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static java.util.Calendar.AUGUST;
-@Configuration
+//@Configuration
 public class UserConfig {
-    @Bean
+   // @Bean
     CommandLineRunner commandLineRunner(UserRepository repository){
         return args -> {
             //String username, String password, String firstName,

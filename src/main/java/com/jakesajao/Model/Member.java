@@ -5,6 +5,8 @@ import org.apache.tomcat.jni.Local;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Table
 @Entity
@@ -27,6 +29,9 @@ public class Member {
     private String address;
 
     private String role;
+
+    @OneToMany(mappedBy="member")
+    private List<Attendance> attendances;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -184,5 +189,14 @@ public class Member {
                 ", createDate='" + createdDate + '\'' +
                 '}';
     }
+
+    public List<Attendance> getAttendances() {
+        return attendances;
+    }
+
+    public void setAttendances(List<Attendance> attendances) {
+        this.attendances = attendances;
+    }
+
 
 }

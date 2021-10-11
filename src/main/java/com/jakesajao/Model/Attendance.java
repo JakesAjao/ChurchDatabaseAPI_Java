@@ -7,14 +7,20 @@ import java.time.LocalDate;
 @Entity
 public class Attendance {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @ManyToOne
+    @JoinColumn(name="member_id", nullable=false)
     private Member member;
 
     private String status;
     private LocalDate createdDate;
+
+
+    public Attendance(String status, LocalDate createdDate) {
+        this.status = status;
+        this.createdDate = createdDate;
+    }
 
     public Attendance(Member member, String status, LocalDate createdDate) {
         //this.id = id;
@@ -24,7 +30,6 @@ public class Attendance {
     }
     public Attendance() {
     }
-
     public Long getId() {
         return id;
     }

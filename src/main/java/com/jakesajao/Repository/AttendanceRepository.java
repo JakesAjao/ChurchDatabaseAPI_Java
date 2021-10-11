@@ -9,4 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
+//    @Query("Select a.id,a.createdDate,a.status,b.firstName,b.lastName," +
+//            "b.title,b.gender from Attendance a join Member b on a.id=b.id")
+   // public List<Attendance> FindAllWithDescriptionQuery();
 }
