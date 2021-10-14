@@ -9,13 +9,13 @@ public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name="member_id", nullable=false)
-    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", insertable = false, updatable = false)
+    private Member members;
 
     private String status;
     private LocalDate createdDate;
-
 
     public Attendance(String status, LocalDate createdDate) {
         this.status = status;
@@ -24,7 +24,7 @@ public class Attendance {
 
     public Attendance(Member member, String status, LocalDate createdDate) {
         //this.id = id;
-        this.member = member;
+        this.members = member;
         this.status = status;
         this.createdDate = createdDate;
     }
@@ -39,20 +39,20 @@ public class Attendance {
     }
 
     public Member getMember() {
-        return member;
+        return members;
     }
     @Override
     public String toString() {
         return "Attendance{" +
                 "id=" + id +
-                ", member=" + member +
+                ", members=" + members +
                 ", status='" + status + '\'' +
                 ", createdDate=" + createdDate +
                 '}';
     }
 
     public void setMember(Member member) {
-        this.member = member;
+        this.members = member;
     }
 
     public String getStatus() {

@@ -30,7 +30,7 @@ public class Member {
 
     private String role;
 
-    @OneToMany(mappedBy="member")
+    @OneToMany(targetEntity = Attendance.class, mappedBy = "id", orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Attendance> attendances;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -46,11 +46,11 @@ public class AttendanceController {
         attendance.setMember(memberData.get());
         attendanceService.Save(attendance);
 
-        List<Attendance> attendanceList = attendanceRepository.findAll();
-//        List<Attendance> attendanceList = attendanceRepository.FindAllWithDescriptionQuery();
-//        System.out.println("Joined Attendance Member List: "+attendanceList);
+        //List<Attendance> attendanceList = attendanceRepository.findAll();
+        //List<Attendance> attendanceList2 = attendanceRepository.findAttendanceById();
+        //System.out.println("Joined Attendance Member List: "+attendanceList2);
 
-        model.addAttribute("attendanceList",attendanceList);
+        //model.addAttribute("attendanceList",attendanceList2);
         return "/attendance";
         //Inside data into Attendance table
     }
