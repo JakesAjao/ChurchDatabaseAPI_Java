@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 public class Member {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
@@ -30,14 +31,15 @@ public class Member {
 
     private String role;
 
-    @OneToMany(targetEntity = Attendance.class, mappedBy = "id", orphanRemoval = false, fetch = FetchType.LAZY)
-    private List<Attendance> attendances;
+//    @OneToMany(targetEntity = Attendance.class, mappedBy = "id", orphanRemoval = false, fetch = FetchType.LAZY)
+@OneToMany(mappedBy = "id",fetch = FetchType.LAZY)
+private List<Attendance> attendance;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "members_roles",
             joinColumns = @JoinColumn(
-                    name = "member_id", referencedColumnName = "Id"),
+                    name = "members_id", referencedColumnName = "Id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
@@ -191,11 +193,11 @@ public class Member {
     }
 
     public List<Attendance> getAttendances() {
-        return attendances;
+        return attendance;
     }
 
     public void setAttendances(List<Attendance> attendances) {
-        this.attendances = attendances;
+        this.attendance = attendance;
     }
 
 

@@ -10,18 +10,11 @@ public class MemberAttend {
 
     private LocalDate createdDate;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     private Long id;
 
-    public MemberAttend(String firstName, String lastName, String status, String gender, LocalDate createdDate) {
+    public MemberAttend(Long id,String firstName, String lastName, String status, String gender, LocalDate createdDate) {
         this.firstName = firstName;
+        this.id = id;
         this.lastName = lastName;
         this.gender = gender;
         this.createdDate = createdDate;
@@ -68,11 +61,20 @@ public class MemberAttend {
     }
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     @Override
     public String toString() {
         return "MemberAttend{" +
-                "firstName='" + firstName + '\'' +
+                "id='" + id + '\'' +
+                ",firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", createdDate=" + createdDate +

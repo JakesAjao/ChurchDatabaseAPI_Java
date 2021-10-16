@@ -9,13 +9,12 @@ public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", insertable = false, updatable = false)
-    private Member members;
-
     private String status;
     private LocalDate createdDate;
+    @ManyToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "member_id", insertable = true, updatable = false)
+    @JoinColumn(name = "attendance_id")
+    private Member members;
 
     public Attendance(String status, LocalDate createdDate) {
         this.status = status;

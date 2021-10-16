@@ -35,11 +35,10 @@ public class AttendanceController {
         return new MemberCreationDto();
     }
 
-    @GetMapping("/attendance")
+    /*@GetMapping("/attendance")
     public String getAttendance(Model model){
         AttendanceCreationDto attendance = new AttendanceCreationDto();
         attendance.setStatus("Yes");
-
         Optional<Member> memberData = memberRepository.findById(3L);
 
         System.out.println("Member Data: "+memberData.get());
@@ -52,8 +51,7 @@ public class AttendanceController {
 
         //model.addAttribute("attendanceList",attendanceList2);
         return "/attendance";
-        //Inside data into Attendance table
-    }
+    }*/
     @PostMapping("/attendance")
     public String addNewMember(@ModelAttribute("member") @Valid AttendanceCreationDto attendDto,
                                BindingResult result) {
