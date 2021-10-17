@@ -12,7 +12,6 @@ public class Attendance {
     private String status;
     private LocalDate createdDate;
     @ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "member_id", insertable = true, updatable = false)
     @JoinColumn(name = "attendance_id")
     private Member members;
 

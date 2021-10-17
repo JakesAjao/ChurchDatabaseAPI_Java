@@ -20,6 +20,11 @@ public class MemberAttend {
         this.createdDate = createdDate;
         this.status = status;
     }
+    public MemberAttend(Long id,String firstName, String lastName) {
+        this.firstName = firstName;
+        this.id = id;
+        this.lastName = lastName;
+    }
     public String getFirstName() {
         return firstName;
     }

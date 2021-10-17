@@ -30,8 +30,6 @@ public class Member {
     private String address;
 
     private String role;
-
-//    @OneToMany(targetEntity = Attendance.class, mappedBy = "id", orphanRemoval = false, fetch = FetchType.LAZY)
 @OneToMany(mappedBy = "id",fetch = FetchType.LAZY)
 private List<Attendance> attendance;
 

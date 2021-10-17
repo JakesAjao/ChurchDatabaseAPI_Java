@@ -68,9 +68,9 @@ public class MemberController {
         attend.setCreatedDate(todayDate);
         System.out.println("Member member.get(): "+attend);
 
-            Attendance ate = attendanceRepository.DateIdAlreadyExist(todayDate,member.getId());
-            System.out.println("Ate: "+ate);
-            setAttend.add(attend);
+            //Attendance dateIdAlreadyExist2 = attendanceRepository.ValidateCurrentExistingDate(todayDate);
+            //System.out.println("Ate: "+dateIdAlreadyExist2);
+            //setAttend.add(attend);
 
 //            if (!attendanceRepository.fo(attend)) {
 //                attendanceRepository.save(attend);
