@@ -12,6 +12,8 @@ public class MemberAttend {
 
     private Long id;
 
+    public MemberAttend(){
+    }
     public MemberAttend(Long id,String firstName, String lastName, String status, String gender, LocalDate createdDate) {
         this.firstName = firstName;
         this.id = id;

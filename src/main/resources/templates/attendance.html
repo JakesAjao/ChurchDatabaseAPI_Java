@@ -24,6 +24,8 @@
                         </div>
                         <p>Type something in the input field to search the table for first names, last names:</p>
                         <input class="form-control" id="myInput" type="text" placeholder="Search..">
+
+                        <form th:action="@{/attendance}" method="post" th:object="${memberAttend}">
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
@@ -38,11 +40,12 @@
                                         </tr>
                                         </thead>
                                         <tbody id="myTable">
-                                        <tr th:each="attend : ${attendanceList}">
+                                        <tr th:each="attend : ${memberAttendList}">
                                             <td>
                                                 <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="chkStatus1" checked>
-                                                <label class="custom-control-label"  th:text="${attend.id}" for="chkStatus1">5</label>
+                                                <input type="checkbox" class="custom-control-input"  th:field="*{id}" th:value="${attend.id}">
+<!--                                                <input type="checkbox" class="custom-control-input" th:field="${attend}"    th:value="${attend.id}">-->
+                                                <label class="custom-control-label"  th:for="${#ids.prev('id')}"  th:text="${attend.id}" >5</label>
                                                 </div>
                                               </td>
 <!--                                            <td th:text="${member.id}">Id</td>-->
@@ -67,6 +70,7 @@
 
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                             <div>
@@ -74,6 +78,7 @@
                                 <button type="submit" class="btn btn-primary">Refresh</button>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
                 </div>

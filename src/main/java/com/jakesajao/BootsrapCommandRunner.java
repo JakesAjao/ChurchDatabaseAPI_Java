@@ -16,13 +16,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@Configuration
+//@Configuration
 public class BootsrapCommandRunner {
    @Autowired
  private AttendanceRepository attendanceRepository;
    @Autowired
    private MemberRepository memberRepository;
-    @Bean
+    //@Bean
     CommandLineRunner commandLineRunner() {
         return args -> {
             Attendance attendance = new Attendance();
@@ -30,12 +30,15 @@ public class BootsrapCommandRunner {
             //attendance.setId(3L);
             attendance.setCreatedDate(LocalDate.now());
 
-            SaveMemberAttendance_NewWeek();
+            List<MemberAttend> attendList2 = attendanceRepository.findMemberAttend();//To be displayed as a list to users
+            System.out.println("Attendance List: " + attendList2);
+
+            SaveMemberAttendance_NewWeek();//To be run once everytime you loop attendance page
 
             LocalDate eventDate = LocalDate.now();
             String status = "Yes";
             Long id = 3L;
-            UpdateMemberAttendance_NewWeek(status,eventDate,id);
+            UpdateMemberAttendance_NewWeek(status,eventDate,id); //To be run after attendance status update
 
 
                // List<Attendance> attendanceList = attendanceRepository.findAll();
@@ -43,17 +46,12 @@ public class BootsrapCommandRunner {
             //List<Member> memberList = memberRepository.findAll();
             //for(Member member: memberList){
                //System.out.println("Joined Member: " + member);
-            //List<MemberAttend> memberList2 = null;//memberRepository.findMemberAttend();
+            //List<MemberAttend> memberList2 = memberRepository.findMemberAttend();
             //System.out.println("Joined Member List: " + memberList2);
-                List<MemberAttend> attendList2 = attendanceRepository.findMemberAttend();//Update member date
-                //System.out.println("Joined Attendance List: " + attendList2);
-            List<MemberAttend> MemberList = attendanceRepository.findMemberQuery();
-           // System.out.println("Joined MemberList: " + MemberList);
 
-           // Attendance dateIdAlreadyExist = attendanceRepository.ValidateCurrentExistingDate(date);
-            //System.out.println("Ate: "+dateIdAlreadyExist);
-           // }
-            //System.out.println("Joined Attendance Member List 2: " + attendanceList2);
+            List<MemberAttend> MemberList = attendanceRepository.findMemberQuery();//fetch id alone fine
+            System.out.println("Member Only List: " + MemberList);
+
         };
     }
     public void SaveMemberAttendance_NewWeek(){
@@ -70,7 +68,7 @@ public class BootsrapCommandRunner {
             attendanceRepository.save(attend);
             System.out.println("Attendance saved successfully! ");
             });
-            //System.out.println("Attendance for new Week:: "+attendanceRepository.findAll());
+
         }
     }
 
