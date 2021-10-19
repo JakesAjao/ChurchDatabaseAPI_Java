@@ -32,7 +32,7 @@
                                     <table class="table table-bordered" >
                                         <thead>
                                         <tr>
-                                            <th scope="col">Id</th>
+                                            <th scope="col">Present</th>
                                             <th scope="col">First Name</th>
                                             <th scope="col">Last Name</th>
                                             <th scope="col">Mobilephone</th>
@@ -42,17 +42,17 @@
                                         <tbody id="myTable">
                                         <tr th:each="attend : ${memberAttendList}">
                                             <td>
-                                                <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"  th:field="*{id}" th:value="${attend.id}">
+<!--                                                <div class="custom-control custom-checkbox">-->
+                                                <input type="checkbox" th:checked="${attend.present}" th:value="${attend.id}" name="id"/>
 <!--                                                <input type="checkbox" class="custom-control-input" th:field="${attend}"    th:value="${attend.id}">-->
-                                                <label class="custom-control-label"  th:for="${#ids.prev('id')}"  th:text="${attend.id}" >5</label>
-                                                </div>
+<!--                                               <label class="custom-control-label"  th:for="${attend.status}"  th:text="${attend.id}" for="chkStatus1" >5</label>-->
+<!--                                                </div>-->
                                               </td>
 <!--                                            <td th:text="${member.id}">Id</td>-->
                                             <td th:text="${attend.firstName}">First Name</td>
                                             <td th:text="${attend.lastName}">last Name</td>
-                                            <td th:text="${attend.gender}">mobile Phone</td>
-                                            <td th:text="${attend.createdDate}">Gender</td>
+                                            <td th:text="${attend.gender}">Gender</td>
+                                            <td th:text="${attend.createdDate}">Date</td>
                                         </tr>
 <!--                                        <tr>-->
 <!--                                            <td>-->

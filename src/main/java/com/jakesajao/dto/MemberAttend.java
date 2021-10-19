@@ -7,12 +7,19 @@ public class MemberAttend {
     private String lastName;
     private String gender;
     private String status;
-
     private LocalDate createdDate;
-
     private Long id;
+    private boolean present;
 
     public MemberAttend(){
+    }
+    public MemberAttend(Long id,String firstName, String lastName, boolean present, String gender, LocalDate createdDate) {
+        this.firstName = firstName;
+        this.id = id;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.createdDate = createdDate;
+        this.present = present;
     }
     public MemberAttend(Long id,String firstName, String lastName, String status, String gender, LocalDate createdDate) {
         this.firstName = firstName;
@@ -51,6 +58,14 @@ public class MemberAttend {
         this.gender = gender;
     }
 
+    public boolean getPresent() {
+        return present;
+    }
+
+    public void setPresent(boolean present) {
+        this.present = present;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -86,6 +101,7 @@ public class MemberAttend {
                 ", gender='" + gender + '\'' +
                 ", createdDate=" + createdDate +
                 ", status='" + status + '\'' +
+                ", present=" + present +
                 '}';
     }
 

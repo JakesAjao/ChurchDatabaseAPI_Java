@@ -33,11 +33,10 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
     static Set<Attendance> setAttend = new HashSet<>();
-    private String[] memberArr;
 
-    @ModelAttribute("member")
-    public MemberCreationDto memberCreationDto() {
-        return new MemberCreationDto();
+    @ModelAttribute("memberAttend")
+    public MemberAttend memberAttend() {
+        return new MemberAttend();
     }
 
     @GetMapping("/add")
@@ -46,36 +45,42 @@ public class MemberController {
     }
 
     @GetMapping("/attendance")
-    public ModelAndView updateMember() {
-        //return "update";
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("attendance");
-        //List<Member> memberList = memberRepository.findAll();
-        //List<Attendance> attendanceList = attendanceRepository.findAll();
+    public String updateMember(Model model) {
+        List<MemberAttend> memberAttendList2 = new ArrayList<>();
         List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();//To be displayed as a list to users
         System.out.println("Attendance List: " + memberAttendList);
-        List<String> memberArr = new ArrayList<>();
         memberAttendList.forEach(memberAttend -> {
-            memberArr.add(memberAttend.getFirstName());
-        });
+            if (memberAttend.getStatus().equals("Yes")) {
+                memberAttend.setPresent(true);
+            }
+            else{
+                memberAttend.setPresent(false);
+            }
+                MemberAttend memberAttend1 = new MemberAttend(memberAttend.getId(), memberAttend.getFirstName(),
+                        memberAttend.getLastName(), memberAttend.getPresent(), memberAttend.getGender(), memberAttend.getCreatedDate());
+                memberAttendList2.add(memberAttend1);
 
-        MemberAttend memberAttend = new MemberAttend();
-        modelAndView.addObject("memberAttend", memberAttend);
-        modelAndView.addObject("memberAttendList", memberAttendList);
+        });
+        System.out.println("Attendance memberAttendList2: " + memberAttendList2);
+
+        //MemberAttend memberAttend = new MemberAttend();
+        //model.addAttribute("memberAttend", memberAttend);
+        model.addAttribute("memberAttendList", memberAttendList2);
         LocalDate todayDate = LocalDate.now();
         System.out.println("Member List: " + memberAttendList);
 
-        return modelAndView;
+        return "attendance";
         //Put the modelAndView object in the update html. Thereafter iterate the object on the table
     }
     @PostMapping("/attendance")
     public String postAttendance(@ModelAttribute("memberAttend") MemberAttend memberAttend){
         System.out.println("Posted successfully.");
         System.out.println(memberAttend);
+
         return "attendance";
     }
     @PostMapping("/add")
-    public String addNewMember(@ModelAttribute("member") @Valid MemberCreationDto memberDto,
+    public String addNewMember(@ModelAttribute("memberAttend") @Valid MemberCreationDto memberDto,
                                BindingResult result) {
         System.out.println("Entry member");
         Member existing = memberService.findByMobilePhone1(memberDto.getMobilephone1());
