@@ -1,6 +1,7 @@
 package com.jakesajao.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class MemberAttend {
     private String firstName;
@@ -9,6 +10,8 @@ public class MemberAttend {
     private String status;
     private LocalDate createdDate;
     private Long id;
+
+    private List<EnumMemberAttend> enumMemberAttend;
     private boolean present;
 
     public MemberAttend(){
@@ -29,6 +32,15 @@ public class MemberAttend {
         this.createdDate = createdDate;
         this.status = status;
     }
+
+    public List<EnumMemberAttend> getEnumMemberAttend() {
+        return enumMemberAttend;
+    }
+
+    public void setEnumMemberAttend(List<EnumMemberAttend> enumMemberAttend) {
+        this.enumMemberAttend = enumMemberAttend;
+    }
+
     public MemberAttend(Long id,String firstName, String lastName) {
         this.firstName = firstName;
         this.id = id;

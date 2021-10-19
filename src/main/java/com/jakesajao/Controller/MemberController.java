@@ -7,8 +7,7 @@ import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.Service.MemberService;
 import com.jakesajao.Service.UserService;
-import com.jakesajao.dto.MemberAttend;
-import com.jakesajao.dto.MemberCreationDto;
+import com.jakesajao.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,11 +32,9 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
     static Set<Attendance> setAttend = new HashSet<>();
+    @Autowired
+    private MemberAttendConverted memberAttendConverted;
 
-    @ModelAttribute("memberAttend")
-    public MemberAttend memberAttend() {
-        return new MemberAttend();
-    }
 
     @GetMapping("/add")
     public String addMember(Model model) {
@@ -47,8 +44,8 @@ public class MemberController {
     @GetMapping("/attendance")
     public String updateMember(Model model) {
         List<MemberAttend> memberAttendList2 = new ArrayList<>();
-        List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();//To be displayed as a list to users
-        System.out.println("Attendance List: " + memberAttendList);
+       List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();//To be displayed as a list to users
+
         memberAttendList.forEach(memberAttend -> {
             if (memberAttend.getStatus().equals("Yes")) {
                 memberAttend.setPresent(true);
@@ -61,23 +58,24 @@ public class MemberController {
                 memberAttendList2.add(memberAttend1);
 
         });
-        System.out.println("Attendance memberAttendList2: " + memberAttendList2);
 
-        //MemberAttend memberAttend = new MemberAttend();
-        //model.addAttribute("memberAttend", memberAttend);
-        model.addAttribute("memberAttendList", memberAttendList2);
-        LocalDate todayDate = LocalDate.now();
-        System.out.println("Member List: " + memberAttendList);
+        MemberAttendDto attendDto = new MemberAttendDto();
+        memberAttendList2.forEach(memberAttend -> {
+            attendDto.addMemberAttend(memberAttend);
+        });
+
+        System.out.println("attendDto List: " + attendDto);
+        model.addAttribute("form", attendDto);
 
         return "attendance";
-        //Put the modelAndView object in the update html. Thereafter iterate the object on the table
     }
     @PostMapping("/attendance")
-    public String postAttendance(@ModelAttribute("memberAttend") MemberAttend memberAttend){
+    public String postAttendance(@ModelAttribute MemberAttendDto form,Model model){
         System.out.println("Posted successfully.");
-        System.out.println(memberAttend);
+        System.out.println("form: "+form);
 
-        return "attendance";
+
+        return "redirect:/attendance";
     }
     @PostMapping("/add")
     public String addNewMember(@ModelAttribute("memberAttend") @Valid MemberCreationDto memberDto,

@@ -9,7 +9,6 @@ if (day < 10) day = "0" + day;
 
 var today = year + "-" + month + "-" + day +"T00:00";
 document.getElementById("theDate").value = today;
-
 function showAlert() {
-    //alert("The button was clicked!");
+    alert("The button was clicked!");
 }
