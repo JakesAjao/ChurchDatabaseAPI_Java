@@ -10,42 +10,70 @@ public class MemberAttend {
     private String status;
     private LocalDate createdDate;
     private Long id;
-
-    private List<EnumMemberAttend> enumMemberAttend;
+    private String title;
+    private String mobilephone1;
     private boolean present;
+    private boolean week1;
+    private boolean week2;
+
+    private boolean week3;
+    private boolean week4;
+
+
+    private int percentage;
 
     public MemberAttend(){
     }
-    public MemberAttend(Long id,String firstName, String lastName, boolean present, String gender, LocalDate createdDate) {
+    public MemberAttend(Long id,String title,String firstName, String lastName, boolean present,
+                        boolean week1,boolean week2,boolean week3,boolean week4,int percentage,
+                        String gender, LocalDate createdDate) {
         this.firstName = firstName;
         this.id = id;
         this.lastName = lastName;
         this.gender = gender;
         this.createdDate = createdDate;
         this.present = present;
+        this.week4 = week4;
+        this.week1 = week1;
+        this.week2 = week2;
+        this.week3 = week3;
+        this.percentage = percentage;
+        this.mobilephone1 = mobilephone1;
+        this.title = title;
     }
-    public MemberAttend(Long id,String firstName, String lastName, String status, String gender, LocalDate createdDate) {
+    public MemberAttend(Long id,String title,String firstName, String lastName, String status, String gender, LocalDate createdDate) {
         this.firstName = firstName;
+        this.title = title;
         this.id = id;
         this.lastName = lastName;
         this.gender = gender;
         this.createdDate = createdDate;
         this.status = status;
+        this.mobilephone1 = mobilephone1;
     }
 
-    public List<EnumMemberAttend> getEnumMemberAttend() {
-        return enumMemberAttend;
-    }
 
-    public void setEnumMemberAttend(List<EnumMemberAttend> enumMemberAttend) {
-        this.enumMemberAttend = enumMemberAttend;
-    }
 
     public MemberAttend(Long id,String firstName, String lastName) {
         this.firstName = firstName;
         this.id = id;
         this.lastName = lastName;
     }
+    public String getMobilephone1() {
+        return mobilephone1;
+    }
+
+    public void setMobilephone1(String mobilephone1) {
+        this.mobilephone1 = mobilephone1;
+    }
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -103,17 +131,62 @@ public class MemberAttend {
         this.id = id;
     }
 
+    public boolean isWeek1() {
+        return week1;
+    }
+
+    public void setWeek1(boolean week1) {
+        this.week1 = week1;
+    }
+
+    public boolean isWeek2() {
+        return week2;
+    }
+
+    public void setWeek2(boolean week2) {
+        this.week2 = week2;
+    }
+
+    public boolean isWeek3() {
+        return week3;
+    }
+
+    public void setWeek3(boolean week3) {
+        this.week3 = week3;
+    }
+
+    public boolean isWeek4() {
+        return week4;
+    }
+
+    public void setWeek4(boolean week4) {
+        this.week4 = week4;
+    }
+
+    public int getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(int percentage) {
+        this.percentage = percentage;
+    }
 
     @Override
     public String toString() {
         return "MemberAttend{" +
                 "id='" + id + '\'' +
+                ",title='" + title + '\'' +
                 ",firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", createdDate=" + createdDate +
                 ", status='" + status + '\'' +
                 ", present=" + present +
+                ", week1=" + week1 +
+                ", week2=" + week2 +
+                ", week3=" + week3 +
+                ", week4=" + week4 +
+                ", week4=" + percentage +
                 '}';
     }
 

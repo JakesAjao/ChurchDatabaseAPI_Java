@@ -5,6 +5,8 @@ import com.jakesajao.Model.Attendance;
 import com.jakesajao.Model.Member;
 import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
+import com.jakesajao.Service.AttendanceService;
+import com.jakesajao.Service.AttendanceServiceImpl;
 import com.jakesajao.Service.MemberService;
 import com.jakesajao.Service.UserService;
 import com.jakesajao.dto.*;
@@ -31,52 +33,16 @@ public class MemberController {
 
     @Autowired
     private MemberService memberService;
-    static Set<Attendance> setAttend = new HashSet<>();
-    @Autowired
-    private MemberAttendConverted memberAttendConverted;
+    private AttendanceServiceImpl attendanceServiceImpl;
 
-
+    public MemberController(AttendanceRepository attendanceRepository) {
+        this.attendanceRepository = attendanceRepository;
+    }
     @GetMapping("/add")
     public String addMember(Model model) {
         return "add";
     }
 
-    @GetMapping("/attendance")
-    public String updateMember(Model model) {
-        List<MemberAttend> memberAttendList2 = new ArrayList<>();
-       List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();//To be displayed as a list to users
-
-        memberAttendList.forEach(memberAttend -> {
-            if (memberAttend.getStatus().equals("Yes")) {
-                memberAttend.setPresent(true);
-            }
-            else{
-                memberAttend.setPresent(false);
-            }
-                MemberAttend memberAttend1 = new MemberAttend(memberAttend.getId(), memberAttend.getFirstName(),
-                        memberAttend.getLastName(), memberAttend.getPresent(), memberAttend.getGender(), memberAttend.getCreatedDate());
-                memberAttendList2.add(memberAttend1);
-
-        });
-
-        MemberAttendDto attendDto = new MemberAttendDto();
-        memberAttendList2.forEach(memberAttend -> {
-            attendDto.addMemberAttend(memberAttend);
-        });
-
-        System.out.println("attendDto List: " + attendDto);
-        model.addAttribute("form", attendDto);
-
-        return "attendance";
-    }
-    @PostMapping("/attendance")
-    public String postAttendance(@ModelAttribute MemberAttendDto form,Model model){
-        System.out.println("Posted successfully.");
-        System.out.println("form: "+form);
-
-
-        return "redirect:/attendance";
-    }
     @PostMapping("/add")
     public String addNewMember(@ModelAttribute("memberAttend") @Valid MemberCreationDto memberDto,
                                BindingResult result) {
@@ -93,6 +59,6 @@ public class MemberController {
         memberService.save(memberDto);
 
         return "redirect:/add?success";
-    }
 
+    }
 }

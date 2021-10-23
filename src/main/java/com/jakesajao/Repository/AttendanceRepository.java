@@ -17,7 +17,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
     //@Query("Select a.status,a.createdDate,a.member from Member a left join Attendance b on a.id=b.id")
 //    @Query("Select s from Member s where s.id=?1 ")
 //    List<Member> findMemberById(Long id);
-    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.firstName, b.lastName, a.status,b.gender,a.createdDate) "
+    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.status,b.gender,a.createdDate) "
             + " FROM Attendance a inner JOIN a.members b")
     List<MemberAttend> findMemberAttend();
     @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.firstName, b.lastName) "
