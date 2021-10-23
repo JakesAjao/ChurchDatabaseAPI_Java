@@ -2,6 +2,7 @@ package com.jakesajao.Controller;
 
 import com.jakesajao.Model.Attendance;
 import com.jakesajao.Model.Member;
+import com.jakesajao.Model.Percentage;
 import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.Service.AttendanceServiceImpl;

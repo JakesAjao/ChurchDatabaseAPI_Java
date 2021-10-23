@@ -2,6 +2,7 @@ package com.jakesajao.Service;
 
 import com.jakesajao.Model.Attendance;
 import com.jakesajao.Model.Member;
+import com.jakesajao.Model.Percentage;
 import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.dto.AttendanceCreationDto;
@@ -46,6 +47,55 @@ public class AttendanceServiceImpl implements AttendanceService{
             });
 
         }
+    }
+    public Percentage ProcessBooleanPercentage(MemberAttend memberAttend,int PERCENTAGE, int mark) {
+        Percentage percentage = new Percentage();
+        if (memberAttend.isWeek1() == true) {
+            percentage.setWeek1(true);
+            PERCENTAGE = PERCENTAGE + mark;
+            percentage.setPERCENTAGE(PERCENTAGE);
+        }
+        if (memberAttend.isWeek2() == true) {
+            PERCENTAGE = PERCENTAGE + mark;
+            percentage.setWeek2(true);
+            percentage.setPERCENTAGE(PERCENTAGE);
+        }
+        if (memberAttend.isWeek3() == true) {
+            PERCENTAGE = PERCENTAGE + mark;
+            percentage.setWeek3(true);
+            percentage.setPERCENTAGE(PERCENTAGE);
+        }
+        if (memberAttend.isWeek4() == true) {
+            percentage.setWeek4(true);
+            PERCENTAGE = PERCENTAGE + mark;
+            percentage.setPERCENTAGE(PERCENTAGE);
+        }
+        return percentage;
+    }
+    public static Percentage ProcessPercentage(int weekOfMonth,int PERCENTAGE, int mark){
+        Percentage percentage = new Percentage();
+        if (weekOfMonth==1){
+            percentage.setWeek1(true);
+            PERCENTAGE = PERCENTAGE + mark;
+            percentage.setPERCENTAGE(PERCENTAGE);
+        }
+        else if (weekOfMonth==2) {
+            //memberAttend.setWeek2(true);
+            PERCENTAGE = PERCENTAGE + mark;
+            percentage.setWeek2(true);
+            percentage.setPERCENTAGE(PERCENTAGE);
+        }
+        else if (weekOfMonth==3) {
+            PERCENTAGE = PERCENTAGE + mark;
+            percentage.setWeek3(true);
+            percentage.setPERCENTAGE(PERCENTAGE);
+        }
+        else if (weekOfMonth==4) {
+            PERCENTAGE = PERCENTAGE + mark;
+            percentage.setWeek4(true);
+            percentage.setPERCENTAGE(PERCENTAGE);
+        }
+        return percentage;
     }
     public int UpdateMemberAttendance_NewWeek(String status,LocalDate eventDate,Long id) {
         LocalDate todayDate = LocalDate.now();
