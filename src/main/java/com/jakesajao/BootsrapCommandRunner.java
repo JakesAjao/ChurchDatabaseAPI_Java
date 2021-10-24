@@ -22,7 +22,7 @@ public class BootsrapCommandRunner {
  private AttendanceRepository attendanceRepository;
    @Autowired
    private MemberRepository memberRepository;
-    //@Bean
+   // @Bean
     CommandLineRunner commandLineRunner() {
         return args -> {
             Attendance attendance = new Attendance();
@@ -30,27 +30,16 @@ public class BootsrapCommandRunner {
             //attendance.setId(3L);
             attendance.setCreatedDate(LocalDate.now());
 
-            List<MemberAttend> attendList2 = attendanceRepository.findMemberAttend();//To be displayed as a list to users
-            System.out.println("Attendance List: " + attendList2);
+            List<MemberAttend> attendList2 = attendanceRepository.FindMemberAttendanceByMonthYear(10,2021);//To be displayed as a list to users
+            System.out.println("FindMemberAttendanceByMonthYear: " + attendList2);
 
-            SaveMemberAttendance_NewWeek();//To be run once everytime you loop attendance page
+            //SaveMemberAttendance_NewWeek();//To be run once everytime you loop attendance page
 
-            LocalDate eventDate = LocalDate.now();
-            String status = "Yes";
-            Long id = 3L;
-            UpdateMemberAttendance_NewWeek(status,eventDate,id); //To be run after attendance status update
+//            LocalDate eventDate = LocalDate.now();
+//            String status = "Yes";
+//            Long id = 3L;
+            //UpdateMemberAttendance_NewWeek(status,eventDate,id); //To be run after attendance status update
 
-
-               // List<Attendance> attendanceList = attendanceRepository.findAll();
-            //System.out.println("Member Data List: " + attendanceList.toString());
-            //List<Member> memberList = memberRepository.findAll();
-            //for(Member member: memberList){
-               //System.out.println("Joined Member: " + member);
-            //List<MemberAttend> memberList2 = memberRepository.findMemberAttend();
-            //System.out.println("Joined Member List: " + memberList2);
-
-            List<MemberAttend> MemberList = attendanceRepository.findMemberQuery();//fetch id alone fine
-            System.out.println("Member Only List: " + MemberList);
 
         };
     }

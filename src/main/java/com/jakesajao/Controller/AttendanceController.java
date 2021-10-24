@@ -6,17 +6,13 @@ import com.jakesajao.Model.Percentage;
 import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.Service.AttendanceServiceImpl;
-import com.jakesajao.dto.AttendanceCreationDto;
-import com.jakesajao.dto.MemberAttend;
-import com.jakesajao.dto.MemberAttendDto;
-import com.jakesajao.dto.MemberCreationDto;
+import com.jakesajao.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -38,9 +34,35 @@ public class AttendanceController {
     private AttendanceServiceImpl attendanceServiceImpl;
     private final int mark = 25;
 
+    @ModelAttribute("chartFormDto")
+    public ChartFormDto chartFormDto() {
+        return new ChartFormDto();
+    }
     public AttendanceController(AttendanceRepository attendanceRepository, AttendanceServiceImpl attendanceServiceImpl) {
         this.attendanceRepository = attendanceRepository;
         this.attendanceServiceImpl = attendanceServiceImpl;
+    }
+    @PostMapping("/search")
+    public String GetMemberByMonthYear(@ModelAttribute @Valid ChartFormDto chartFormDto,
+                                       BindingResult result,Model model){
+        attendanceServiceImpl.SaveMemberAttendance_NewWeek();
+        System.out.println("searchchart chartFormDto: " + chartFormDto);
+        if (chartFormDto==null){
+            System.out.println("chartFormDto is null. ");
+            model.addAttribute("memberAttendList3", null);
+            model.addAttribute("response", "Oops! No record.");
+            return "/charts";
+        }
+        List<MemberAttend> memberAttendList = attendanceRepository.FindMemberAttendanceByMonthYear(Integer.parseInt(chartFormDto.getMonth()),
+                Integer.parseInt(chartFormDto.getYear()));
+
+        System.out.println("FindMemberAttendanceByMonthYear: " + memberAttendList);
+        List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark,memberAttendList);
+        System.out.println("searchchart memberAttendList3: " + memberAttendList3);
+        model.addAttribute("response", "Attendance records generated successfully!");
+        model.addAttribute("memberAttendList3", memberAttendList3);
+
+        return "/charts";
     }
 
     @GetMapping("/attendance")
@@ -96,91 +118,14 @@ public class AttendanceController {
     }
     @GetMapping("/charts")
     public String getCharts(Model model){
-        List<MemberAttend> memberAttendList2 = new ArrayList<>();
-        List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();//To be displayed as a list to users
-
         attendanceServiceImpl.SaveMemberAttendance_NewWeek();
-        Map<String,MemberAttend> memberAttendMap = new HashMap<>();
-        PERCENTAGE = 0;
-        memberAttendList.forEach(memberAttend -> {
-            if (memberAttend.getStatus().equals("Yes")) {
-                memberAttend.setPresent(true);
-            }
-            else{
-                memberAttend.setPresent(false);
-            }
-            int weekOfMonth = processWeekOfMonth(memberAttend.getCreatedDate());
-            if (weekOfMonth==1){
-                memberAttend.setWeek1(true);
-                PERCENTAGE = PERCENTAGE + mark;
-            }
-            else if (weekOfMonth==2) {
-                memberAttend.setWeek2(true);
-                PERCENTAGE = PERCENTAGE + mark;
-            }
-            else if (weekOfMonth==3) {
-                memberAttend.setWeek3(true);
-                PERCENTAGE = PERCENTAGE + mark;
-            }
-            else if (weekOfMonth==4) {
-                memberAttend.setWeek4(true);
-                PERCENTAGE = PERCENTAGE + mark;
-            }
-            memberAttend.setPercentage(PERCENTAGE);
-            MemberAttend memberAttend1 = new MemberAttend(memberAttend.getId(),memberAttend.getTitle(), memberAttend.getFirstName(),
-                    memberAttend.getLastName(), memberAttend.getPresent(),memberAttend.isWeek1(),memberAttend.isWeek2(),
-                    memberAttend.isWeek3(),memberAttend.isWeek4(),memberAttend.getPercentage(),memberAttend.getGender(),memberAttend.getCreatedDate());
-            MemberAttend memberAttend2 = memberAttendMap.get(memberAttend.getFirstName());
-            if (memberAttend2!=null){
-            //memberAttend already exists.
-                if (memberAttend1.isWeek1()==true) {
-                    memberAttend2.setWeek1(true);
-                    PERCENTAGE = PERCENTAGE + mark;
-                }
-                if (memberAttend1.isWeek2()==true) {
-                    PERCENTAGE = PERCENTAGE + mark;
-                    memberAttend2.setWeek2(true);
-                }
-                if(memberAttend1.isWeek3()==true) {
-                    PERCENTAGE = PERCENTAGE + mark;
-                    memberAttend2.setWeek3(true);
-                }
-                if (memberAttend1.isWeek4()==true) {
-                    memberAttend2.setWeek4(true);
-                    PERCENTAGE = PERCENTAGE + mark;
-                }
-                memberAttend2.setPercentage(PERCENTAGE);
-                    MemberAttend memberAttendUpdate = new MemberAttend(memberAttend2.getId(), memberAttend2.getTitle(), memberAttend2.getFirstName(),
-                            memberAttend2.getLastName(), memberAttend2.getPresent(), memberAttend2.isWeek1(), memberAttend2.isWeek2(),
-                            memberAttend2.isWeek3(), memberAttend2.isWeek4(), memberAttend2.getPercentage(), memberAttend2.getGender(), memberAttend2.getCreatedDate());
-                System.out.println("memberAttendUpdate: "+memberAttendUpdate);
-                    memberAttendMap.computeIfPresent(memberAttend.getFirstName(), (key, val) -> memberAttendUpdate);
-                }
-            else{
-                memberAttendMap.put(memberAttend.getFirstName(),memberAttend1);
-            }
-
-           // memberAttendMap.put(memberAttend.getFirstName(),memberAttend1);
-//            memberAttend.setPercentage(PERCENTAGE);
-//            MemberAttend memberAttend1 = new MemberAttend(memberAttend.getId(),memberAttend.getTitle(), memberAttend.getFirstName(),
-//                    memberAttend.getLastName(), memberAttend.getPresent(),memberAttend.isWeek1(),memberAttend.isWeek2(),
-//                    memberAttend.isWeek3(),memberAttend.isWeek4(),memberAttend.getPercentage(),memberAttend.getGender(),memberAttend.getCreatedDate());
-           // memberAttendList2.add(memberAttend1);
-            PERCENTAGE=0;
-        });
-        List memberAttendList3 = memberAttendMap.values()
-                .stream()
-                .collect(Collectors.toList());
+        List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();
+        List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark,memberAttendList);
 
         System.out.println("memberAttendList3 List: " + memberAttendList3);
         model.addAttribute("memberAttendList3", memberAttendList3);
 
         return "/charts";
-    }
-    private int processWeekOfMonth(LocalDate dates){
-        LocalDate date = dates;
-        System.out.println("Week of the month: "+date.get(WeekFields.ISO.weekOfMonth()));
-        return date.get(WeekFields.ISO.weekOfMonth());
     }
 
     //Inside data into Attendance table

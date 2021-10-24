@@ -18,10 +18,10 @@
                     <div class="table-responsive">
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Charts</h3>
 
-                        <div class="form-select form-select-lg mb-3">
-                            <label>Event date:</label>
-                            <input type="date" id="theDate">
-                        </div>
+                        <form th:action="@{/search}" method="post" th:object="${chartFormDto}">
+                            <p>
+                                <span th:text="${response}" style="color:green"></span>
+                            </p>
                         <div>
                             <select class="form-select form-select-lg mb-3" id="month" name="month" aria-label="Default select example">
                                 <option selected>Select the Month</option>
@@ -38,25 +38,30 @@
                                 <option value="11">November</option>
                                 <option value="12">December</option>
                             </select>
-                            <select class="form-select form-select-lg mb-3" aria-label="Default select example">
+                            <select class="form-select form-select-lg mb-3" id="year" name="year" aria-label="Default select example">
                                 <option selected>Select the Year</option>
-                                <option value="1">2021</option>
-                                <option value="2">2022</option>
-                                <option value="3">2023</option>
-                                <option value="4">2024</option>
-                                <option value="5">2025</option>
-                                <option value="6">2026</option>
-                                <option value="7">2027</option>
-                                <option value="8">2028</option>
-                                <option value="9">2029</option>
-                                <option value="10">2030</option>
-                            </select>
-                        </div>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                              </select>
+                            </div>
+                         <div>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>
+                         </div>
+                        </form>
 
                         <p>Type something in the input field to search the table for first names, last names:</p>
                         <input class="form-control" id="myInput" type="text" placeholder="Search..">
 
-                        <form th:action="@{/charts}" method="post" >
+                        <form th:action="@{/attendance}"  method="post" >
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
