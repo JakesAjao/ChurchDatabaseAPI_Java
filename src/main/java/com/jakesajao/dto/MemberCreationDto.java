@@ -27,15 +27,10 @@ public class MemberCreationDto {
 
     //@NotEmpty
     private String mobilephone2;
-
-
     private String role;
     private String gender;
 
     private String title;
-    private String state;
-
-
 
     private String town;
     public String getMobilephone1() {

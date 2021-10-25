@@ -19,9 +19,7 @@
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Charts</h3>
 
                         <form th:action="@{/search}" method="post" th:object="${chartFormDto}">
-                            <p>
-                                <span th:text="${response}" style="color:green"></span>
-                            </p>
+
                         <div>
                             <select class="form-select form-select-lg mb-3" id="month" name="month" aria-label="Default select example">
                                 <option selected>Select the Month</option>

@@ -30,6 +30,7 @@ public class Member {
     private String address;
 
     private String role;
+    private String status;
 @OneToMany(mappedBy = "id",fetch = FetchType.LAZY)
 private List<Attendance> attendance;
 
@@ -46,7 +47,7 @@ private List<Attendance> attendance;
     }
 
     public Member(Long id, String firstName, String lastName, String mobilephone1, String mobilephone2,String gender,String state,String town,Role role,
-                  String address,String title) {
+                  String address,String title,String Status) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,10 +59,11 @@ private List<Attendance> attendance;
         this.address = address;
         this.title = title;
         this.town = town;
+        this.status = status;
 
     }
     public Member(String firstName, String lastName, String mobilephone1, String mobilephone2,String gender,String state,
-                  String town,String address, String title,String role,
+                  String town,String address, String title,String role,String status,
                   LocalDate createdDate) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -69,18 +71,16 @@ private List<Attendance> attendance;
         this.mobilephone2 = mobilephone2;
         this.gender = gender;
         this.state = state;
+        this.status = status;
         this.role = role;
         this.town = town;
         this.address = address;
         this.title = title;
         this.createdDate = createdDate;
     }
-
-
     public String getRole() {
         return role;
     }
-
     public void setRole(String role) {
         this.role = role;
     }
@@ -116,6 +116,13 @@ private List<Attendance> attendance;
 
     public String getLastName() {
         return lastName;
+    }
+    public void setStatus(String firstName) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public void setLastName(String lastName) {
@@ -186,6 +193,7 @@ private List<Attendance> attendance;
                 ", state='" + state + '\'' +
                 ", town='" + town + '\'' +
                 ", title='" + title + '\'' +
+                ", status='" + status + '\'' +
                 ", createDate='" + createdDate + '\'' +
                 '}';
     }

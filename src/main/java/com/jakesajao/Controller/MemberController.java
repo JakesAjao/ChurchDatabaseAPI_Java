@@ -35,6 +35,10 @@ public class MemberController {
     private MemberService memberService;
     private AttendanceServiceImpl attendanceServiceImpl;
 
+    @ModelAttribute("memberCreationDto")
+    public MemberCreationDto memberCreationDto() {
+        return new MemberCreationDto();
+    }
     public MemberController(AttendanceRepository attendanceRepository) {
         this.attendanceRepository = attendanceRepository;
     }
@@ -44,21 +48,26 @@ public class MemberController {
     }
 
     @PostMapping("/add")
-    public String addNewMember(@ModelAttribute("memberAttend") @Valid MemberCreationDto memberDto,
-                               BindingResult result) {
+    public String addNewMember(@ModelAttribute @Valid MemberCreationDto memberCreationDto,
+                               BindingResult result,Model model) {
         System.out.println("Entry member");
-        Member existing = memberService.findByMobilePhone1(memberDto.getMobilephone1());
+        Member existing = memberService.findByMobilePhone1(memberCreationDto.getMobilephone1());
         if (existing != null) {
             System.out.println("existing  null: "+existing);
-            result.rejectValue("mobilephone1", null, "There is already a member created with that mobile phone.");
+            String msg = "There is already a member created with that mobile phone.";
+            result.rejectValue("mobilephone1", null, msg);
+            model.addAttribute("response1",msg);
+            return "/add";
         }
         if (result.hasErrors()) {
             System.out.println("result.hasErrors(): "+result.toString());
-            return "add";
+            model.addAttribute("response1","Error: "+result.toString());
+            return "/add";
         }
-        memberService.save(memberDto);
+        memberService.save(memberCreationDto);
+        model.addAttribute("response2","Member added successfully!");
 
-        return "redirect:/add?success";
+        return "/add";
 
     }
 }

@@ -15,6 +15,7 @@ public class Attendance {
     @JoinColumn(name = "attendance_id")
     private Member members;
 
+
     public Attendance(String status, LocalDate createdDate) {
         this.status = status;
         this.createdDate = createdDate;

@@ -20,7 +20,8 @@
                                 <div style ="color:green;" th:if="${param.success}">
                                     <div>You've successfully added a member!</div>
                                 </div>
-                                <form th:action="@{/add}" class="my-login-validation" th:object="${member}" method="POST">
+                                <p th:text="${response2}" style="color:green;"></p>
+                                <form th:action="@{/add}" class="my-login-validation" th:object="${memberCreationDto}" method="POST">
                                    <p style="color:red" th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error
                                     </p>
                                 <div class="form-group">

@@ -22,16 +22,17 @@ public class BootsrapCommandRunner {
  private AttendanceRepository attendanceRepository;
    @Autowired
    private MemberRepository memberRepository;
-   // @Bean
+    //@Bean
     CommandLineRunner commandLineRunner() {
         return args -> {
             Attendance attendance = new Attendance();
             attendance.setStatus("No");
             //attendance.setId(3L);
             attendance.setCreatedDate(LocalDate.now());
-
-            List<MemberAttend> attendList2 = attendanceRepository.FindMemberAttendanceByMonthYear(10,2021);//To be displayed as a list to users
-            System.out.println("FindMemberAttendanceByMonthYear: " + attendList2);
+            Member member = new Member("Okunowo", "Wale", "0908888888","90888888888","Male","Lagos",
+                    "Ogba","Blk 98, Flat 5", "Pastor","ROLE_MEMBER","ACTIVE",
+                    LocalDate.now());
+            memberRepository.save(member);
 
             //SaveMemberAttendance_NewWeek();//To be run once everytime you loop attendance page
 
