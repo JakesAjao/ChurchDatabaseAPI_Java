@@ -129,5 +129,5 @@ public class AttendanceController {
         return "/charts";
     }
 
-    //Inside data into Attendance table
+
 }

@@ -38,11 +38,14 @@ public class HomeController {
     public String index(){
         return "index";
     }
-
     @GetMapping("/login?logout")
     public String logout(){
         System.out.println("Log out...1");
         return "login";
+    }
+    @GetMapping("/absentee")
+    public String getAbsentee(Model model){
+        return "absentee";
     }
 
 }
