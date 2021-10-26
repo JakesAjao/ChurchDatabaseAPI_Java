@@ -103,12 +103,13 @@ public class AttendanceServiceImpl implements AttendanceService{
         int response = 0;
         int matchDate = eventDate.compareTo(todayDate);
         if (matchDate == 0) {
-            System.out.println("Date matches!: matchDate: "+matchDate);
+            System.out.println(" present: "+present);
             response = attendanceRepository.updateAttendanceById(present, eventDate, id);
             System.out.println("Update Attendance response succeeded! response: "+response);
             return response;//1
         } else {
             response = -1;
+            System.out.println(" present 2: "+present);
             System.out.println("Date matches oops: matchDate: "+matchDate);
             System.out.println("Update Attendance response failed. ");
 

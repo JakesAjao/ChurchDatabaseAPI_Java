@@ -8,23 +8,20 @@ public class MemberAttend {
     private String lastName;
     private String gender;
     private String present;
+    private boolean present1;
     private LocalDate createdDate;
     private Long id;
     private String title;
     private String mobilephone1;
-    private boolean present1;
     private boolean week1;
     private boolean week2;
-
     private boolean week3;
     private boolean week4;
-
-
     private int percentage;
 
     public MemberAttend(){
     }
-    public MemberAttend(Long id,String title,String firstName, String lastName, boolean present1,
+    public MemberAttend(Long id,String title,String firstName, String lastName, boolean _present1,
                         boolean week1,boolean week2,boolean week3,boolean week4,int percentage,
                         String gender, LocalDate createdDate) {
         this.firstName = firstName;
@@ -32,7 +29,7 @@ public class MemberAttend {
         this.lastName = lastName;
         this.gender = gender;
         this.createdDate = createdDate;
-        this.present1 = present1;
+        this.present1 = _present1;
         this.week4 = week4;
         this.week1 = week1;
         this.week2 = week2;
@@ -51,9 +48,6 @@ public class MemberAttend {
         this.present = present;
         this.mobilephone1 = mobilephone1;
     }
-
-
-
     public MemberAttend(Long id,String firstName, String lastName) {
         this.firstName = firstName;
         this.id = id;
@@ -102,9 +96,10 @@ public class MemberAttend {
         return present1;
     }
 
-    public void setPresent1(boolean present) {
+    public void setPresent1(boolean present1) {
         this.present1 = present1;
     }
+
     public String getPresent() {
         return present;
     }
@@ -193,7 +188,7 @@ public class MemberAttend {
                 ", week2=" + week2 +
                 ", week3=" + week3 +
                 ", week4=" + week4 +
-                ", week4=" + percentage +
+                ", percentage=" + percentage +
                 '}';
     }
 

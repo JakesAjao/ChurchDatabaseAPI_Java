@@ -103,6 +103,7 @@ public class AttendanceController {
         attendList.forEach(attend->{
             if (attend.getPresent1()==true) {
                 attend.setPresent("Yes");
+                System.out.println("Attend: " + attend);
                 response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getPresent(), attend.getCreatedDate(), attend.getId());
                 System.out.println("Posted successfully id: " + attend.getId());
             }
@@ -112,7 +113,7 @@ public class AttendanceController {
                 System.out.println("Posted successfully id: " + attend.getId());
             }
         });
-
+    model.addAttribute("response","Member updated successfully!");
         return "redirect:/attendance?success";
 
     }

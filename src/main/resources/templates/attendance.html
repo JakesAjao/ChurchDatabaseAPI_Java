@@ -25,12 +25,8 @@
                         <p>Type something in the input field to search the table for first names, last names:</p>
                         <input class="form-control" id="myInput" type="text" placeholder="Search..">
 
-                        <div th:if="${param.success}">
-                            <div style="color:green">You've successfully updated the attendance!</div>
-                        </div>
-                        <div th:if="${param.fail}">
-                            <div style="color:red">Attendance update fail!</div>
-                        </div>
+                        <p th:text="${response1}"></p>
+                        <p th:text="${response2}"></p>
                         <form th:action="@{/attendance}" method="post" th:object="${form}">
                         <div class="container">
                             <div class="row">
@@ -49,7 +45,7 @@
                                         <tbody>
                                         <tr th:each="attend,itemStat  : *{attends}">
                                             <td>
-                                                <input type="checkbox" th:field="*{attends[__${itemStat.index}__].present}" th:checked="${attend.present}" th:value="${attend.id}" />
+                                                <input type="checkbox" th:field="*{attends[__${itemStat.index}__].present1}" th:checked="${attend.present1}" th:value="${attend.id}" />
                                             </td>
                                             <input hidden th:field="*{attends[__${itemStat.index}__].id}"  />
                                             <input hidden th:field="*{attends[__${itemStat.index}__].createdDate}"  />
