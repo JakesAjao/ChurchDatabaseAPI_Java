@@ -72,14 +72,14 @@ public class AttendanceController {
 
         attendanceServiceImpl.SaveMemberAttendance_NewWeek();
         memberAttendList.forEach(memberAttend -> {
-            if (memberAttend.getStatus().equals("Yes")) {
-                memberAttend.setPresent(true);
+            if (memberAttend.getPresent().equals("Yes")) {
+                memberAttend.setPresent1(true);
             }
             else{
-                memberAttend.setPresent(false);
+                memberAttend.setPresent1(false);
             }
             MemberAttend memberAttend1 = new MemberAttend(memberAttend.getId(),memberAttend.getTitle(), memberAttend.getFirstName(),
-                    memberAttend.getLastName(),memberAttend.getPresent(),memberAttend.isWeek1(),memberAttend.isWeek2(),
+                    memberAttend.getLastName(),memberAttend.getPresent1(),memberAttend.isWeek1(),memberAttend.isWeek2(),
                     memberAttend.isWeek3(),memberAttend.isWeek4(), memberAttend.getPercentage(),memberAttend.getGender(),memberAttend.getCreatedDate());
             memberAttendList2.add(memberAttend1);
 
@@ -101,14 +101,14 @@ public class AttendanceController {
         List<MemberAttend> attendList = form.getAttends();
         final int[] response = new int[1];
         attendList.forEach(attend->{
-            if (attend.getPresent()==true) {
-                attend.setStatus("Yes");
-                response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getStatus(), attend.getCreatedDate(), attend.getId());
+            if (attend.getPresent1()==true) {
+                attend.setPresent("Yes");
+                response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getPresent(), attend.getCreatedDate(), attend.getId());
                 System.out.println("Posted successfully id: " + attend.getId());
             }
             else {
-                attend.setStatus("No");
-                response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getStatus(), attend.getCreatedDate(), attend.getId());
+                attend.setPresent("No");
+                response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getPresent(), attend.getCreatedDate(), attend.getId());
                 System.out.println("Posted successfully id: " + attend.getId());
             }
         });

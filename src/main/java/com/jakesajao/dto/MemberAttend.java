@@ -7,12 +7,12 @@ public class MemberAttend {
     private String firstName;
     private String lastName;
     private String gender;
-    private String status;
+    private String present;
     private LocalDate createdDate;
     private Long id;
     private String title;
     private String mobilephone1;
-    private boolean present;
+    private boolean present1;
     private boolean week1;
     private boolean week2;
 
@@ -24,7 +24,7 @@ public class MemberAttend {
 
     public MemberAttend(){
     }
-    public MemberAttend(Long id,String title,String firstName, String lastName, boolean present,
+    public MemberAttend(Long id,String title,String firstName, String lastName, boolean present1,
                         boolean week1,boolean week2,boolean week3,boolean week4,int percentage,
                         String gender, LocalDate createdDate) {
         this.firstName = firstName;
@@ -32,7 +32,7 @@ public class MemberAttend {
         this.lastName = lastName;
         this.gender = gender;
         this.createdDate = createdDate;
-        this.present = present;
+        this.present1 = present1;
         this.week4 = week4;
         this.week1 = week1;
         this.week2 = week2;
@@ -41,14 +41,14 @@ public class MemberAttend {
         this.mobilephone1 = mobilephone1;
         this.title = title;
     }
-    public MemberAttend(Long id,String title,String firstName, String lastName, String status, String gender, LocalDate createdDate) {
+    public MemberAttend(Long id,String title,String firstName, String lastName, String present, String gender, LocalDate createdDate) {
         this.firstName = firstName;
         this.title = title;
         this.id = id;
         this.lastName = lastName;
         this.gender = gender;
         this.createdDate = createdDate;
-        this.status = status;
+        this.present = present;
         this.mobilephone1 = mobilephone1;
     }
 
@@ -98,21 +98,28 @@ public class MemberAttend {
         this.gender = gender;
     }
 
-    public boolean getPresent() {
+    public boolean getPresent1() {
+        return present1;
+    }
+
+    public void setPresent1(boolean present) {
+        this.present1 = present1;
+    }
+    public String getPresent() {
         return present;
     }
 
-    public void setPresent(boolean present) {
+    public void setPresent(String present) {
         this.present = present;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+//    public String getStatus() {
+//        return present;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.present = present;
+//    }
 
     public LocalDate getCreatedDate() {
         return createdDate;
@@ -180,8 +187,8 @@ public class MemberAttend {
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", createdDate=" + createdDate +
-                ", status='" + status + '\'' +
-                ", present=" + present +
+                ", present='" + present + '\'' +
+                ", present1=" + present1 +
                 ", week1=" + week1 +
                 ", week2=" + week2 +
                 ", week3=" + week3 +

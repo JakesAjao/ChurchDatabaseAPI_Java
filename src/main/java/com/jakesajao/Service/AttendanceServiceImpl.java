@@ -26,7 +26,7 @@ public class AttendanceServiceImpl implements AttendanceService{
 
     @Override
     public Attendance Save(AttendanceCreationDto attendanceCreationDto) {
-        Attendance attendance = new Attendance(attendanceCreationDto.getMember(), attendanceCreationDto.getStatus()
+        Attendance attendance = new Attendance(attendanceCreationDto.getMember(), attendanceCreationDto.getPresent()
                ,LocalDate.now());
 
         System.out.println("Save attendance as : " + attendance);
@@ -41,7 +41,7 @@ public class AttendanceServiceImpl implements AttendanceService{
                 Optional<Member> memberObj = memberRepository.findById(memberAttend.getId());
                 Attendance attend = new Attendance();
                 attend.setMember(memberObj.get());
-                attend.setStatus("No");
+                attend.setPresent("No");
                 attend.setCreatedDate(currentDate);
                 attendanceRepository.save(attend);
                 System.out.println("Attendance saved successfully! ");
@@ -98,13 +98,13 @@ public class AttendanceServiceImpl implements AttendanceService{
         }
         return percentage;
     }
-    public int UpdateMemberAttendance_NewWeek(String status,LocalDate eventDate,Long id) {
+    public int UpdateMemberAttendance_NewWeek(String present,LocalDate eventDate,Long id) {
         LocalDate todayDate = LocalDate.now();
         int response = 0;
         int matchDate = eventDate.compareTo(todayDate);
         if (matchDate == 0) {
             System.out.println("Date matches!: matchDate: "+matchDate);
-            response = attendanceRepository.updateAttendanceById(status, eventDate, id);
+            response = attendanceRepository.updateAttendanceById(present, eventDate, id);
             System.out.println("Update Attendance response succeeded! response: "+response);
             return response;//1
         } else {
@@ -122,11 +122,11 @@ public class AttendanceServiceImpl implements AttendanceService{
         Map<String,MemberAttend> memberAttendMap = new HashMap<>();
         final int[] PERCENTAGE = {0};
         memberAttendList.forEach(memberAttend -> {
-            if (memberAttend.getStatus().equals("Yes")) {
-                memberAttend.setPresent(true);
+            if (memberAttend.getPresent().equals("Yes")) {
+                memberAttend.setPresent1(true);
             }
             else{
-                memberAttend.setPresent(false);
+                memberAttend.setPresent1(false);
             }
             int weekOfMonth = processWeekOfMonth(memberAttend.getCreatedDate());
             if (weekOfMonth==1){
@@ -147,7 +147,7 @@ public class AttendanceServiceImpl implements AttendanceService{
             }
             memberAttend.setPercentage(PERCENTAGE[0]);
             MemberAttend memberAttend1 = new MemberAttend(memberAttend.getId(),memberAttend.getTitle(), memberAttend.getFirstName(),
-                    memberAttend.getLastName(), memberAttend.getPresent(),memberAttend.isWeek1(),memberAttend.isWeek2(),
+                    memberAttend.getLastName(), memberAttend.getPresent1(),memberAttend.isWeek1(),memberAttend.isWeek2(),
                     memberAttend.isWeek3(),memberAttend.isWeek4(),memberAttend.getPercentage(),memberAttend.getGender(),memberAttend.getCreatedDate());
             MemberAttend memberAttend2 = memberAttendMap.get(memberAttend.getFirstName());
             if (memberAttend2!=null){
@@ -170,7 +170,7 @@ public class AttendanceServiceImpl implements AttendanceService{
                 }
                 memberAttend2.setPercentage(PERCENTAGE[0]);
                 MemberAttend memberAttendUpdate = new MemberAttend(memberAttend2.getId(), memberAttend2.getTitle(), memberAttend2.getFirstName(),
-                        memberAttend2.getLastName(), memberAttend2.getPresent(), memberAttend2.isWeek1(), memberAttend2.isWeek2(),
+                        memberAttend2.getLastName(), memberAttend2.getPresent1(), memberAttend2.isWeek1(), memberAttend2.isWeek2(),
                         memberAttend2.isWeek3(), memberAttend2.isWeek4(), memberAttend2.getPercentage(), memberAttend2.getGender(), memberAttend2.getCreatedDate());
                 System.out.println("memberAttendUpdate: "+memberAttendUpdate);
                 memberAttendMap.computeIfPresent(memberAttend.getFirstName(), (key, val) -> memberAttendUpdate);

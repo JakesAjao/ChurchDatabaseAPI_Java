@@ -9,22 +9,21 @@ public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String status;
+    private String present;
     private LocalDate createdDate;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "attendance_id")
     private Member members;
 
-
-    public Attendance(String status, LocalDate createdDate) {
-        this.status = status;
+    public Attendance(String present, LocalDate createdDate) {
+        this.present = present;
         this.createdDate = createdDate;
     }
 
-    public Attendance(Member member, String status, LocalDate createdDate) {
+    public Attendance(Member member, String present, LocalDate createdDate) {
         //this.id = id;
         this.members = member;
-        this.status = status;
+        this.present = present;
         this.createdDate = createdDate;
     }
     public Attendance() {
@@ -45,7 +44,7 @@ public class Attendance {
         return "Attendance{" +
                 "id=" + id +
                 ", members=" + members +
-                ", status='" + status + '\'' +
+                ", present='" + present + '\'' +
                 ", createdDate=" + createdDate +
                 '}';
     }
@@ -54,12 +53,12 @@ public class Attendance {
         this.members = member;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPresent() {
+        return present;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPresent(String present) {
+        this.present = present;
     }
 
     public LocalDate getCreatedDate() {

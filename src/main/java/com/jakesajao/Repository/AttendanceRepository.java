@@ -14,10 +14,10 @@ import java.util.Optional;
 
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
-    //@Query("Select a.status,a.createdDate,a.member from Member a left join Attendance b on a.id=b.id")
+    //@Query("Select a.present,a.createdDate,a.member from Member a left join Attendance b on a.id=b.id")
 //    @Query("Select s from Member s where s.id=?1 ")
 //    List<Member> findMemberById(Long id);
-    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.status,b.gender,a.createdDate) "
+    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
             + " FROM Attendance a inner JOIN a.members b")
     List<MemberAttend> findMemberAttend();
     @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.firstName, b.lastName) "
@@ -28,10 +28,10 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
 
     @Modifying
     @Transactional
-    @Query("update Attendance u set u.status = ?1 where u.createdDate= ?2 and u.members.id = ?3")
-    int updateAttendanceById(String status,LocalDate createdDate,Long id);
+    @Query("update Attendance u set u.present = ?1 where u.createdDate= ?2 and u.members.id = ?3")
+    int updateAttendanceById(String present,LocalDate createdDate,Long id);
 
-    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.status,b.gender,a.createdDate) "
+    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
             + " FROM Attendance a inner JOIN a.members b WHERE extract(month from a.createdDate)=?1 and " +
             "extract(year from a.createdDate)=?2")
     //select * from attendance a where extract(Month from a.created_Date)=10

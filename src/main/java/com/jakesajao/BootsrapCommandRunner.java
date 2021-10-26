@@ -26,7 +26,7 @@ public class BootsrapCommandRunner {
     CommandLineRunner commandLineRunner() {
         return args -> {
             Attendance attendance = new Attendance();
-            attendance.setStatus("No");
+            attendance.setPresent("No");
             //attendance.setId(3L);
             attendance.setCreatedDate(LocalDate.now());
             Member member = new Member("Okunowo", "Wale", "0908888888","90888888888","Male","Lagos",
@@ -53,7 +53,7 @@ public class BootsrapCommandRunner {
                 Optional<Member> memberObj = memberRepository.findById(memberAttend.getId());
                 Attendance attend = new Attendance();
                 attend.setMember(memberObj.get());
-                attend.setStatus("No");
+                attend.setPresent("No");
                 attend.setCreatedDate(currentDate);
             attendanceRepository.save(attend);
             System.out.println("Attendance saved successfully! ");

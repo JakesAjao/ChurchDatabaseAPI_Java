@@ -14,15 +14,15 @@ public class AttendanceCreationDto {
     }
 
     private LocalDate createdDate;
-    private String Status;
+    private String present;
     private Member member;
 
-    public String getStatus() {
-        return Status;
+    public String getPresent() {
+        return present;
     }
 
-    public void setStatus(String status) {
-        Status = status;
+    public void setStatus(String present) {
+        present = present;
     }
     public Member getMember() {
         return member;
