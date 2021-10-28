@@ -77,9 +77,14 @@ public class HomeController {
         LocalDate date = LocalDate.now();
         if (absenteeFormDto.getCategory().equals("2"))
             category = "No";
-        else
+        else if (absenteeFormDto.getCategory().equals("1"))
             category = "Yes";
-
+        else{
+        System.out.println("absentee memberAttendList3: ");
+        model.addAttribute("response1", "Category selected is invalid.");
+        model.addAttribute("memberAttendList3", null);
+        return "/absentee";
+        }
         List<MemberAttend> memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
                 category,date.minusDays((Integer.parseInt(absenteeFormDto.getWeek())*7)));
 

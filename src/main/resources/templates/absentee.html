@@ -17,7 +17,8 @@
                     <div style="margin-left:20px;margin-right:20px;">
                     <div class="table-responsive">
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Absentees</h3>
-
+                        <p th:text="${response1}" style="color:red;"></p>
+                        <p th:text="${response}" style="color:green;"></p>
                        <form th:action="@{/absentee}" method="post" th:object="${absenteeFormDto}">
 
                         <div>
