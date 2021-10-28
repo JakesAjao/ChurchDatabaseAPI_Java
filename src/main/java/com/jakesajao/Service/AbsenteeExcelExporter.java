@@ -37,9 +37,9 @@ public class AbsenteeExcelExporter {
         createCell(row, 0, " ID", style);
         createCell(row, 1, "Title", style);
         createCell(row, 2, "First Name", style);
-        createCell(row, 2, "Last Name", style);
-        createCell(row, 3, "Mobilephone", style);
-        createCell(row, 4, "Created Date", style);
+        createCell(row, 3, "Last Name", style);
+        createCell(row, 4, "Mobilephone", style);
+        createCell(row, 5, "Created Date", style);
 
     }
 
@@ -68,12 +68,12 @@ public class AbsenteeExcelExporter {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
 
-            createCell(row, columnCount++, user.getId(), style);
+            createCell(row, columnCount++, user.getId().toString(), style);
             createCell(row, columnCount++, user.getTitle(), style);
             createCell(row, columnCount++, user.getFirstName(), style);
             createCell(row, columnCount++, user.getLastName(), style);
             createCell(row, columnCount++, user.getMobilephone1(), style);
-            createCell(row, columnCount++, user.getCreatedDate(), style);
+            createCell(row, columnCount++, user.getCreatedDate().toString(), style);
 
         }
     }

@@ -43,7 +43,6 @@ public class HomeController {
     private AttendanceRepository attendanceRepository;
 
     private AttendanceServiceImpl attendanceServiceImpl;
-    private static List memberAttendList3 = null;
 
     @Autowired
     private UserService userService;
@@ -70,7 +69,7 @@ public class HomeController {
     }
     @PostMapping("/absentee")
     public String GetMemberByMonthYear(@ModelAttribute @Valid AbsenteeFormDto absenteeFormDto,
-                                       BindingResult result, Model model){
+                                       BindingResult result, Model model, HttpServletRequest request){
         //attendanceServiceImpl.SaveMemberAttendance_NewWeek();
         System.out.println("Absentee absenteeFormDto: " + absenteeFormDto);
         if (absenteeFormDto==null){
@@ -102,28 +101,36 @@ public class HomeController {
         List<MemberAttend> memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
                 category,date.minusDays((Integer.parseInt(absenteeFormDto.getWeek())*7)));
 
-        memberAttendList3 = memberPresentDateList;
+        List<MemberAttend>  memberAttendList3 = memberPresentDateList;
+
         System.out.println("absentee memberAttendList3: " + memberAttendList3);
         model.addAttribute("response", "Absentee records generated successfully!");
         model.addAttribute("memberAttendList3", memberAttendList3);
 
+        HttpSession session = request.getSession(true);
+        session.setAttribute("memberList", memberAttendList3);
+
         return "/absentee";
     }
-    @GetMapping("/members/export/excel")
-    public void exportToExcel(HttpServletResponse response) throws IOException {
+    @GetMapping("members/export/excel")
+    public void exportToExcel(HttpServletResponse response,HttpSession session) throws IOException {
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        String headerValue = "attachment; filename=absent/present_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
 
-        List<MemberAttend> listMembers = memberAttendList3;
+        List<MemberAttend> memberList = (List<MemberAttend>)  session.getAttribute("memberList");
+        System.out.println(" session memberList1: "+memberList);
+//        if (memberList==null)
+//            return "/absentee";
 
-        AbsenteeExcelExporter excelExporter = new AbsenteeExcelExporter(listMembers);
+        AbsenteeExcelExporter excelExporter = new AbsenteeExcelExporter(memberList);
 
         excelExporter.export(response);
+       // return "/absentee";
     }
 
 
