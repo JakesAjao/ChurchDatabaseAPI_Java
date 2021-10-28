@@ -33,7 +33,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
             "extract(year from a.createdDate)=?2 ")
     List<MemberAttend>FindMemberAttendanceByMonthYear(int month,int year);
 
-    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
+    @Query("SELECT new com.jakesajao.dto.MemberAttend(a.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
             + " FROM Attendance a inner JOIN a.members b where a.present=?1 ")
     List<MemberAttend>FindMemberAttendanceByCategory(String present);
     @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate,b.mobilephone1) "

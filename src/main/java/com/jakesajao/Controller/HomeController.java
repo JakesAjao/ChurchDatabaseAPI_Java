@@ -5,6 +5,7 @@ import com.jakesajao.Model.User_;
 import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.Repository.UserRepository;
+import com.jakesajao.Service.AbsenteeExcelExporter;
 import com.jakesajao.Service.AttendanceServiceImpl;
 import com.jakesajao.Service.MemberService;
 import com.jakesajao.Service.UserService;
@@ -20,9 +21,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,6 +43,7 @@ public class HomeController {
     private AttendanceRepository attendanceRepository;
 
     private AttendanceServiceImpl attendanceServiceImpl;
+    private static List memberAttendList3 = null;
 
     @Autowired
     private UserService userService;
@@ -95,12 +102,28 @@ public class HomeController {
         List<MemberAttend> memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
                 category,date.minusDays((Integer.parseInt(absenteeFormDto.getWeek())*7)));
 
-        List memberAttendList3 = memberPresentDateList;
+        memberAttendList3 = memberPresentDateList;
         System.out.println("absentee memberAttendList3: " + memberAttendList3);
         model.addAttribute("response", "Absentee records generated successfully!");
         model.addAttribute("memberAttendList3", memberAttendList3);
 
         return "/absentee";
+    }
+    @GetMapping("/members/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<MemberAttend> listMembers = memberAttendList3;
+
+        AbsenteeExcelExporter excelExporter = new AbsenteeExcelExporter(listMembers);
+
+        excelExporter.export(response);
     }
 
 
