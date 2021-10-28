@@ -14,9 +14,6 @@ import java.util.Optional;
 
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
-    //@Query("Select a.present,a.createdDate,a.member from Member a left join Attendance b on a.id=b.id")
-//    @Query("Select s from Member s where s.id=?1 ")
-//    List<Member> findMemberById(Long id);
     @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
             + " FROM Attendance a inner JOIN a.members b")
     List<MemberAttend> findMemberAttend();
@@ -33,9 +30,15 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
 
     @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
             + " FROM Attendance a inner JOIN a.members b WHERE extract(month from a.createdDate)=?1 and " +
-            "extract(year from a.createdDate)=?2")
-    //select * from attendance a where extract(Month from a.created_Date)=10
-    //and extract(year from a.created_date)=2021 ;
+            "extract(year from a.createdDate)=?2 ")
     List<MemberAttend>FindMemberAttendanceByMonthYear(int month,int year);
+
+    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
+            + " FROM Attendance a inner JOIN a.members b where a.present=?1 ")
+    List<MemberAttend>FindMemberAttendanceByCategory(String present);
+    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate,b.mobilephone1) "
+            + " FROM Attendance a inner JOIN a.members b where a.present=?1 " +
+            " and  (a.createdDate >=?2)")
+    List<MemberAttend>FindMemberAttendanceByCategoryAndDate(String present,LocalDate date);
 
 }

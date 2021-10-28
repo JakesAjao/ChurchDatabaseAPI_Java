@@ -38,7 +38,8 @@ public class MemberAttend {
         this.mobilephone1 = mobilephone1;
         this.title = title;
     }
-    public MemberAttend(Long id,String title,String firstName, String lastName, String present, String gender, LocalDate createdDate) {
+    public MemberAttend(Long id,String title,String firstName, String lastName, String present, String gender, LocalDate createdDate,
+                        String mobilephone1) {
         this.firstName = firstName;
         this.title = title;
         this.id = id;
@@ -48,6 +49,16 @@ public class MemberAttend {
         this.present = present;
         this.mobilephone1 = mobilephone1;
     }
+    public MemberAttend(Long id,String title,String firstName, String lastName, String present, String gender, LocalDate createdDate) {
+        this.firstName = firstName;
+        this.title = title;
+        this.id = id;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.createdDate = createdDate;
+        this.present = present;
+    }
+
     public MemberAttend(Long id,String firstName, String lastName) {
         this.firstName = firstName;
         this.id = id;

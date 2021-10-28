@@ -30,7 +30,7 @@ public class AttendanceServiceImpl implements AttendanceService{
                ,LocalDate.now());
 
         System.out.println("Save attendance as : " + attendance);
-        return attendanceRepository.save(attendance);
+        return (Attendance) attendanceRepository.save(attendance);
     }
     public void SaveMemberAttendance_NewWeek(){
         LocalDate currentDate = LocalDate.now();

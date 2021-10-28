@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,27 +23,26 @@ public class BootsrapCommandRunner {
  private AttendanceRepository attendanceRepository;
    @Autowired
    private MemberRepository memberRepository;
-    //@Bean
+   // @Bean
     CommandLineRunner commandLineRunner() {
         return args -> {
             Attendance attendance = new Attendance();
             attendance.setPresent("No");
             //attendance.setId(3L);
             attendance.setCreatedDate(LocalDate.now());
-            Member member = new Member("Okunowo", "Wale", "0908888888","90888888888","Male","Lagos",
-                    "Ogba","Blk 98, Flat 5", "Pastor","ROLE_MEMBER","ACTIVE",
-                    LocalDate.now());
-            memberRepository.save(member);
+            List<MemberAttend>memberList = attendanceRepository.FindMemberAttendanceByCategory("No");
 
-            //SaveMemberAttendance_NewWeek();//To be run once everytime you loop attendance page
-
-//            LocalDate eventDate = LocalDate.now();
-//            String status = "Yes";
-//            Long id = 3L;
-            //UpdateMemberAttendance_NewWeek(status,eventDate,id); //To be run after attendance status update
-
+            LocalDate date = LocalDate.now().minusDays(40);
+            List<MemberAttend> memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
+                    "No",date);
+            System.out.println("memberPresentDateList: "+memberPresentDateList);
 
         };
+    }
+    private int WeekOftheYear(int year, int month, int day){
+        LocalDate date = LocalDate.of(year, month, day);
+        int weekOfYear = date.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+        return weekOfYear;
     }
     public void SaveMemberAttendance_NewWeek(){
         LocalDate currentDate = LocalDate.now();
