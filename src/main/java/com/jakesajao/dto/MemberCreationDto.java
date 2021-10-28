@@ -2,8 +2,7 @@ package com.jakesajao.dto;
 
 import com.jakesajao.constraints.FieldMatch;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 @FieldMatch.List({
         @FieldMatch(first = "mobilephone1", second = "mobilephone1", message = "The mobilephone1 fields must match."),
@@ -18,6 +17,9 @@ public class MemberCreationDto {
     private String lastName;
 
     @NotEmpty
+    @NotNull
+    @Size(max = 11, min = 11, message = "Mobile number should be of 11 digits")
+    @Pattern(regexp = "(^$|[0-9]{11})", message = "Mobile number is invalid!!")
     private String mobilephone1;
     @NotEmpty
     private String address;
@@ -25,7 +27,8 @@ public class MemberCreationDto {
     @NotEmpty
     private String State;
 
-    //@NotEmpty
+    @Size(max = 11, min = 11, message = "Mobile number should be of 11 digits")
+    @Pattern(regexp = "(^$|[0-9]{11})", message = "Mobile number is invalid!!")
     private String mobilephone2;
     private String role;
     private String gender;
