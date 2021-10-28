@@ -53,6 +53,25 @@ public class AttendanceController {
             model.addAttribute("response", "Oops! No record.");
             return "/charts";
         }
+        if (chartFormDto==null){
+            System.out.println("chartFormDto is null. ");
+            model.addAttribute("memberAttendList3", null);
+            model.addAttribute("response1", "Oops! No record.");
+            return "/charts";
+        }
+        if (chartFormDto.getMonth().equals("Select the Month")) {
+            System.out.println("chartFormDto is null. ");
+            model.addAttribute("memberAttendList3", null);
+            model.addAttribute("response1", "Selected Month is invalid.");
+            return "/charts";
+        }
+        else if (chartFormDto.getYear().equals("Select the Year")) {
+            System.out.println("chartFormDto is null. ");
+            model.addAttribute("memberAttendList3", null);
+            model.addAttribute("response1", "Selected Year is invalid.");
+            return "/charts";
+        }
+
         List<MemberAttend> memberAttendList = attendanceRepository.FindMemberAttendanceByMonthYear(Integer.parseInt(chartFormDto.getMonth()),
                 Integer.parseInt(chartFormDto.getYear()));
 

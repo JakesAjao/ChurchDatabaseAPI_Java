@@ -79,12 +79,19 @@ public class HomeController {
             category = "No";
         else if (absenteeFormDto.getCategory().equals("1"))
             category = "Yes";
-        else{
+        if (absenteeFormDto.getCategory().equals("Select the category:")){
         System.out.println("absentee memberAttendList3: ");
-        model.addAttribute("response1", "Category selected is invalid.");
+        model.addAttribute("response1", "The Category selected is invalid.");
         model.addAttribute("memberAttendList3", null);
         return "/absentee";
         }
+        else if (absenteeFormDto.getWeek().equals("Select from week:")){
+            System.out.println("absentee memberAttendList3: ");
+            model.addAttribute("response1", "The Week selected is invalid.");
+            model.addAttribute("memberAttendList3", null);
+            return "/absentee";
+        }
+
         List<MemberAttend> memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
                 category,date.minusDays((Integer.parseInt(absenteeFormDto.getWeek())*7)));
 
