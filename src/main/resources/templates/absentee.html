@@ -19,6 +19,10 @@
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Absentees</h3>
                         <p th:text="${response1}" style="color:red;"></p>
                         <p th:text="${response}" style="color:green;"></p>
+
+                        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+
                        <form th:action="@{/absentee}" method="post" th:object="${absenteeFormDto}">
 
                         <div>
@@ -51,9 +55,10 @@
                               </select>
                             </div>
                          <div>
-                            <button type="submit" class="btn btn-primary">Search</button>
-                            <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>
+                            <button type="submit" class="btn btn-primary" name="action" value="search">Search</button>
+                            <button type="reset" class="btn btn-primary" id="resetButton" name="reset" value="Reset">Refresh</button>
                          </div>
+
                       </form>
 
                         <p>Type something in the input field to search the table for first names, last names:</p>

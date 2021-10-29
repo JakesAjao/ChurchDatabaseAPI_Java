@@ -6,28 +6,20 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <th:block layout:fragment="script"></th:block>
 <head>
-
-
-
     <style>
         #myInput {
-  background-image: url('../images/searchicon2.png');
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
+          background-image: url('../images/searchicon2.png');
+          background-position: 10px 10px;
+          background-repeat: no-repeat;
+          width: 100%;
+          font-size: 16px;
+          padding: 12px 20px 12px 40px;
+          border: 1px solid #ddd;
+          margin-bottom: 12px;
+        }
     </style>
-
-
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-
     <script type="text/javascript" th:inline="javascript">
-
         // Load the Visualization API and the corechart package.
         google.charts.load('current', {'packages':['corechart']});
 
@@ -75,8 +67,8 @@
     }
   }
 }
+  </script>
 
-    </script>
       <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
@@ -613,6 +605,7 @@
 
 <script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
         <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
 
     </div>
 </div>

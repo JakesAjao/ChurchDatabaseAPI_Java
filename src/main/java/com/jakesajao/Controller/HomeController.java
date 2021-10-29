@@ -19,6 +19,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,22 +62,28 @@ public class HomeController {
     @GetMapping("/login?logout")
     public String logout(){
         System.out.println("Log out...1");
+
         return "login";
     }
     @GetMapping("/absentee")
-    public String getAbsentee(Model model){
+    public String getAbsentee(Model model,HttpSession session){
+        List<MemberAttend> memberList = (List<MemberAttend>) session.getAttribute("memberList");
+        System.out.println("absentee memberAttendList3: " + memberList);
+        //model.addAttribute("response", "Absentee records generated successfully!");
+        model.addAttribute("memberAttendList3", memberList);
+
         return "absentee";
     }
     @PostMapping("/absentee")
     public String GetMemberByMonthYear(@ModelAttribute @Valid AbsenteeFormDto absenteeFormDto,
-                                       BindingResult result, Model model, HttpServletRequest request){
+                                       BindingResult result, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
         //attendanceServiceImpl.SaveMemberAttendance_NewWeek();
         System.out.println("Absentee absenteeFormDto: " + absenteeFormDto);
         if (absenteeFormDto==null){
             System.out.println("absenteeFormDto is null. ");
             model.addAttribute("memberAttendList3", null);
             model.addAttribute("response", "Oops! No record.");
-            return "/absentee";
+            return "redirect:/absentee";
         }
         //List<MemberAttend>memberList = attendanceRepository.FindMemberAttendanceByCategory("No");
         String category = null;
@@ -89,31 +96,31 @@ public class HomeController {
         System.out.println("absentee memberAttendList3: ");
         model.addAttribute("response1", "The Category selected is invalid.");
         model.addAttribute("memberAttendList3", null);
-        return "/absentee";
+            redirectAttributes.addFlashAttribute("error", "The Category selected is invalid.");
+        return "redirect:/absentee";
         }
         else if (absenteeFormDto.getWeek().equals("Select from week:")){
             System.out.println("absentee memberAttendList3: ");
             model.addAttribute("response1", "The Week selected is invalid.");
             model.addAttribute("memberAttendList3", null);
-            return "/absentee";
-        }
 
+            redirectAttributes.addFlashAttribute("error", "The Week selected is invalid.");
+            return "redirect:/absentee";
+        }
         List<MemberAttend> memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
                 category,date.minusDays((Integer.parseInt(absenteeFormDto.getWeek())*7)));
 
         List<MemberAttend>  memberAttendList3 = memberPresentDateList;
 
-        System.out.println("absentee memberAttendList3: " + memberAttendList3);
-        model.addAttribute("response", "Absentee records generated successfully!");
-        model.addAttribute("memberAttendList3", memberAttendList3);
-
         HttpSession session = request.getSession(true);
         session.setAttribute("memberList", memberAttendList3);
 
-        return "/absentee";
+        redirectAttributes.addFlashAttribute("success", "Absentee/Present records generated successfully!");
+
+        return "redirect:/absentee";
     }
     @GetMapping("members/export/excel")
-    public void exportToExcel(HttpServletResponse response,HttpSession session) throws IOException {
+    public void exportToExcel(HttpServletResponse response, HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -122,15 +129,13 @@ public class HomeController {
         String headerValue = "attachment; filename=absent/present_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
 
-        List<MemberAttend> memberList = (List<MemberAttend>)  session.getAttribute("memberList");
+        List<MemberAttend> memberList = (List<MemberAttend>) session.getAttribute("memberList");
         System.out.println(" session memberList1: "+memberList);
 //        if (memberList==null)
 //            return "/absentee";
-
         AbsenteeExcelExporter excelExporter = new AbsenteeExcelExporter(memberList);
 
         excelExporter.export(response);
-       // return "/absentee";
     }
 
 

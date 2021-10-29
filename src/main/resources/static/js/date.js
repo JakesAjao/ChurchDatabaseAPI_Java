@@ -1,4 +1,4 @@
-var date = new Date();
+/*var date = new Date();
 
 var day = date.getDate();
 var month = date.getMonth() + 1;
@@ -12,3 +12,4 @@ document.getElementById("theDate").value = today;
 function showAlert() {
     alert("The button was clicked!");
 }
+*/
