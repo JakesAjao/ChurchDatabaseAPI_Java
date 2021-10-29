@@ -1,6 +1,7 @@
 package com.jakesajao.Controller;
 
 import com.jakesajao.Model.Member;
+import com.jakesajao.Model.ResponseData;
 import com.jakesajao.Model.User_;
 import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
@@ -42,7 +43,6 @@ public class HomeController {
 
     @Autowired
     private AttendanceRepository attendanceRepository;
-
     private AttendanceServiceImpl attendanceServiceImpl;
 
     @Autowired
@@ -62,15 +62,10 @@ public class HomeController {
     @GetMapping("/login?logout")
     public String logout(){
         System.out.println("Log out...1");
-
         return "login";
     }
     @GetMapping("/absentee")
-    public String getAbsentee(Model model,HttpSession session){
-        List<MemberAttend> memberList = (List<MemberAttend>) session.getAttribute("memberList");
-        System.out.println("absentee memberAttendList3: " + memberList);
-        //model.addAttribute("response", "Absentee records generated successfully!");
-        model.addAttribute("memberAttendList3", memberList);
+    public String getAbsentee(Model model){
 
         return "absentee";
     }
@@ -83,10 +78,11 @@ public class HomeController {
             System.out.println("absenteeFormDto is null. ");
             model.addAttribute("memberAttendList3", null);
             model.addAttribute("response", "Oops! No record.");
-            return "redirect:/absentee";
+            model.addAttribute("success", true);
+            return "absentee";
         }
-        //List<MemberAttend>memberList = attendanceRepository.FindMemberAttendanceByCategory("No");
         String category = null;
+        ResponseData rspData  = new ResponseData();
         LocalDate date = LocalDate.now();
         if (absenteeFormDto.getCategory().equals("2"))
             category = "No";
@@ -94,19 +90,19 @@ public class HomeController {
             category = "Yes";
         if (absenteeFormDto.getCategory().equals("Select the category:")){
         System.out.println("absentee memberAttendList3: ");
-        model.addAttribute("response1", "The Category selected is invalid.");
+        model.addAttribute("error", "The Category Selected is invalid.");
         model.addAttribute("memberAttendList3", null);
-            redirectAttributes.addFlashAttribute("error", "The Category selected is invalid.");
-        return "redirect:/absentee";
+//            redirectAttributes.addFlashAttribute("error", "The Category selected is invalid.");
+        return "absentee";
         }
         else if (absenteeFormDto.getWeek().equals("Select from week:")){
             System.out.println("absentee memberAttendList3: ");
-            model.addAttribute("response1", "The Week selected is invalid.");
+            model.addAttribute("error", "The Week Selected is invalid.");
             model.addAttribute("memberAttendList3", null);
-
-            redirectAttributes.addFlashAttribute("error", "The Week selected is invalid.");
-            return "redirect:/absentee";
+//            redirectAttributes.addFlashAttribute("error", "The Week selected is invalid.");
+            return "absentee";
         }
+
         List<MemberAttend> memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
                 category,date.minusDays((Integer.parseInt(absenteeFormDto.getWeek())*7)));
 
@@ -114,11 +110,13 @@ public class HomeController {
 
         HttpSession session = request.getSession(true);
         session.setAttribute("memberList", memberAttendList3);
+        model.addAttribute("success", "Report generated successfully!");
 
-        redirectAttributes.addFlashAttribute("success", "Absentee/Present records generated successfully!");
+       // redirectAttributes.addFlashAttribute("success", "Absentee/Present records generated successfully!");
 
-        return "redirect:/absentee";
+        return "absentee";
     }
+
     @GetMapping("members/export/excel")
     public void exportToExcel(HttpServletResponse response, HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
         response.setContentType("application/octet-stream");

@@ -17,11 +17,9 @@
                     <div style="margin-left:20px;margin-right:20px;">
                     <div class="table-responsive">
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Absentees</h3>
-                        <p th:text="${response1}" style="color:red;"></p>
-                        <p th:text="${response}" style="color:green;"></p>
 
-                        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
-                        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                        <p class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></p>
+                        <p class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></p>
 
                        <form th:action="@{/absentee}" method="post" th:object="${absenteeFormDto}">
 

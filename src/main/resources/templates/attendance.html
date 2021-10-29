@@ -24,7 +24,18 @@
                         </div>
                         <p>Type something in the input field to search the table for first names, last names:</p>
                         <input class="form-control" id="myInput" type="text" placeholder="Search..">
-
+                        <div th:if="${error=='The Week selected is invalid.'}">
+                            <div class="alert alert-danger">The Week Selected is invalid.
+                            </div>
+                        </div>
+                        <div th:if="${error=='The Category selected is invalid.'}">
+                            <div class="alert alert-danger">The Category Selected is invalid.
+                            </div>
+                        </div>
+                        <div th:if="${success=='Report generated successfully!'}">
+                            <div class="alert alert-primary">Report generated successfully!
+                            </div>
+                        </div>
                         <p th:text="${response1}"></p>
                         <p th:text="${response2}"></p>
                         <form th:action="@{/attendance}" method="post" th:object="${form}">
