@@ -25,9 +25,15 @@
 							<a class="navbar-brand" href="#" th:href="@{/}">Registration and
 								Login Module
 							</a>
-							<div style ="color:green;" th:if="${param.success}">
-								<div>You've successfully registered to our awesome app!</div>
+							<div th:if="${error=='There is already a member created with that mobile phone.'}">
+								<div class="alert alert-danger">There is already a member created with that mobile phone.
+								</div>
 							</div>
+							<div th:if="${success=='You've successfully updated the attendance!'}">
+								<div class="alert alert-primary">You've successfully updated the attendance!
+								</div>
+							</div>
+
 <!--							<form method="POST" class="my-login-validation" novalidate="">-->
 								<form th:action="@{/register}" class="my-login-validation" th:object="${user}" method="POST">
 									<p style="color:red" th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error

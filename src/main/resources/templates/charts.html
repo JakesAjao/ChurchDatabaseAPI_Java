@@ -17,8 +17,18 @@
                     <div style="margin-left:20px;margin-right:20px;">
                     <div class="table-responsive">
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Charts</h3>
-                        <p th:text="${response1}" style="color:red;"></p>
-                        <p th:text="${response}" style="color:green;"></p>
+                        <div th:if="${error=='Selected Month is invalid.'}">
+                            <div class="alert alert-danger">The Month Selected is invalid.
+                            </div>
+                        </div>
+                        <div th:if="${error1=='Selected Year is invalid.'}">
+                            <div class="alert alert-danger">Selected Year is invalid.
+                            </div>
+                        </div>
+                        <div th:if="${success=='Attendance records generated successfully!'}">
+                            <div class="alert alert-primary">Attendance records generated successfully!
+                            </div>
+                        </div>
                         <form th:action="@{/search}" method="post" th:object="${chartFormDto}">
 
                         <div>
@@ -76,7 +86,7 @@
                                             <th scope="col">Week 2</th>
                                             <th scope="col">Week 3</th>
                                             <th scope="col">Week 4</th>
-                                            <th scope="col">Percentage(100%)</th>
+<!--                                            <th scope="col">Percentage(100%)</th>-->
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -100,7 +110,7 @@
                                             <td>
                                                 <input type="checkbox" disabled="disabled"  th:checked="${attend.week4}" th:value="${attend.id}" />
                                             </td>
-                                            <td th:text="${attend.percentage}">Percentage</td>
+<!--                                            <td th:text="${attend.percentage}">Percentage</td>-->
                                         </tr>
 
 

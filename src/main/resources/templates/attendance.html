@@ -36,8 +36,10 @@
                             <div class="alert alert-primary">Report generated successfully!
                             </div>
                         </div>
-                        <p th:text="${response1}"></p>
-                        <p th:text="${response2}"></p>
+                        <div th:if="${success2=='Attendance updated successfully!'}">
+                            <div class="alert alert-primary">Attendance updated successfully!
+                            </div>
+                        </div>
                         <form th:action="@{/attendance}" method="post" th:object="${form}">
                         <div class="container">
                             <div class="row">
@@ -67,8 +69,6 @@
                                             <td th:text="${attend.gender}">Gender</td>
                                             <td th:text="${attend.createdDate}">Date</td>
                                         </tr>
-
-
                                         </tbody>
                                     </table>
 

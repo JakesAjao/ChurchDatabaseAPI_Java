@@ -2,6 +2,8 @@ package com.jakesajao.Repository;
 
 import com.jakesajao.Model.Attendance;
 import com.jakesajao.dto.MemberAttend;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,9 +16,16 @@ import java.util.Optional;
 
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
+
     @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
-            + " FROM Attendance a inner JOIN a.members b")
+            + " FROM Attendance a inner JOIN a.members b where a.createdDate=?1 order by a.createdDate desc")
+    List<MemberAttend> findMemberAttendCurrentDate(LocalDate currentDate);
+
+    @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
+            + " FROM Attendance a inner JOIN a.members b order by a.createdDate desc")
     List<MemberAttend> findMemberAttend();
+
+
     @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.firstName, b.lastName) "
             + " FROM Member b")
     List<MemberAttend> findMemberQuery();
@@ -30,7 +39,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
 
     @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
             + " FROM Attendance a inner JOIN a.members b WHERE extract(month from a.createdDate)=?1 and " +
-            "extract(year from a.createdDate)=?2 ")
+            "extract(year from a.createdDate)=?2")
     List<MemberAttend>FindMemberAttendanceByMonthYear(int month,int year);
 
     @Query("SELECT new com.jakesajao.dto.MemberAttend(a.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "

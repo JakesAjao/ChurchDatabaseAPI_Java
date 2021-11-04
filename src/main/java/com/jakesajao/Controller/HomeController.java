@@ -66,7 +66,6 @@ public class HomeController {
     }
     @GetMapping("/absentee")
     public String getAbsentee(Model model){
-
         return "absentee";
     }
     @PostMapping("/absentee")
@@ -102,15 +101,18 @@ public class HomeController {
 //            redirectAttributes.addFlashAttribute("error", "The Week selected is invalid.");
             return "absentee";
         }
-
-        List<MemberAttend> memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
+        List<MemberAttend> memberPresentDateList = null;
+        memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
                 category,date.minusDays((Integer.parseInt(absenteeFormDto.getWeek())*7)));
 
         List<MemberAttend>  memberAttendList3 = memberPresentDateList;
 
+        System.out.println("memberPresentDateList: "+memberPresentDateList);
+
         HttpSession session = request.getSession(true);
-        session.setAttribute("memberList", memberAttendList3);
+        session.setAttribute("memberAttendList3", memberPresentDateList);
         model.addAttribute("success", "Report generated successfully!");
+        model.addAttribute("memberAttendList3", memberAttendList3);
 
        // redirectAttributes.addFlashAttribute("success", "Absentee/Present records generated successfully!");
 

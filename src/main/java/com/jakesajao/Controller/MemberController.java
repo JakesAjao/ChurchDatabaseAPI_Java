@@ -56,18 +56,18 @@ public class MemberController {
             System.out.println("existing  null: "+existing);
             String msg = "There is already a member created with that mobile phone.";
             result.rejectValue("mobilephone1", null, msg);
-            model.addAttribute("response1",msg);
-            return "/add";
+            model.addAttribute("error",msg);
+            return "add";
         }
         if (result.hasErrors()) {
             System.out.println("result.hasErrors(): "+result.toString());
-            model.addAttribute("response1","Error: "+result.toString());
-            return "/add";
+            model.addAttribute("error1","Error: "+result.toString());
+            return "add";
         }
         memberService.save(memberCreationDto);
-        model.addAttribute("response2","Member added successfully!");
+        model.addAttribute("success","You've successfully updated the attendance!");
 
-        return "/add";
+        return "add";
 
     }
 }

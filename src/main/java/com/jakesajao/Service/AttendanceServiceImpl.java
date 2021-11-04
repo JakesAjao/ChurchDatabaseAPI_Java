@@ -1,14 +1,13 @@
 package com.jakesajao.Service;
 
-import com.jakesajao.Model.Attendance;
-import com.jakesajao.Model.Member;
-import com.jakesajao.Model.Percentage;
+import com.jakesajao.Model.*;
 import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.dto.AttendanceCreationDto;
 import com.jakesajao.dto.MemberAttend;
 import com.jakesajao.dto.MemberCreationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +15,7 @@ import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Sort;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService{
@@ -23,7 +23,7 @@ public class AttendanceServiceImpl implements AttendanceService{
     private MemberRepository memberRepository;
     @Autowired
     private AttendanceRepository attendanceRepository;
-
+    int mark =25;
     @Override
     public Attendance Save(AttendanceCreationDto attendanceCreationDto) {
         Attendance attendance = new Attendance(attendanceCreationDto.getMember(), attendanceCreationDto.getPresent()
@@ -51,22 +51,22 @@ public class AttendanceServiceImpl implements AttendanceService{
     }
     public Percentage ProcessBooleanPercentage(MemberAttend memberAttend,int PERCENTAGE, int mark) {
         Percentage percentage = new Percentage();
-        if (memberAttend.isWeek1() == true) {
+        if (memberAttend.getWeek1() == true) {
             percentage.setWeek1(true);
             PERCENTAGE = PERCENTAGE + mark;
             percentage.setPERCENTAGE(PERCENTAGE);
         }
-        if (memberAttend.isWeek2() == true) {
+        if (memberAttend.getWeek2() == true) {
             PERCENTAGE = PERCENTAGE + mark;
             percentage.setWeek2(true);
             percentage.setPERCENTAGE(PERCENTAGE);
         }
-        if (memberAttend.isWeek3() == true) {
+        if (memberAttend.getWeek3() == true) {
             PERCENTAGE = PERCENTAGE + mark;
             percentage.setWeek3(true);
             percentage.setPERCENTAGE(PERCENTAGE);
         }
-        if (memberAttend.isWeek4() == true) {
+        if (memberAttend.getWeek4() == true) {
             percentage.setWeek4(true);
             PERCENTAGE = PERCENTAGE + mark;
             percentage.setPERCENTAGE(PERCENTAGE);
@@ -130,63 +130,47 @@ public class AttendanceServiceImpl implements AttendanceService{
                 memberAttend.setPresent1(false);
             }
             int weekOfMonth = processWeekOfMonth(memberAttend.getCreatedDate());
-            if (weekOfMonth==1){
-                memberAttend.setWeek1(true);
-                PERCENTAGE[0] = PERCENTAGE[0] + mark;
-            }
-            else if (weekOfMonth==2) {
-                memberAttend.setWeek2(true);
-                PERCENTAGE[0] = PERCENTAGE[0] + mark;
-            }
-            else if (weekOfMonth==3) {
-                memberAttend.setWeek3(true);
-                PERCENTAGE[0] = PERCENTAGE[0] + mark;
-            }
-            else if (weekOfMonth==4) {
-                memberAttend.setWeek4(true);
-                PERCENTAGE[0] = PERCENTAGE[0] + mark;
-            }
-            memberAttend.setPercentage(PERCENTAGE[0]);
-            MemberAttend memberAttend1 = new MemberAttend(memberAttend.getId(),memberAttend.getTitle(), memberAttend.getFirstName(),
-                    memberAttend.getLastName(), memberAttend.getPresent1(),memberAttend.isWeek1(),memberAttend.isWeek2(),
-                    memberAttend.isWeek3(),memberAttend.isWeek4(),memberAttend.getPercentage(),memberAttend.getGender(),memberAttend.getCreatedDate());
-            MemberAttend memberAttend2 = memberAttendMap.get(memberAttend.getFirstName());
+            MemberAttend memberAttendSwitch = AttendanceControllerUtility.WeekOfMonthSwitch(weekOfMonth,memberAttend,mark);
+
+            MemberAttend memberAttend1 = new MemberAttend(memberAttendSwitch.getId(),memberAttendSwitch.getTitle(), memberAttendSwitch.getFirstName(),
+                    memberAttendSwitch.getLastName(), memberAttendSwitch.getPresent1(),memberAttendSwitch.getWeek1(),memberAttendSwitch.getWeek2(),
+                    memberAttendSwitch.getWeek3(),memberAttendSwitch.getWeek4(),memberAttendSwitch.getPercentage(),memberAttendSwitch.getGender(),memberAttendSwitch.getCreatedDate());
+            MemberAttend memberAttend2 = memberAttendMap.get(memberAttendSwitch.getFirstName());
             if (memberAttend2!=null){
                 //memberAttend already exists.
-                if (memberAttend1.isWeek1()==true) {
+                int percentCarryForward = memberAttendSwitch.getPercentage();
+                System.out.println("percentCarryForward: "+percentCarryForward);
+                int percent = 0;
+                if (memberAttend1.getWeek1()==true) {
                     memberAttend2.setWeek1(true);
-                    PERCENTAGE[0] = PERCENTAGE[0] + mark;
+                    percent = percentCarryForward + 25;
                 }
-                if (memberAttend1.isWeek2()==true) {
-                    PERCENTAGE[0] = PERCENTAGE[0] + mark;
+                if (memberAttend1.getWeek2()==true) {
+                    percent = percentCarryForward + 25;
                     memberAttend2.setWeek2(true);
                 }
-                if(memberAttend1.isWeek3()==true) {
-                    PERCENTAGE[0] = PERCENTAGE[0] + mark;
+                if(memberAttend1.getWeek3()==true) {
+                    percent = percentCarryForward+ 25;
                     memberAttend2.setWeek3(true);
                 }
-                if (memberAttend1.isWeek4()==true) {
+                if (memberAttend1.getWeek4()==true) {
                     memberAttend2.setWeek4(true);
-                    PERCENTAGE[0] = PERCENTAGE[0] + mark;
+                    percent = percentCarryForward + 25;
                 }
-                memberAttend2.setPercentage(PERCENTAGE[0]);
+                memberAttend2.setPercentage(percent);
                 MemberAttend memberAttendUpdate = new MemberAttend(memberAttend2.getId(), memberAttend2.getTitle(), memberAttend2.getFirstName(),
-                        memberAttend2.getLastName(), memberAttend2.getPresent1(), memberAttend2.isWeek1(), memberAttend2.isWeek2(),
-                        memberAttend2.isWeek3(), memberAttend2.isWeek4(), memberAttend2.getPercentage(), memberAttend2.getGender(), memberAttend2.getCreatedDate());
+                        memberAttend2.getLastName(), memberAttend2.getPresent1(), memberAttend2.getWeek1(), memberAttend2.getWeek2(),
+                        memberAttend2.getWeek3(), memberAttend2.getWeek4(), memberAttend2.getPercentage(), memberAttend2.getGender(), memberAttend2.getCreatedDate());
                 System.out.println("memberAttendUpdate: "+memberAttendUpdate);
                 memberAttendMap.computeIfPresent(memberAttend.getFirstName(), (key, val) -> memberAttendUpdate);
+
             }
-            else{
+            else if (memberAttend2==null){
+                memberAttend1.setPercentage(25);
+                //System.out.println("memberAttend1==null: "+memberAttend1);
                 memberAttendMap.put(memberAttend.getFirstName(),memberAttend1);
             }
-
-            // memberAttendMap.put(memberAttend.getFirstName(),memberAttend1);
-//            memberAttend.setPercentage(PERCENTAGE);
-//            MemberAttend memberAttend1 = new MemberAttend(memberAttend.getId(),memberAttend.getTitle(), memberAttend.getFirstName(),
-//                    memberAttend.getLastName(), memberAttend.getPresent(),memberAttend.isWeek1(),memberAttend.isWeek2(),
-//                    memberAttend.isWeek3(),memberAttend.isWeek4(),memberAttend.getPercentage(),memberAttend.getGender(),memberAttend.getCreatedDate());
-            // memberAttendList2.add(memberAttend1);
-            PERCENTAGE[0] =0;
+            //PERCENTAGE[0] =0;
         });
         List memberAttendList3 = memberAttendMap.values()
                 .stream()
@@ -200,7 +184,5 @@ public class AttendanceServiceImpl implements AttendanceService{
         System.out.println("Week of the month: "+date.get(WeekFields.ISO.weekOfMonth()));
         return date.get(WeekFields.ISO.weekOfMonth());
     }
-
-
 
 }

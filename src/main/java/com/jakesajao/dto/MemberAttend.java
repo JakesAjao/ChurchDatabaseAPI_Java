@@ -144,7 +144,7 @@ public class MemberAttend {
         this.id = id;
     }
 
-    public boolean isWeek1() {
+    public boolean getWeek1() {
         return week1;
     }
 
@@ -152,7 +152,7 @@ public class MemberAttend {
         this.week1 = week1;
     }
 
-    public boolean isWeek2() {
+    public boolean getWeek2() {
         return week2;
     }
 
@@ -160,7 +160,7 @@ public class MemberAttend {
         this.week2 = week2;
     }
 
-    public boolean isWeek3() {
+    public boolean getWeek3() {
         return week3;
     }
 
@@ -168,7 +168,7 @@ public class MemberAttend {
         this.week3 = week3;
     }
 
-    public boolean isWeek4() {
+    public boolean getWeek4() {
         return week4;
     }
 
