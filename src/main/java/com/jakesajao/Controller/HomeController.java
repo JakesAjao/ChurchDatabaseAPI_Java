@@ -6,10 +6,7 @@ import com.jakesajao.Model.User_;
 import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.Repository.UserRepository;
-import com.jakesajao.Service.AbsenteeExcelExporter;
-import com.jakesajao.Service.AttendanceServiceImpl;
-import com.jakesajao.Service.MemberService;
-import com.jakesajao.Service.UserService;
+import com.jakesajao.Service.*;
 import com.jakesajao.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -72,49 +69,24 @@ public class HomeController {
     public String GetMemberByMonthYear(@ModelAttribute @Valid AbsenteeFormDto absenteeFormDto,
                                        BindingResult result, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
         //attendanceServiceImpl.SaveMemberAttendance_NewWeek();
-        System.out.println("Absentee absenteeFormDto: " + absenteeFormDto);
-        if (absenteeFormDto==null){
-            System.out.println("absenteeFormDto is null. ");
-            model.addAttribute("memberAttendList3", null);
-            model.addAttribute("response", "Oops! No record.");
-            model.addAttribute("success", true);
-            return "absentee";
-        }
-        String category = null;
-        ResponseData rspData  = new ResponseData();
-        LocalDate date = LocalDate.now();
-        if (absenteeFormDto.getCategory().equals("2"))
-            category = "No";
-        else if (absenteeFormDto.getCategory().equals("1"))
-            category = "Yes";
-        if (absenteeFormDto.getCategory().equals("Select the category:")){
-        System.out.println("absentee memberAttendList3: ");
-        model.addAttribute("error", "The Category Selected is invalid.");
-        model.addAttribute("memberAttendList3", null);
-//            redirectAttributes.addFlashAttribute("error", "The Category selected is invalid.");
-        return "absentee";
-        }
-        else if (absenteeFormDto.getWeek().equals("Select from week:")){
-            System.out.println("absentee memberAttendList3: ");
-            model.addAttribute("error", "The Week Selected is invalid.");
-            model.addAttribute("memberAttendList3", null);
-//            redirectAttributes.addFlashAttribute("error", "The Week selected is invalid.");
-            return "absentee";
-        }
+         String category = HomeControllerUtility.CategorySet(absenteeFormDto);
+        if (HomeControllerUtility.GetMemberByMonthYearValidation(absenteeFormDto,model,category))
+            return "absence";
         List<MemberAttend> memberPresentDateList = null;
+        LocalDate date = LocalDate.now();
         memberPresentDateList = attendanceRepository.FindMemberAttendanceByCategoryAndDate(
                 category,date.minusDays((Integer.parseInt(absenteeFormDto.getWeek())*7)));
+        String type = HomeControllerUtility.TypeSet(absenteeFormDto);
+        String title = "Report of "+type+" between Week 1 to "+
+                absenteeFormDto.getWeek();
 
         List<MemberAttend>  memberAttendList3 = memberPresentDateList;
-
         System.out.println("memberPresentDateList: "+memberPresentDateList);
-
         HttpSession session = request.getSession(true);
         session.setAttribute("memberAttendList3", memberPresentDateList);
         model.addAttribute("success", "Report generated successfully!");
         model.addAttribute("memberAttendList3", memberAttendList3);
-
-       // redirectAttributes.addFlashAttribute("success", "Absentee/Present records generated successfully!");
+        model.addAttribute("title", title);
 
         return "absentee";
     }
