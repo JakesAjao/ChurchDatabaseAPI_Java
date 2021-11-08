@@ -1,0 +1,60 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="app-main__inner">
+        <div class="row">
+        </div>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div style="margin-left:20px;margin-right:20px;">
+                    <div class="table-responsive">
+                        <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Attendance</h3>
+
+                        <div>
+                            <label>Start date:</label>
+                            <input type="date" id="theDate">
+                        </div>
+                        <div th:if="${success=='Report generated successfully!'}">
+                            <div class="alert alert-primary">Report generated successfully!
+                            </div>
+                        </div>
+
+                        <form action="#" th:action="@{/updateusers}" th:object="${user}" method="post">
+                            <div class="form-control">
+                                <label class="header"> Author Id <span>:</span></label>
+                                <input type="text" id="name" th:field="*{Id}"/>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="header">First Name <span>:</span></label>
+                                <input type="text" id="firstName" th:field="*{firstName}" required=""/>
+                            </div>
+
+                            <div class="form-control">
+                                <label class="enquiry">LastName <span>:</span></label>
+                                <input type="text" th:field="*{lastName}"></input>
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="form-control">
+                                <input type="reset" class="reset" value="Reset"/>
+                                <input type="submit" class="register" value="save changes"/>
+                                <div class="clear"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

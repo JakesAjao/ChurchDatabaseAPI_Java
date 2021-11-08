@@ -5,4 +5,5 @@ import com.jakesajao.dto.AttendanceCreationDto;
 
 public interface AttendanceService {
     Attendance Save(AttendanceCreationDto attendanceCreationDto);
+
 }

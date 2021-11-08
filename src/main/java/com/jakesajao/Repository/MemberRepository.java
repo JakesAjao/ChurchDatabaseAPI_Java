@@ -17,5 +17,7 @@ import java.util.List;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> { //extends JpaRepository<Member,Long> {
     Member findByMobilephone1(String mobilephone);
+    @Query("SELECT s from Member s where s.id=?1 ")
+    Member findMemberById(Long id);
 
 }

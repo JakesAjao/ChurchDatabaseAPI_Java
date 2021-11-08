@@ -41,6 +41,8 @@ public class HomeController {
     @Autowired
     private AttendanceRepository attendanceRepository;
     private AttendanceServiceImpl attendanceServiceImpl;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Autowired
     private UserService userService;
@@ -109,6 +111,26 @@ public class HomeController {
 
         excelExporter.export(response);
     }
-
+    @GetMapping("/details")
+    public String getDetails(Model model){
+        model.addAttribute("users",memberRepository.findAll());
+        return "details";
+    }
+    @RequestMapping(value= "/user/edit/{attendId}", method = RequestMethod.GET)
+    public String editUser(@PathVariable("attendId")Long attendId, ModelMap model){
+        Member member = memberRepository.findMemberById(attendId);
+        model.put("memberAttend", member);
+        return "edituser";
+    }
+    @RequestMapping(value="/updateusers",method=RequestMethod.POST)
+    public String saveUsers(@ModelAttribute("memberAttend") MemberAttend memberAttend, BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "redirect:/details";
+        }
+        System.out.println("Updated First NAME: "+memberAttend.getFirstName());
+        System.out.println("Updated Last NAME: "+memberAttend.getLastName());
+        //authorService.UpdateAuthor(author); to be completed.
+        return  "redirect:/details";
+    }
 
 }

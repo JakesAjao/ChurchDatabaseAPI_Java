@@ -50,4 +50,5 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
             " and  (a.createdDate >=?2)")
     List<MemberAttend>FindMemberAttendanceByCategoryAndDate(String present,LocalDate date);
 
+
 }

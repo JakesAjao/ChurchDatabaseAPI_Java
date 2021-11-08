@@ -57,6 +57,7 @@ public class MemberServiceImpl implements MemberService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return null;
     }
+
 }
 //    public void UpdateUser(User_ user){
 //        if (user==null){

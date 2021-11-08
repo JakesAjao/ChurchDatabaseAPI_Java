@@ -184,5 +184,13 @@ public class AttendanceServiceImpl implements AttendanceService{
         System.out.println("Week of the month: "+date.get(WeekFields.ISO.weekOfMonth()));
         return date.get(WeekFields.ISO.weekOfMonth());
     }
-
+//    public void UpdateUser(MemberAttend memberAttend){
+//        if (memberAttend==null){
+//            System.out.println("memberAttend is empty.");
+//            return;
+//        }
+//        memberAttend.setFirstName(author.getFirstName());
+//        author.setLastName(author.getLastName());
+//        authorRepository.save(author);
+//    }
 }
