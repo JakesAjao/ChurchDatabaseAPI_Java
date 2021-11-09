@@ -46,6 +46,10 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+    @ModelAttribute("member")
+    public MemberCreationDto memberCreationDto() {
+        return new MemberCreationDto();
+    }
     public HomeController(AttendanceRepository attendanceRepository, AttendanceServiceImpl attendanceServiceImpl) {
         this.attendanceRepository = attendanceRepository;
         this.attendanceServiceImpl = attendanceServiceImpl;
@@ -119,16 +123,17 @@ public class HomeController {
     @RequestMapping(value= "/user/edit/{attendId}", method = RequestMethod.GET)
     public String editUser(@PathVariable("attendId")Long attendId, ModelMap model){
         Member member = memberRepository.findMemberById(attendId);
-        model.put("memberAttend", member);
+        System.out.print("Member: "+member);
+        model.put("member", member);
         return "edituser";
     }
-    @RequestMapping(value="/updateusers",method=RequestMethod.POST)
-    public String saveUsers(@ModelAttribute("memberAttend") MemberAttend memberAttend, BindingResult result, ModelMap model) {
+    @RequestMapping(value="/updatemembers",method=RequestMethod.POST)
+    public String saveUsers(@ModelAttribute("member") Member member, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             return "redirect:/details";
         }
-        System.out.println("Updated First NAME: "+memberAttend.getFirstName());
-        System.out.println("Updated Last NAME: "+memberAttend.getLastName());
+        System.out.println("Updated First NAME: "+member.getFirstName());
+        System.out.println("Updated Last NAME: "+member.getLastName());
         //authorService.UpdateAuthor(author); to be completed.
         return  "redirect:/details";
     }

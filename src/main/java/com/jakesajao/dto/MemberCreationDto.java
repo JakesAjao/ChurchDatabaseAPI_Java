@@ -10,6 +10,26 @@ import javax.validation.constraints.*;
 })
 public class MemberCreationDto {
 
+    private Long id;
+
+    @Override
+    public String toString() {
+        return "MemberCreationDto{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mobilephone1='" + mobilephone1 + '\'' +
+                ", address='" + address + '\'' +
+                ", State='" + State + '\'' +
+                ", mobilephone2='" + mobilephone2 + '\'' +
+                ", role='" + role + '\'' +
+                ", gender='" + gender + '\'' +
+                ", title='" + title + '\'' +
+                ", town='" + town + '\'' +
+                ", terms=" + terms +
+                '}';
+    }
+
     @NotEmpty
     private String firstName;
 
@@ -120,6 +140,13 @@ public class MemberCreationDto {
 
     public void setRole(String role) {
         this.role = role;
+    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

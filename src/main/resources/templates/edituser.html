@@ -17,38 +17,51 @@
                     <div style="margin-left:20px;margin-right:20px;">
                     <div class="table-responsive">
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Attendance</h3>
-
-                        <div>
-                            <label>Start date:</label>
-                            <input type="date" id="theDate">
-                        </div>
                         <div th:if="${success=='Report generated successfully!'}">
                             <div class="alert alert-primary">Report generated successfully!
                             </div>
                         </div>
 
-                        <form action="#" th:action="@{/updateusers}" th:object="${user}" method="post">
-                            <div class="form-control">
-                                <label class="header"> Author Id <span>:</span></label>
-                                <input type="text" id="name" th:field="*{Id}"/>
+                        <form action="#" th:action="@{/updatemembers}" th:object="${member}" method="post">
+                            <div>
+                                <label for="id"> Id <span>:</span></label>
+                                <input type="text" id="id" th:field="*{id}"/>
+                            </div>
+                            <div>
+                                <label for="title">Title<span>:</span></label>
+                                <input type="text" id="title" th:field="*{title}" required=""/>
                             </div>
 
-                            <div class="form-control">
-                                <label class="header">First Name <span>:</span></label>
+                            <div>
+                                <label for="firstName">First Name <span>:</span></label>
                                 <input type="text" id="firstName" th:field="*{firstName}" required=""/>
                             </div>
 
-                            <div class="form-control">
-                                <label class="enquiry">LastName <span>:</span></label>
-                                <input type="text" th:field="*{lastName}"></input>
-                                <div class="clear"></div>
+                            <div>
+                                <label for="lastName">LastName <span>:</span></label>
+                                <input type="text" id="lastName" th:field="*{lastName}"/>
+                            </div>
+                            <div>
+                                <label for="mobilephone1">Mobilephone 1 <span>:</span></label>
+                                <input type="text" id="mobilephone1" th:field="*{mobilephone1}"/>
+
                             </div>
 
-                            <div class="form-control">
-                                <input type="reset" class="reset" value="Reset"/>
-                                <input type="submit" class="register" value="save changes"/>
-                                <div class="clear"></div>
+                            <div>
+                                <label for="mobilephone2">Mobilephone 2 <span>:</span></label>
+                                <input type="text" id="mobilephone2" th:field="*{mobilephone2}"/>
+
                             </div>
+                            <div>
+                                <label for="gender">Gender <span>:</span></label>
+                                <input type="text" id="gender" th:field="*{gender}"/>
+
+                            </div>
+                           <div class="form-control">
+                              <input type="reset" class="reset" value="Reset"/>
+                               <input type="submit" class="register" value="save changes"/>
+
+                          </div>
                         </form>
                     </div>
                 </div>
