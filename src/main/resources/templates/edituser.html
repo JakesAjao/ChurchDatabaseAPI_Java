@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
-<div layout:fragment="content">
+ <div layout:fragment="content">
     <!--Content of the page-->
     <div class="app-main__inner">
         <div class="row">
@@ -16,14 +16,10 @@
                 <div class="main-card mb-3 card">
                     <div style="margin-left:20px;margin-right:20px;">
                     <div class="table-responsive">
-                        <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Attendance</h3>
-                        <div th:if="${success=='Report generated successfully!'}">
-                            <div class="alert alert-primary">Report generated successfully!
-                            </div>
-                        </div>
+                        <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Member Update</h3>
 
-                        <form action="#" th:action="@{/updatemembers}" th:object="${member}" method="post">
-                            <div>
+                        <form th:action="@{/edituser}" th:object="${member}" method="post">
+                            <div style="display:none;">
                                 <label for="id"> Id <span>:</span></label>
                                 <input class="form-control" type="text" id="id" th:field="*{id}"/>
                             </div>
@@ -38,7 +34,7 @@
                             </div>
 
                             <div>
-                                <label for="lastName">LastName <span>:</span></label>
+                                <label for="lastName">Last Name <span>:</span></label>
                                 <input type="text" class="form-control" id="lastName" th:field="*{lastName}"/>
                             </div>
                             <div>
@@ -57,13 +53,13 @@
                                 <input type="text" class="form-control" id="gender" th:field="*{gender}"/>
 
                             </div>
-                            <input type="reset" class="btn btn-primary" value="Reset"/>
-                            <input type="submit" class="btn btn-primary" value="save changes"/>
-
-
+                            <div>
+                            <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>
+                            <button type="submit" class="btn btn-primary" name="action" value="Save changes">Update</button>
+                            </div>
                         </form>
-                    </div>
-                </div>
+                      </div>
+                   </div>
                 </div>
             </div>
         </div>

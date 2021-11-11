@@ -43,21 +43,24 @@ public class HomeController {
     private AttendanceServiceImpl attendanceServiceImpl;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private MemberServiceImpl memberServiceImpl;
 
     @Autowired
     private UserService userService;
-    @ModelAttribute("member")
-    public MemberCreationDto memberCreationDto() {
-        return new MemberCreationDto();
-    }
     public HomeController(AttendanceRepository attendanceRepository, AttendanceServiceImpl attendanceServiceImpl) {
         this.attendanceRepository = attendanceRepository;
         this.attendanceServiceImpl = attendanceServiceImpl;
+    }
+    @ModelAttribute("memberFormDto")
+    public MemberCreationDto memberCreationDto() {
+        return new MemberCreationDto();
     }
     @ModelAttribute("absenteeFormDto")
     public AbsenteeFormDto absenteeFormDto() {
         return new AbsenteeFormDto();
     }
+
     @GetMapping("/index")
     public String index(){
         return "index";
@@ -120,21 +123,32 @@ public class HomeController {
         model.addAttribute("users",memberRepository.findAll());
         return "details";
     }
-    @RequestMapping(value= "/user/edit/{attendId}", method = RequestMethod.GET)
-    public String editUser(@PathVariable("attendId")Long attendId, ModelMap model){
+    @RequestMapping(value= "/member/edit/{attendId}", method = RequestMethod.GET)
+    public String editUser(@PathVariable("attendId")Long attendId, Model model){
         Member member = memberRepository.findMemberById(attendId);
-        System.out.print("Member: "+member);
-        model.put("member", member);
+       // System.out.print("Member: "+member);
+        model.addAttribute("member", member);
+        //redirectAttributes.addAttribute("update_success","Member is empty!");
         return "edituser";
     }
-    @RequestMapping(value="/updatemembers",method=RequestMethod.POST)
-    public String saveUsers(@ModelAttribute("member") Member member, BindingResult result, ModelMap model) {
+    @PostMapping("/edituser")
+    public String SaveMember(@ModelAttribute("member") MemberCreationDto memberFormDto,BindingResult result, Model model,final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
+            redirectAttributes.addAttribute("update_error","Oops! Member Could not be added.");
             return "redirect:/details";
         }
-        System.out.println("Updated First NAME: "+member.getFirstName());
-        System.out.println("Updated Last NAME: "+member.getLastName());
-        //authorService.UpdateAuthor(author); to be completed.
+        Member member = new Member();
+        member.setGender(memberFormDto.getGender());
+        member.setMobilephone2(memberFormDto.getMobilephone2());
+        member.setTitle(memberFormDto.getTitle());
+        member.setMobilephone1(memberFormDto.getMobilephone1());
+
+        member.setFirstName(memberFormDto.getFirstName());
+        member.setLastName(memberFormDto.getLastName());
+
+        System.out.println("member Jake: "+member);
+        memberServiceImpl.UpdateMember(member);
+        redirectAttributes.addAttribute("update_success","Member Updated Successfully!");
         return  "redirect:/details";
     }
 

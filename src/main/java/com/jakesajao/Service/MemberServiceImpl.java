@@ -49,15 +49,27 @@ public class MemberServiceImpl implements MemberService {
         System.out.println("Save member as : " + member);
         return memberRepository.save(member);
     }
-    @Override
-    public void UpdateMember(Member member){
-    }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return null;
     }
+    public void UpdateMember(Member member){
+        if (member==null){
+            System.out.println("Member is empty.");
+            return;
+        }
+        member.setFirstName(member.getFirstName());
+        member.setLastName(member.getLastName());
+        member.setTitle(member.getTitle());
+        member.setFirstName(member.getFirstName());
+        member.setMobilephone1(member.getMobilephone1());
+        member.setMobilephone2(member.getMobilephone2());
+        member.setGender(member.getGender());
 
+        memberRepository.save(member);
+        System.out.println("Member updated successfully.");
+    }
 }
 //    public void UpdateUser(User_ user){
 //        if (user==null){

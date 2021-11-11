@@ -20,14 +20,8 @@
 
                         <p>Type something in the input field to search the table for first names, last names:</p>
                         <input class="form-control" id="myInput" type="text" placeholder="Search..">
-                        <div th:if="${error=='The Week selected is invalid.'}">
-                            <div class="alert alert-danger">The Week Selected is invalid.
-                            </div>
-                        </div>
-                        <div th:if="${success=='Report generated successfully!'}">
-                            <div class="alert alert-primary">Report generated successfully!
-                            </div>
-                        </div>
+                        <div class="alert alert-primary" th:text="${update_success}"></div>
+                        <div class="alert alert-danger" th:text="${update_error}"></div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
@@ -54,8 +48,8 @@
                                             <td th:text="${user.mobilephone2}">Mobilephone2</td>
                                             <td th:text="${user.gender}">Gender</td>
                                             <td th:text="${user.createdDate}">Date</td>
-                                            <td><a th:href="@{'/user/edit/' + ${user.id}}">Edit</a></td>
-                                            <td><a th:href="@{'/user/delete/' + ${user.id}}">Delete</a></td>
+                                            <td><a th:href="@{'/member/edit/' + ${user.id}}">Edit</a></td>
+                                            <td><a th:href="@{'/member/delete/' + ${user.id}}">Delete</a></td>
                                         </tr>
                                         </tbody>
                                     </table>
