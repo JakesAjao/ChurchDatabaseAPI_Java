@@ -18,7 +18,7 @@
                     <div class="table-responsive">
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Member Update</h3>
 
-                        <form th:action="@{/edituser}" th:object="${member}" method="post">
+                        <form th:action="@{/editmember}" th:object="${member}" method="post">
                             <div style="display:none;">
                                 <label for="id"> Id <span>:</span></label>
                                 <input class="form-control" type="text" id="id" th:field="*{id}"/>

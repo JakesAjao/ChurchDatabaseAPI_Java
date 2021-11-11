@@ -123,39 +123,32 @@ public class HomeController {
         model.addAttribute("users",memberRepository.findAll());
         return "details";
     }
-    @RequestMapping(value= "/member/edit/{attendId}", method = RequestMethod.GET)
-    public String editUser(@PathVariable("attendId")Long attendId, Model model){
-        Member member = memberRepository.findMemberById(attendId);
+    @RequestMapping(value= "/member/edit/{memberId}", method = RequestMethod.GET)
+    public String editUser(@PathVariable("memberId")Long memberId, Model model){
+        Member member = memberRepository.findMemberById(memberId);
         System.out.print("Member: "+member);
-        //model.put("member", member);
         model.addAttribute("member", member);
         return "edituser";
     }
-    @PostMapping("/edituser/edit")
-    public String UpdateMember(@ModelAttribute("member") MemberCreationDto memberFormDto,BindingResult result, Model model,final RedirectAttributes redirectAttributes) {
+    @PostMapping("/editmember")
+    public String UpdateMember(@ModelAttribute("member") MemberCreationDto memberFormDto,BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            redirectAttributes.addAttribute("update_error","Oops! Member Could not be added.");
+            redirectAttributes.addFlashAttribute("error","Oops! Member Could not be added.");
             return "redirect:/details";
         }
         System.out.print("memberFormDto.getId(): "+memberFormDto.getId());
 
         memberServiceImpl.UpdateMember(memberFormDto);
-        redirectAttributes.addAttribute("update_success","Member Updated Successfully!");
+        redirectAttributes.addFlashAttribute("success","Member Updated Successfully!");
         return  "redirect:/details";
     }
-    @RequestMapping(value= "/member/delete/{attendId}", method = RequestMethod.GET)
-    public String deleteUser(@PathVariable("attendId")Long attendId, Model model){
-        Member member = memberRepository.findMemberById(attendId);
-        System.out.print("Member: "+member);
-        model.addAttribute("member", member);
-        return "edituser";
-    }
+
     @GetMapping(value= "/member/delete/{memberId}")
     public String deleteMember(@PathVariable("memberId")Long memberId,Model model
             ,final RedirectAttributes redirectAttributes){
         Member member = memberServiceImpl.DeleteMember(memberId);
         System.out.println("Member deleted: "+member);
-        redirectAttributes.addAttribute("update_success","Member Deleted Successfully!");
+        redirectAttributes.addFlashAttribute("success","Member Deleted Successfully!");
         return  "redirect:/details";
     }
 

@@ -17,12 +17,11 @@
                     <div style="margin-left:20px;margin-right:20px;">
                     <div class="table-responsive">
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">User Details</h3>
+                        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
 
                         <p>Type something in the input field to search the table for first names, last names:</p>
                         <input class="form-control" id="myInput" type="text" placeholder="Search..">
-
-                        <div class="alert alert-primary" role="alert" th:text="${update_success}" th:if="${update_success}"></div>
-                        <div class="alert alert-danger" role="alert" th:text="${update_error}" th:if="${update_error}"></div>
 
                         <div class="container">
                             <div class="row">
