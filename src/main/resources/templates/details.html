@@ -20,8 +20,10 @@
 
                         <p>Type something in the input field to search the table for first names, last names:</p>
                         <input class="form-control" id="myInput" type="text" placeholder="Search..">
-                        <div class="alert alert-primary" th:text="${update_success}"></div>
-                        <div class="alert alert-danger" th:text="${update_error}"></div>
+
+                        <div class="alert alert-primary" role="alert" th:text="${update_success}" th:if="${update_success}"></div>
+                        <div class="alert alert-danger" role="alert" th:text="${update_error}" th:if="${update_error}"></div>
+
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
@@ -55,7 +57,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div>
+                            <div style="botton-margin:10px;">
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>
                             </div>

@@ -11,5 +11,5 @@ public interface MemberService extends UserDetailsService {
     Member findByMobilePhone1(String mobilephone1);
     Member save(MemberCreationDto creation);
     //UserDetails loadUserByUsername(String email);
-    void UpdateMember(Member member);
+    void UpdateMember(MemberCreationDto member);
 }

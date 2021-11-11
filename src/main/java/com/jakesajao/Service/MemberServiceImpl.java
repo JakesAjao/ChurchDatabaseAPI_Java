@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-
     @Autowired
     private MemberRepository memberRepository;
 
@@ -43,8 +42,8 @@ public class MemberServiceImpl implements MemberService {
     public Member save(MemberCreationDto registration) {
         Member member = new Member(registration.getFirstName(), registration.getLastName(),
                 registration.getMobilephone1(), registration.getMobilephone2(), registration.getGender(),
-                registration.getState(),registration.getTown(),registration.getAddress(),registration.getTitle(),
-                status,role,LocalDate.now());
+                registration.getState(), registration.getTown(), registration.getAddress(), registration.getTitle(),
+                status, role, LocalDate.now());
 
         System.out.println("Save member as : " + member);
         return memberRepository.save(member);
@@ -54,35 +53,33 @@ public class MemberServiceImpl implements MemberService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return null;
     }
-    public void UpdateMember(Member member){
-        if (member==null){
+
+    public void UpdateMember(MemberCreationDto member1) {
+        if (member1 == null) {
             System.out.println("Member is empty.");
             return;
         }
-        member.setFirstName(member.getFirstName());
-        member.setLastName(member.getLastName());
-        member.setTitle(member.getTitle());
-        member.setFirstName(member.getFirstName());
-        member.setMobilephone1(member.getMobilephone1());
-        member.setMobilephone2(member.getMobilephone2());
-        member.setGender(member.getGender());
-
-        memberRepository.save(member);
-        System.out.println("Member updated successfully.");
+        if (memberRepository.findById(member1.getId()).isPresent()) {
+            Member member = memberRepository.findById(member1.getId()).get();
+            member.setFirstName(member1.getFirstName());
+            member.setLastName(member1.getLastName());
+            member.setTitle(member1.getTitle());
+            member.setMobilephone1(member1.getMobilephone1());
+            member.setMobilephone2(member1.getMobilephone2());
+            member.setGender(member1.getGender());
+            memberRepository.save(member);
+            System.out.println("Member updated successfully.");
+        }
+    }
+    public Member DeleteMember(Long authorId) {
+        if (authorId > 0) {
+            Member member = memberRepository.findById(authorId).get();
+            memberRepository.deleteById(authorId);
+            System.out.println("Member deleted successfully! Member:"+member);
+            return member;
+        }
+        return null;
     }
 }
-//    public void UpdateUser(User_ user){
-//        if (user==null){
-//            System.out.println("User is empty.");
-//            return;
-//        }
-//        user.setFirstName(user.getFirstName());
-//        user.setLastName(user.getLastName());
-//        user.setEmail(user.getEmail());
-//        List<Role> role = new ArrayList<>();
-//        userRepository.save(user);
-//        System.out.println("User Saved successfully. User: "+user);
-//    }
-//    }
 
 
