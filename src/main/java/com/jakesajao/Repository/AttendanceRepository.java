@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +50,10 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
             + " FROM Attendance a inner JOIN a.members b where a.present=?1 " +
             " and  (a.createdDate >=?2)")
     List<MemberAttend>FindMemberAttendanceByCategoryAndDate(String present,LocalDate date);
+
+    @Modifying
+    @Query("delete from Attendance b where b.members.id=:memberId")
+    void deleteAttendances(Long memberId);
 
 
 }

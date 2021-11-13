@@ -12,4 +12,5 @@ public interface MemberService extends UserDetailsService {
     Member save(MemberCreationDto creation);
     //UserDetails loadUserByUsername(String email);
     void UpdateMember(MemberCreationDto member);
+    Member DeleteMember(Long memberId);
 }

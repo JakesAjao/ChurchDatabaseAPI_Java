@@ -1,8 +1,10 @@
 package com.jakesajao.Service;
 
+import com.jakesajao.Model.Attendance;
 import com.jakesajao.Model.Member;
 import com.jakesajao.Model.Role;
 import com.jakesajao.Model.User_;
+import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.Repository.UserRepository;
 import com.jakesajao.dto.MemberCreationDto;
@@ -16,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -29,7 +32,8 @@ import java.util.stream.Collectors;
 public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberRepository memberRepository;
-
+    @Autowired
+    private AttendanceRepository attendanceRepository;
     @Autowired
     private MemberService memberService;
     private final String status = "Active";
@@ -71,10 +75,13 @@ public class MemberServiceImpl implements MemberService {
             System.out.println("Member updated successfully.");
         }
     }
-    public Member DeleteMember(Long authorId) {
-        if (authorId > 0) {
-            Member member = memberRepository.findById(authorId).get();
-            memberRepository.deleteById(authorId);
+    @Transactional
+    public Member DeleteMember(Long memberId) {
+        if (memberId>0) {
+            attendanceRepository.deleteAttendances(memberId);
+            Member member = memberRepository.findById(memberId).get();
+            memberRepository.deleteById(memberId);
+
             System.out.println("Member deleted successfully! Member:"+member);
             return member;
         }

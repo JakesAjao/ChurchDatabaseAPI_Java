@@ -146,9 +146,15 @@ public class HomeController {
     @GetMapping(value= "/member/delete/{memberId}")
     public String deleteMember(@PathVariable("memberId")Long memberId,Model model
             ,final RedirectAttributes redirectAttributes){
+        System.out.println("memberId: "+memberId);
         Member member = memberServiceImpl.DeleteMember(memberId);
-        System.out.println("Member deleted: "+member);
-        redirectAttributes.addFlashAttribute("success","Member Deleted Successfully!");
+        if (member==null){
+            redirectAttributes.addFlashAttribute("error","Empty Member.");
+        }
+        else {
+            System.out.println("Member deleted: " + member);
+            redirectAttributes.addFlashAttribute("success", "Member Deleted Successfully!");
+        }
         return  "redirect:/details";
     }
 
