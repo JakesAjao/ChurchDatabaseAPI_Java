@@ -1,12 +1,16 @@
 package com.jakesajao.Controller;
 
+import com.jakesajao.Model.Member;
 import com.jakesajao.Model.Role;
 import com.jakesajao.Model.User_;
+import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.Repository.UserRepository;
+import com.jakesajao.Service.MemberServiceImpl;
 import com.jakesajao.Service.UserService;
 import com.jakesajao.Service.UserServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.Repository;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,31 +33,45 @@ public class LoginController{
     private UserRepository userRepository;
     @Autowired
     private UserServiceImpl userServiceImpl;
+    @Autowired
+    private MemberServiceImpl memberServiceImpl;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     @GetMapping("/login")
     public String login(Model model) {
         return "login";
     }
-
     @GetMapping("/")
-    public ModelAndView home() {
-       String currentUserName = null;
-        User_ user = null;
-        currentUserName = getUsername();
-       if (currentUserName!=null)
-           user = userRepository.findByEmail(currentUserName);
-        else
-            throw new NullPointerException();
-        //String roleVal = getRole(user.getRoles());
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home");
+    public String viewHomePage(Model model) {
+
+        return findPaginated(1, model);
+    }
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+        int pageSize = 5;
+
+        System.out.println("PageNo: "+pageNo);
+
+        User_ user = GetUsername();
         String name = user.getFirstName();
         String email = user.getEmail();
+        model.addAttribute("firstName",name);
 
-        modelAndView.addObject("firstName",name);
+            Page<Member> page = memberServiceImpl.findPaginated(pageNo, pageSize);
+        List <Member>listMembers = page.getContent();
 
-        return modelAndView;
-}
+        model.addAttribute("maleTotal", memberServiceImpl.GenderCount("MALE"));
+        model.addAttribute("femaleTotal", memberServiceImpl.GenderCount("FEMALE"));
+        model.addAttribute("totalTeachers", memberServiceImpl.GenderCount("FEMALE")+
+                memberServiceImpl.GenderCount("MALE"));
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("listMembers", listMembers);
+        return "index";
+    }
 
     private String getRole(Collection<Role> roleList){
         for(Role role: roleList) {
@@ -70,6 +88,15 @@ public class LoginController{
         else
             return null;
     }
-
+    private User_ GetUsername(){
+        String currentUserName = null;
+        User_ user = null;
+        currentUserName = getUsername();
+        if (currentUserName!=null)
+            user = userRepository.findByEmail(currentUserName);
+        else
+            throw new NullPointerException();
+        return user;
+    }
 
 }

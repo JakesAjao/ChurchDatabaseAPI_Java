@@ -21,4 +21,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> { //extend
     Member findByMobilephone1(String mobilephone);
     @Query("SELECT s from Member s where s.id=?1 ")
     Member findMemberById(Long id);
+    @Query("Select count(s) from Member s where s.gender=?1")
+    long genderCount(String gender);
    }

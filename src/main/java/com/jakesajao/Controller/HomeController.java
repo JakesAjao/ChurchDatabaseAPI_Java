@@ -149,7 +149,7 @@ public class HomeController {
         System.out.println("memberId: "+memberId);
         Member member = memberServiceImpl.DeleteMember(memberId);
         if (member==null){
-            redirectAttributes.addFlashAttribute("error","Empty Member.");
+            redirectAttributes.addFlashAttribute("success","Empty Member.");
         }
         else {
             System.out.println("Member deleted: " + member);

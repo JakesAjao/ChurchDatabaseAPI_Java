@@ -10,6 +10,9 @@ import com.jakesajao.Repository.UserRepository;
 import com.jakesajao.dto.MemberCreationDto;
 import com.jakesajao.dto.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -86,6 +89,18 @@ public class MemberServiceImpl implements MemberService {
             return member;
         }
         return null;
+    }
+    public long GenderCount(String gender){
+        if (gender!=null){
+            long genderVal = memberRepository.genderCount(gender);
+            return genderVal;
+        }
+        return 0;
+    }
+    @Override
+    public Page<Member> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return this.memberRepository.findAll(pageable);
     }
 }
 
