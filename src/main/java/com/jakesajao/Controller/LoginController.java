@@ -48,6 +48,7 @@ public class LoginController{
 
         return findPaginated(1, model);
     }
+    //https://www.javaguides.net/2020/06/pagination-and-sorting-with-spring-boot-thymeleaf-spring-data-jpa-hibernate-mysql.html
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
         int pageSize = 5;
@@ -60,7 +61,7 @@ public class LoginController{
         model.addAttribute("firstName",name);
 
             Page<Member> page = memberServiceImpl.findPaginated(pageNo, pageSize);
-        List <Member>listMembers = page.getContent();
+        List<Member>listMembers = page.getContent();
 
         model.addAttribute("maleTotal", memberServiceImpl.GenderCount("MALE"));
         model.addAttribute("femaleTotal", memberServiceImpl.GenderCount("FEMALE"));

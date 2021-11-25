@@ -38,22 +38,26 @@
                                 <input type="text" class="form-control" id="lastName" th:field="*{lastName}"/>
                             </div>
                             <div>
-                                <label for="mobilephone1">Mobilephone 1 <span>:</span></label>
+                                <label for="mobilephone1">Mobilephone 1: <span></span></label>
                                 <input type="text" class="form-control" id="mobilephone1" th:field="*{mobilephone1}"/>
 
                             </div>
 
                             <div>
-                                <label for="mobilephone2">Mobilephone 2 <span>:</span></label>
+                                <label for="mobilephone2">Mobilephone 2: <span></span></label>
                                 <input type="text" class="form-control" id="mobilephone2" th:field="*{mobilephone2}"/>
 
                             </div>
                             <div>
-                                <label for="gender">Gender <span>:</span></label>
-                                <input type="text" class="form-control" id="gender" th:field="*{gender}"/>
+                                <label>Gender <span>:</span></label>
+                                <select th:field="*{gender}" class="form-control">
+                                    <option value="MALE">MALE</option>
+                                    <option value="FEMALE">FEMALE</option>
+                                </select>
+<!--                                <input type="text" class="form-control" id="gender" th:field="*{gender}"/>-->
 
                             </div>
-                            <div>
+                            <div style="margin-bottom: 15px;margin-top:15px;">
                             <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>
                             <button type="submit" class="btn btn-primary" name="action" value="Save changes">Update</button>
                             </div>
