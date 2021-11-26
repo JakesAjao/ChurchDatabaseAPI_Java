@@ -5,8 +5,15 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <div layout:fragment="content">
+    <th:block layout:fragment="script">
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script>
+            </script>
+    </th:block>
     <!--Content of the page-->
     <div class="app-main__inner">
+
         <div class="row">
         </div>
         <div class="row">
@@ -19,11 +26,13 @@
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Attendance</h3>
 
                         <div>
-                            <label>Start date:</label>
-                            <input type="date" id="theDate">
+                            <label>Event date:</label>
+                            <img src="http://placehold.it/16" value="reset" />
+                            <input type="text" id="datepicker"/>
                         </div>
+
                         <p>Type something in the input field to search the table for first names, last names:</p>
-                        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                        <input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Search..">
                         <div th:if="${error=='The Week selected is invalid.'}">
                             <div class="alert alert-danger">The Week Selected is invalid.
                             </div>
@@ -76,7 +85,7 @@
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary">Update</button>
-                                <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>
+<!--                                <button type="reset" class="btn btn-primary" id="resetButton" name="reset" onclick="showAlert();">Refresh</button>-->
                             </div>
                         </div>
                         </form>
@@ -87,4 +96,5 @@
         </div>
     </div>
 </div>
+
 </html>

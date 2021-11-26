@@ -49,17 +49,17 @@
                                             <td th:text="${user.mobilephone2}">Mobilephone2</td>
                                             <td th:text="${user.gender}">Gender</td>
                                             <td th:text="${user.createdDate}">Date</td>
-                                            <td><a th:href="@{'/member/edit/' + ${user.id}}">Edit</a></td>
-                                            <td><a th:href="@{'/member/delete/' + ${user.id}}">Delete</a></td>
+                                            <td><a th:href="@{'/member/edit/' + ${user.id}}" class="btn btn-primary">Edit</a></td>
+                                            <td><a th:href="@{'/member/delete/' + ${user.id}}"  class="btn btn-danger">Delete</a></td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div style="botton-margin:10px;">
-                                <button type="submit" class="btn btn-primary">Update</button>
-                                <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>
-                            </div>
+<!--                            <div style="botton-margin:10px;">-->
+<!--                                <button type="submit" class="btn btn-primary">Update</button>-->
+<!--                                <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
