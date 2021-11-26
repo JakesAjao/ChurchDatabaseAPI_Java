@@ -36,6 +36,7 @@
                                             <th scope="col">Mobilephone 1</th>
                                             <th scope="col">Mobilephone 2</th>
                                             <th scope="col">Gender</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Date</th>
                                         </tr>
                                         </thead>
@@ -48,6 +49,7 @@
                                            <td th:text="${user.mobilephone1}">Mobilephone1</td>
                                             <td th:text="${user.mobilephone2}">Mobilephone2</td>
                                             <td th:text="${user.gender}">Gender</td>
+                                            <td th:text="${user.role}">Status</td>
                                             <td th:text="${user.createdDate}">Date</td>
                                             <td><a th:href="@{'/member/edit/' + ${user.id}}" class="btn btn-primary">Edit</a></td>
                                             <td><a th:href="@{'/member/delete/' + ${user.id}}"  class="btn btn-danger">Delete</a></td>

@@ -54,11 +54,16 @@
                                     <option value="MALE">MALE</option>
                                     <option value="FEMALE">FEMALE</option>
                                 </select>
-<!--                                <input type="text" class="form-control" id="gender" th:field="*{gender}"/>-->
-
+                            </div>
+                            <div>
+                                <label>Status <span>:</span></label>
+                                <select th:field="*{role}" class="form-control">
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
                             </div>
                             <div style="margin-bottom: 15px;margin-top:15px;">
-                            <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>
+<!--                            <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>-->
                             <button type="submit" class="btn btn-primary" name="action" value="Save changes">Update</button>
                             </div>
                         </form>

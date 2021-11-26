@@ -74,6 +74,7 @@ public class MemberServiceImpl implements MemberService {
             member.setMobilephone1(member1.getMobilephone1());
             member.setMobilephone2(member1.getMobilephone2());
             member.setGender(member1.getGender());
+            member.setRole(member1.getRole());
             memberRepository.save(member);
             System.out.println("Member updated successfully.");
         }
