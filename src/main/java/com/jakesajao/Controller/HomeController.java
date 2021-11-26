@@ -133,7 +133,7 @@ public class HomeController {
     @PostMapping("/editmember")
     public String UpdateMember(@ModelAttribute("member") MemberCreationDto memberFormDto,BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("error","Oops! Member Could not be added.");
+            redirectAttributes.addFlashAttribute("error","Oops! Member Could not be updated.");
             return "redirect:/details";
         }
         System.out.print("memberFormDto.getId(): "+memberFormDto.getId());

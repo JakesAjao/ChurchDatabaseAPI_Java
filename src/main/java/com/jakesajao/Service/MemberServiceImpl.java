@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
     private AttendanceRepository attendanceRepository;
     @Autowired
     private MemberService memberService;
-    private final String status = "Active";
+    //private final String status = "Active";
     private final String role = "ROLE_MEMBER";
 
     public Member findByMobilePhone1(String mobilephone1) {
@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = new Member(registration.getFirstName(), registration.getLastName(),
                 registration.getMobilephone1(), registration.getMobilephone2(), registration.getGender(),
                 registration.getState(), registration.getTown(), registration.getAddress(), registration.getTitle(),
-                status, role, LocalDate.now());
+                role, registration.getStatus(), LocalDate.now());
 
         System.out.println("Save member as : " + member);
         return memberRepository.save(member);

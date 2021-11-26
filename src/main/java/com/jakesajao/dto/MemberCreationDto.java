@@ -23,6 +23,7 @@ public class MemberCreationDto {
                 ", State='" + State + '\'' +
                 ", mobilephone2='" + mobilephone2 + '\'' +
                 ", role='" + role + '\'' +
+                ", status='" + status + '\'' +
                 ", gender='" + gender + '\'' +
                 ", title='" + title + '\'' +
                 ", town='" + town + '\'' +
@@ -56,12 +57,20 @@ public class MemberCreationDto {
     private String title;
 
     private String town;
+    private String status;
     public String getMobilephone1() {
         return mobilephone1;
     }
 
     public void setMobilephone1(String mobilephone) {
         this.mobilephone1 = mobilephone;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @AssertTrue

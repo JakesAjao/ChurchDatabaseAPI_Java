@@ -62,6 +62,8 @@ public class MemberController {
         if (result.hasErrors()) {
             System.out.println("result.hasErrors(): "+result.toString());
             model.addAttribute("error1","Error: "+result.toString());
+            model.addAttribute("error",result.toString());
+            System.out.println("Error:: "+result.toString());
             return "add";
         }
         memberService.save(memberCreationDto);

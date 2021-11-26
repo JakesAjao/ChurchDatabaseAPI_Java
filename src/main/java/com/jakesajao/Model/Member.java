@@ -59,11 +59,11 @@ private List<Attendance> attendance;
         this.address = address;
         this.title = title;
         this.town = town;
-        this.status = status;
+        this.status = Status;
 
     }
     public Member(String firstName, String lastName, String mobilephone1, String mobilephone2,String gender,String state,
-                  String town,String address, String title,String role,String status,
+                  String town,String address, String title,String status,String role,
                   LocalDate createdDate) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -117,7 +117,7 @@ private List<Attendance> attendance;
     public String getLastName() {
         return lastName;
     }
-    public void setStatus(String firstName) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -191,6 +191,7 @@ private List<Attendance> attendance;
                 ", mobilephone2='" + mobilephone2 + '\'' +
                 ", gender='" + gender + '\'' +
                 ", state='" + state + '\'' +
+                ", status='" + status + '\'' +
                 ", town='" + town + '\'' +
                 ", title='" + title + '\'' +
                 ", status='" + status + '\'' +
