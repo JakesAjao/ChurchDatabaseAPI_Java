@@ -104,6 +104,15 @@ public class HomeController {
         model.addAttribute("memberAttendList3", memberAttendList3);
         model.addAttribute("title", title);
 
+
+        //display username login name here
+        LoginControllerUtility loginUtility = new LoginControllerUtility();
+        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
+        String name = user.getFirstName();
+        String email = user.getEmail();
+        model.addAttribute("firstName",name);
+
+
         return "absentee";
     }
 
@@ -133,11 +142,6 @@ public class HomeController {
         int pageSize = 5;
 
         System.out.println("PageNo: "+pageNo);
-        LoginControllerUtility loginUtility = new LoginControllerUtility();
-        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
-        String name = user.getFirstName();
-        String email = user.getEmail();
-        model.addAttribute("firstName",name);
 
         Page<Member> page = memberServiceImpl.findPaginated(pageNo, pageSize);
         List<Member>listMembers = page.getContent();
