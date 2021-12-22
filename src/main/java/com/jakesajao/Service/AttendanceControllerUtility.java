@@ -14,6 +14,7 @@ import java.util.List;
 public class AttendanceControllerUtility {
     public static void PostAttendanceLogic(LocalDate eventDate2,List<MemberAttend> attendList, int[] response, AttendanceServiceImpl attendanceServiceImpl,
                                            RedirectAttributes redirectAttributes) {
+
         attendList.forEach(attend -> {
             if (attend.getPresent1() == true) {
                 attend.setPresent("Yes");

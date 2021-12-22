@@ -35,8 +35,8 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
 
     @Modifying
     @Transactional
-    @Query("update Attendance u set u.present = ?1 where u.createdDate= ?2 and u.members.id = ?3")
-    int updateAttendanceById(String present,LocalDate createdDate,Long id);
+    @Query("update Attendance u set u.present = ?1,u.createdDate= ?2 where u.createdDate= ?4 and u.members.id = ?3")
+    int updateAttendanceById(String present,LocalDate createdDate,Long id,LocalDate todayDate);
 
     @Query("SELECT new com.jakesajao.dto.MemberAttend(b.id,b.title, b.firstName, b.lastName,a.present,b.gender,a.createdDate) "
             + " FROM Attendance a inner JOIN a.members b WHERE extract(month from a.createdDate)=?1 and " +

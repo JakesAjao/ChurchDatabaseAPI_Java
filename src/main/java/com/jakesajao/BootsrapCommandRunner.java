@@ -62,11 +62,11 @@ public class BootsrapCommandRunner {
         }
     }
 
-    public void UpdateMemberAttendance_NewWeek(String status,LocalDate eventDate,Long id){
+    /*public void UpdateMemberAttendance_NewWeek(String status,LocalDate eventDate,Long id){
         int response = attendanceRepository.updateAttendanceById(status,eventDate,id);
         if (response==1)
         System.out.println("Update Attendance response succeeded! ");
         else
             System.out.println("Update Attendance response failed. ");
-    }
+    }*/
 }
