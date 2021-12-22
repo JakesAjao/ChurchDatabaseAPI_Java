@@ -6,8 +6,12 @@
       layout:decorate="layout">
 <div layout:fragment="content">
     <th:block layout:fragment="script">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/dot-luv/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
         <script>
-        </script>
+            </script>
     </th:block>
     <!--Content of the page-->
     <div class="app-main__inner">
@@ -20,13 +24,14 @@
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
                     <div style="margin-left:20px;margin-right:20px;">
+                        <form th:action="@{/attendance}" method="post" th:object="${form}">
                     <div class="table-responsive">
                         <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Attendance</h3>
 
                         <div>
-                            <label>Event date:</label>
+                            <label><strong>Event Date</strong></label>
                             <img src="http://placehold.it/16" value="reset" />
-                            <input type="text" id="datepicker"/>
+                            <input type="text" id="datepicker" th:name="eventDate" name="eventDate"/>
                         </div>
 
                         <p>Type something in the input field to search the table for first names, last names:</p>
@@ -47,7 +52,7 @@
                             <div class="alert alert-primary">Attendance updated successfully!
                             </div>
                         </div>
-                        <form th:action="@{/attendance}" method="post" th:object="${form}">
+
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
@@ -86,8 +91,8 @@
 <!--                                <button type="reset" class="btn btn-primary" id="resetButton" name="reset" onclick="showAlert();">Refresh</button>-->
                             </div>
                         </div>
-                        </form>
                     </div>
+                        </form>
                 </div>
                 </div>
             </div>

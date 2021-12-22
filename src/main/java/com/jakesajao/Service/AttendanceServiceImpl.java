@@ -99,22 +99,23 @@ public class AttendanceServiceImpl implements AttendanceService{
         return percentage;
     }
     public int UpdateMemberAttendance_NewWeek(String present,LocalDate eventDate,Long id) {
+        //Display Saturday dates alone
         LocalDate todayDate = LocalDate.now();
         int response = 0;
         int matchDate = eventDate.compareTo(todayDate);
-        if (matchDate == 0) {
+        //if (matchDate == 0) {
             System.out.println(" present: "+present);
-            response = attendanceRepository.updateAttendanceById(present, eventDate, id);
+            response = attendanceRepository.updateAttendanceById(present,eventDate, id);
             System.out.println("Update Attendance response succeeded! response: "+response);
             return response;//1
-        } else {
+       /* } else {
             response = -1;
             System.out.println(" present 2: "+present);
             System.out.println("Date matches oops: matchDate: "+matchDate);
             System.out.println("Update Attendance response failed. ");
 
             return response;
-      }
+      }*/
     }
     public List ProcessChart(final int mark, List<MemberAttend> _memberAttendList){
         List<MemberAttend> memberAttendList2 = new ArrayList<>();

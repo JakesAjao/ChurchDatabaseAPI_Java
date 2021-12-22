@@ -10,9 +10,6 @@
                th:href="@{/css/main.css}"/>
      <link  rel="stylesheet" type="text/css" media="all" href="/css/search.css}"
             th:href="@{/css/search.css}"/>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.4/themes/dot-luv/jquery-ui.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
      <script type="text/javascript" th:inline="javascript">
        function myFunction() {
@@ -22,8 +19,8 @@
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td||td2) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
@@ -31,6 +28,7 @@
         tr[i].style.display = "none";
       }
     }
+
   }
 }
         </script>
@@ -448,7 +446,8 @@
                                 </span>
                             </button>
                         </span>
-                </div>    <div class="scrollbar-sidebar">
+                </div>
+                <div class="scrollbar-sidebar">
                 <div class="app-sidebar__inner">
                     <ul class="vertical-nav-menu">
                         <li class="app-sidebar__heading">Dashboards</li>
@@ -488,7 +487,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <!--li>
                             <a href="#">
                                 <i class="metismenu-icon pe-7s-car"></i>
                                 Member
@@ -508,7 +507,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li-->
 
                     </ul>
                 </div>
@@ -570,6 +569,7 @@
     </div>
     <script th:inline="javascript">
    $( "#datepicker" ).datepicker({
+           dateFormat: 'yy-mm-dd',
         beforeShowDay: noSunday
 });
 

@@ -7,22 +7,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AttendanceControllerUtility {
-    public static void PostAttendanceLogic(List<MemberAttend> attendList, int[] response, AttendanceServiceImpl attendanceServiceImpl,
-                               RedirectAttributes redirectAttributes) {
+    public static void PostAttendanceLogic(LocalDate eventDate2,List<MemberAttend> attendList, int[] response, AttendanceServiceImpl attendanceServiceImpl,
+                                           RedirectAttributes redirectAttributes) {
         attendList.forEach(attend -> {
             if (attend.getPresent1() == true) {
                 attend.setPresent("Yes");
                 System.out.println("Attend: " + attend);
-                response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getPresent(), attend.getCreatedDate(), attend.getId());
+                response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getPresent(), eventDate2, attend.getId());
                 System.out.println("Posted successfully id: " + attend.getId());
                 redirectAttributes.addFlashAttribute("success2", "Attendance updated successfully!");
             } else {
                 attend.setPresent("No");
-                response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getPresent(), attend.getCreatedDate(), attend.getId());
+                //response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getPresent(), attend.getCreatedDate(), attend.getId());
+                response[0] = attendanceServiceImpl.UpdateMemberAttendance_NewWeek(attend.getPresent(), eventDate2, attend.getId());
+
                 System.out.println("Posted successfully id: " + attend.getId());
                 redirectAttributes.addFlashAttribute("success2", "Attendance updated successfully!");
             }

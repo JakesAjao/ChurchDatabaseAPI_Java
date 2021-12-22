@@ -5,6 +5,7 @@ import com.jakesajao.Model.Role;
 import com.jakesajao.Model.User_;
 import com.jakesajao.Repository.MemberRepository;
 import com.jakesajao.Repository.UserRepository;
+import com.jakesajao.Service.LoginControllerUtility;
 import com.jakesajao.Service.MemberServiceImpl;
 import com.jakesajao.Service.UserService;
 import com.jakesajao.Service.UserServiceImpl;
@@ -43,53 +44,24 @@ public class LoginController{
     public String login(Model model) {
         return "login";
     }
-    @GetMapping("/")
-    public String viewHomePage(Model model) {
 
-        return findPaginated(1, model);
-    }
     //https://www.javaguides.net/2020/06/pagination-and-sorting-with-spring-boot-thymeleaf-spring-data-jpa-hibernate-mysql.html
-    @GetMapping("/page/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
-        int pageSize = 5;
 
-        System.out.println("PageNo: "+pageNo);
-
-        User_ user = GetUsername();
-        String name = user.getFirstName();
-        String email = user.getEmail();
-        model.addAttribute("firstName",name);
-
-            Page<Member> page = memberServiceImpl.findPaginated(pageNo, pageSize);
-        List<Member>listMembers = page.getContent();
-
-        model.addAttribute("maleTotal", memberServiceImpl.GenderCount("MALE"));
-        model.addAttribute("femaleTotal", memberServiceImpl.GenderCount("FEMALE"));
-        model.addAttribute("totalTeachers", memberServiceImpl.GenderCount("FEMALE")+
-                memberServiceImpl.GenderCount("MALE"));
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-        model.addAttribute("listMembers", listMembers);
-        return "index";
-    }
-
-    private String getRole(Collection<Role> roleList){
+    /*private String getRole(Collection<Role> roleList){
         for(Role role: roleList) {
-
             return role.getName();
         }
         return null;
-    }
-    public String getUsername(){
+    }*/
+    /*public String getUsername(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             return authentication.getName();
         }
         else
             return null;
-    }
-    private User_ GetUsername(){
+    }*/
+    /*private User_ GetUsername(){
         String currentUserName = null;
         User_ user = null;
         currentUserName = getUsername();
@@ -98,6 +70,6 @@ public class LoginController{
         else
             throw new NullPointerException();
         return user;
-    }
+    }*/
 
 }

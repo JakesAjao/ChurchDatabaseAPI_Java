@@ -73,8 +73,9 @@
             <h3>Member's List</h3>
 
             <a th:href="@{/add}" class="btn btn-primary btn-sm mb-3"> Add Member </a>
-
-            <table border="1" class="table table-striped table-responsive-md">
+            <p>Type something in the input field to search the table for first names, last names:</p>
+            <input class="form-control" id="myInput"  onkeyup="myFunction()" type="text" placeholder="Search..">
+            <table id="myTable" border="1"  class="table table-striped table-responsive-md">
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -93,6 +94,8 @@
                     <td th:text="${member.mobilephone1}"></td>
                     <td th:text="${member.address}"></td>
                     <td th:text="${member.role}"></td>
+                    <td><a th:href="@{'/member/edit/' + ${member.id}}" class="btn btn-primary">Edit</a></td>
+                    <td><a th:href="@{'/member/delete/' + ${member.id}}"  class="btn btn-danger">Delete</a></td>
                 </tr>
                 </tbody>
             </table>

@@ -36,7 +36,7 @@ import java.util.stream.IntStream;
 @Controller
 public class HomeController {
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
     private AttendanceRepository attendanceRepository;
@@ -45,6 +45,7 @@ public class HomeController {
     private MemberRepository memberRepository;
     @Autowired
     private MemberServiceImpl memberServiceImpl;
+
 
     @Autowired
     private UserService userService;
@@ -118,6 +119,34 @@ public class HomeController {
 
         excelExporter.export(response);
     }
+    @GetMapping("/")
+    public String viewHomePage(Model model) {
+        return findPaginated(1, model);
+    }
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+        int pageSize = 5;
+
+        System.out.println("PageNo: "+pageNo);
+        LoginControllerUtility loginUtility = new LoginControllerUtility();
+        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
+        String name = user.getFirstName();
+        String email = user.getEmail();
+        model.addAttribute("firstName",name);
+
+        Page<Member> page = memberServiceImpl.findPaginated(pageNo, pageSize);
+        List<Member>listMembers = page.getContent();
+
+        model.addAttribute("maleTotal", memberServiceImpl.GenderCount("MALE"));
+        model.addAttribute("femaleTotal", memberServiceImpl.GenderCount("FEMALE"));
+        model.addAttribute("totalTeachers", memberServiceImpl.GenderCount("FEMALE")+
+                memberServiceImpl.GenderCount("MALE"));
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("listMembers", listMembers);
+        return "index";
+    }
     @GetMapping("/details")
     public String getDetails(Model model){
         model.addAttribute("users",memberRepository.findAll());
@@ -134,13 +163,13 @@ public class HomeController {
     public String UpdateMember(@ModelAttribute("member") MemberCreationDto memberFormDto,BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("error","Oops! Member Could not be updated.");
-            return "redirect:/details";
+            return "redirect:/";
         }
         System.out.print("memberFormDto.getId(): "+memberFormDto.getId());
 
         memberServiceImpl.UpdateMember(memberFormDto);
         redirectAttributes.addFlashAttribute("success","Member Updated Successfully!");
-        return  "redirect:/details";
+        return  "redirect:/";
     }
 
     @GetMapping(value= "/member/delete/{memberId}")
@@ -155,7 +184,7 @@ public class HomeController {
             System.out.println("Member deleted: " + member);
             redirectAttributes.addFlashAttribute("success", "Member Deleted Successfully!");
         }
-        return  "redirect:/details";
+        return  "redirect:/";
     }
 
 }

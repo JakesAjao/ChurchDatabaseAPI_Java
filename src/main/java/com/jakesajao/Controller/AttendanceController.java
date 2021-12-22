@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.*;
@@ -81,12 +82,17 @@ public class AttendanceController {
     }
 
     @PostMapping("/attendance")
-    public String postAttendance(@ModelAttribute MemberAttendDto form,Model model,
+    public String postAttendance(@ModelAttribute MemberAttendDto form,Model model,@RequestParam(name="eventDate", required = true) String eventDate,
                                  RedirectAttributes redirectAttributes){
         System.out.println("form: "+form);
+        System.out.println("eventDate: "+eventDate);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate eventDate2 = LocalDate.parse(eventDate, formatter);
+        //https://www.java67.com/2016/04/how-to-convert-string-to-localdatetime-in-java8-example.html#ixzz7DWFu0rmR
         List<MemberAttend> attendList = form.getAttends();
         final int[] response = new int[1];
-        AttendanceControllerUtility.PostAttendanceLogic(attendList, response, attendanceServiceImpl, redirectAttributes);
+        AttendanceControllerUtility.PostAttendanceLogic(eventDate2,attendList, response, attendanceServiceImpl, redirectAttributes);
 
         return "redirect:/attendance";
 
