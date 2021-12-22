@@ -73,6 +73,12 @@ public class HomeController {
     }
     @GetMapping("/absentee")
     public String getAbsentee(Model model){
+        LoginControllerUtility loginUtility = new LoginControllerUtility();
+        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
+        String name = user.getFirstName();
+        String email = user.getEmail();
+        model.addAttribute("firstName",name);
+
         return "absentee";
     }
     @PostMapping("/absentee")
@@ -111,10 +117,9 @@ public class HomeController {
         String headerValue = "attachment; filename=absent/present_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
 
-        List<MemberAttend> memberList = (List<MemberAttend>) session.getAttribute("memberList");
+        List<MemberAttend> memberList = (List<MemberAttend>) session.getAttribute("memberAttendList3");
         System.out.println(" session memberList1: "+memberList);
-//        if (memberList==null)
-//            return "/absentee";
+
         AbsenteeExcelExporter excelExporter = new AbsenteeExcelExporter(memberList);
 
         excelExporter.export(response);

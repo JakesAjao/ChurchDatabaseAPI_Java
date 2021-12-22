@@ -60,7 +60,7 @@
                       </form>
 
                         <p>Type something in the input field to search the table for first names, last names:</p>
-                        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                        <input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Search..">
                         <p class="alert alert-primary" role="alert" th:text="${title}" th:if="${title}"></p>
 
                         <a th:href="@{members/export/excel}">Export to Excel</a>

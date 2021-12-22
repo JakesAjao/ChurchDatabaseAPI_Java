@@ -3,8 +3,10 @@ package com.jakesajao.Controller;
 import com.jakesajao.Model.*;
 import com.jakesajao.Repository.AttendanceRepository;
 import com.jakesajao.Repository.MemberRepository;
+import com.jakesajao.Repository.UserRepository;
 import com.jakesajao.Service.AttendanceControllerUtility;
 import com.jakesajao.Service.AttendanceServiceImpl;
+import com.jakesajao.Service.LoginControllerUtility;
 import com.jakesajao.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,6 +33,8 @@ import java.util.stream.Collectors;
 public class AttendanceController {
     @Autowired
     AttendanceRepository attendanceRepository;
+    @Autowired
+    UserRepository userRepository;
     @Autowired
     MemberRepository memberRepository;
     @Autowired
@@ -76,6 +80,12 @@ public class AttendanceController {
             attendDto.addMemberAttend(memberAttend);
         });
 
+        LoginControllerUtility loginUtility = new LoginControllerUtility();
+        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
+        String name = user.getFirstName();
+        String email = user.getEmail();
+        model.addAttribute("firstName",name);
+
         System.out.println("attendDto List: " + attendDto);
         model.addAttribute("form", attendDto);
         return "attendance";
@@ -102,6 +112,12 @@ public class AttendanceController {
         attendanceServiceImpl.SaveMemberAttendance_NewWeek();
         List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();
         List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark,memberAttendList);
+
+        LoginControllerUtility loginUtility = new LoginControllerUtility();
+        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
+        String name = user.getFirstName();
+        String email = user.getEmail();
+        model.addAttribute("firstName",name);
 
         System.out.println("memberAttendList3 List: " + memberAttendList3);
         model.addAttribute("memberAttendList3", memberAttendList3);
