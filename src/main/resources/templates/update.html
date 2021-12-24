@@ -1,0 +1,84 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="app-main__inner">
+        <div class="row">
+        </div>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div style="margin-left:20px;margin-right:20px;">
+                    <div class="table-responsive">
+                        <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Update Member</h3>
+
+                        <div>
+                            <label>Start date:</label>
+                            <input type="date" id="theDate">
+                        </div>
+                        <p>Type something in the input field to search the table for first names, last names:</p>
+                        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-bordered" >
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Mobilephone</th>
+                                            <th scope="col">Gender</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="myTable">
+                                        <tr th:each="member : ${memberList}">
+                                            <td>
+                                                <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="chkStatus1" checked>
+                                                <label class="custom-control-label"  th:text="${member.id}" for="chkStatus1">5</label>
+                                                </div>
+                                              </td>
+<!--                                            <td th:text="${member.id}">Id</td>-->
+                                            <td th:text="${member.firstName}">First Name</td>
+                                            <td th:text="${member.lastName}">last Name</td>
+                                            <td th:text="${member.mobilephone1}">mobile Phone</td>
+                                            <td th:text="${member.gender}">Gender</td>
+                                        </tr>
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <div class="custom-control custom-checkbox">-->
+<!--                                                    <input type="checkbox" class="custom-control-input" id="chkStatus1" checked>-->
+<!--                                                    <label class="custom-control-label" for="chkStatus1">1</label>-->
+<!--                                                </div>-->
+<!--                                            </td>-->
+<!--                                            <td>Jacob</td>-->
+<!--                                            <td>Jacob</td>-->
+<!--                                            <td>Male</td>-->
+<!--                                            <td>Ajao</td>-->
+<!--                                        </tr>-->
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary" th:onclick="showAlert()">Update</button>
+                                <button type="submit" class="btn btn-primary">Refresh</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

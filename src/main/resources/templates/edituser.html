@@ -1,0 +1,77 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+ <div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="app-main__inner">
+        <div class="row">
+        </div>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div style="margin-left:20px;margin-right:20px;">
+                    <div class="table-responsive">
+                        <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Member Update</h3>
+
+                        <form th:action="@{/editmember}" th:object="${member}" method="post">
+                            <div style="display:none;">
+                                <label for="id"> Id <span>:</span></label>
+                                <input class="form-control" type="text" id="id" th:field="*{id}"/>
+                            </div>
+                            <div>
+                                <label for="title">Title<span>:</span></label>
+                                <input class="form-control" type="text" id="title" th:field="*{title}" required=""/>
+                            </div>
+
+                            <div>
+                                <label for="firstName">First Name <span>:</span></label>
+                                <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required=""/>
+                            </div>
+
+                            <div>
+                                <label for="lastName">Last Name <span>:</span></label>
+                                <input type="text" class="form-control" id="lastName" th:field="*{lastName}"/>
+                            </div>
+                            <div>
+                                <label for="mobilephone1">Mobilephone 1: <span></span></label>
+                                <input type="text" class="form-control" id="mobilephone1" th:field="*{mobilephone1}"/>
+
+                            </div>
+
+                            <div>
+                                <label for="mobilephone2">Mobilephone 2: <span></span></label>
+                                <input type="text" class="form-control" id="mobilephone2" th:field="*{mobilephone2}"/>
+
+                            </div>
+                            <div>
+                                <label>Gender <span>:</span></label>
+                                <select th:field="*{gender}" class="form-control">
+                                    <option value="MALE">MALE</option>
+                                    <option value="FEMALE">FEMALE</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Status <span>:</span></label>
+                                <select th:field="*{role}" class="form-control">
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <div style="margin-bottom: 15px;margin-top:15px;">
+<!--                            <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>-->
+                            <button type="submit" class="btn btn-primary" name="action" value="Save changes">Update</button>
+                            </div>
+                        </form>
+                      </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,109 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<div layout:fragment="content">
+    <!--Content of the page-->
+    <div class="app-main__inner">
+        <div class="row">
+        </div>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div style="margin-left:20px;margin-right:20px;">
+                    <div class="table-responsive">
+                        <h3 style="margin-top:15px;font-weight:bold;margin-left:15px">Absentees</h3>
+
+                        <p class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></p>
+                        <p class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></p>
+
+                       <form th:action="@{/absentee}" method="post" th:object="${absenteeFormDto}">
+
+                        <div>
+                            Select the Absentee category:<br>
+                            <select class="form-select form-select-lg mb-3" id="category" name="category" aria-label="Default select example">
+                                <option selected>Select the category:</option>
+                                <option value="1">Present</option>
+                                <option value="2">Absent</option>
+
+                            </select><br>
+                            Select last week:<br>
+                            <select class="form-select form-select-lg mb-3" id="week" name="week" aria-label="Default select example">
+                                <option selected>Select from week:</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+
+                              </select>
+                            </div>
+                         <div>
+                            <button type="submit" class="btn btn-primary" name="action" value="search">Search</button>
+                            <button type="reset" class="btn btn-primary" id="resetButton" name="reset" value="Reset">Refresh</button>
+                         </div>
+
+                      </form>
+
+                        <p>Type something in the input field to search the table for first names, last names:</p>
+                        <input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Search..">
+                        <p class="alert alert-primary" role="alert" th:text="${title}" th:if="${title}"></p>
+
+                        <a th:href="@{members/export/excel}">Export to Excel</a>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div style="overflow-y: auto; max-height: 400px;">
+                                    <table  id="myTable" class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                           <th scope="col">Id</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Mobilephone</th>
+                                            <th scope="col">Meeting Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="attend  : ${memberAttendList3}">
+                                            <td th:text="${attend.id}">Title</td>
+                                            <td th:text="${attend.Title}">Title</td>
+                                           <td th:text="${attend.firstName}">First Name</td>
+                                            <td th:text="${attend.lastName}">last Name</td>
+                                            <td th:text="${attend.mobilephone1}">Mobilephone1</td>
+                                            <td th:text="${attend.createdDate}">Event Date</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+<!--                            <div>-->
+<!--                                <button type="submit" class="btn btn-primary" >Update</button>-->
+<!--                                <button type="reset" class="btn btn-primary" id="resetButton" name="reset" th:value="Reset">Refresh</button>-->
+<!--                            </div>-->
+                        </div>
+<!--                        </form>-->
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
