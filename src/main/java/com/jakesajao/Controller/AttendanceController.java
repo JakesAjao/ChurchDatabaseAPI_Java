@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -69,6 +72,15 @@ public class AttendanceController {
     }
     @GetMapping("/attendance")
     public String updateAttendance(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+
+            model.addAttribute("firstName", currentUserName);
+        }
+        else{
+            return "/login";
+        }
         List<MemberAttend> memberAttendList2 = new ArrayList<>();
         LocalDate currentDate = LocalDate.now();
         List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttendCurrentDate(currentDate);//To be displayed as a list to users
@@ -80,11 +92,11 @@ public class AttendanceController {
             attendDto.addMemberAttend(memberAttend);
         });
 
-        LoginControllerUtility loginUtility = new LoginControllerUtility();
-        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
-        String name = user.getFirstName();
-        String email = user.getEmail();
-        model.addAttribute("firstName",name);
+//        LoginControllerUtility loginUtility = new LoginControllerUtility();
+//        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
+//        String name = user.getFirstName();
+//        String email = user.getEmail();
+//        model.addAttribute("firstName",name);
 
         System.out.println("attendDto List: " + attendDto);
         model.addAttribute("form", attendDto);
@@ -109,20 +121,30 @@ public class AttendanceController {
     }
     @GetMapping("/charts")
     public String getCharts(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+
+            model.addAttribute("firstName", currentUserName);
+        }
+        else{
+            return "/login";
+        }
         attendanceServiceImpl.SaveMemberAttendance_NewWeek();
         List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();
         List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark,memberAttendList);
 
-        LoginControllerUtility loginUtility = new LoginControllerUtility();
-        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
-        String name = user.getFirstName();
-        String email = user.getEmail();
-        model.addAttribute("firstName",name);
+//        LoginControllerUtility loginUtility = new LoginControllerUtility();
+//        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
+//        String name = user.getFirstName();
+//        String email = user.getEmail();
 
-        System.out.println("memberAttendList3 List: " + memberAttendList3);
-        model.addAttribute("memberAttendList3", memberAttendList3);
 
-        return "/charts";
+            System.out.println("memberAttendList3 List: " + memberAttendList3);
+            model.addAttribute("memberAttendList3", memberAttendList3);
+
+            return "/charts";
+
     }
 
 

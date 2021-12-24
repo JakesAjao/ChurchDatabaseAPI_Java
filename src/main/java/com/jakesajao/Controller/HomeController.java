@@ -11,6 +11,9 @@ import com.jakesajao.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -73,11 +76,16 @@ public class HomeController {
     }
     @GetMapping("/absentee")
     public String getAbsentee(Model model){
-        LoginControllerUtility loginUtility = new LoginControllerUtility();
-        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
-        String name = user.getFirstName();
-        String email = user.getEmail();
-        model.addAttribute("firstName",name);
+        //LoginControllerUtility loginUtility = new LoginControllerUtility();
+//        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
+//        String name = user.getFirstName();
+//        String email = user.getEmail();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+
+            model.addAttribute("firstName", currentUserName);
+        }
 
         return "absentee";
     }
@@ -135,7 +143,13 @@ public class HomeController {
     }
     @GetMapping("/")
     public String viewHomePage(Model model) {
-        return findPaginated(1, model);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            model.addAttribute("firstName",currentUserName);
+            return findPaginated(1, model);
+        }
+        return "/login";
     }
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
@@ -158,6 +172,15 @@ public class HomeController {
     }
     @GetMapping("/details")
     public String getDetails(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+
+            model.addAttribute("firstName", currentUserName);
+        }
+        else{
+            return "/login";
+        }
         model.addAttribute("users",memberRepository.findAll());
         return "details";
     }
