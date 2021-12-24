@@ -25,7 +25,7 @@ public class LoginControllerUtility {
         if (currentUserName!=null)
             user = userRepository.findByEmail(currentUserName);
         else
-            throw new NullPointerException();
+            user = new User_();
         return user;
     }
     private String getRole(Collection<Role> roleList){
