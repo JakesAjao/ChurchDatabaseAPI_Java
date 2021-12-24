@@ -35,7 +35,7 @@ public class AttendanceServiceImpl implements AttendanceService{
     public void SaveMemberAttendance_NewWeek(){
         LocalDate currentDate = LocalDate.now();
         Optional<LocalDate> dateAlreadyExist = attendanceRepository.ValidateCurrentExistingDate(currentDate);
-        if (dateAlreadyExist.isEmpty()) {
+        if (!dateAlreadyExist.isPresent()) {
             List<MemberAttend> memberAttendList = attendanceRepository.findMemberQuery();
             memberAttendList.forEach(memberAttend -> {
                 Optional<Member> memberObj = memberRepository.findById(memberAttend.getId());
