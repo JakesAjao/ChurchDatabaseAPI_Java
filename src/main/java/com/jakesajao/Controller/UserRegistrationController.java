@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/register")
@@ -36,7 +37,7 @@ public class UserRegistrationController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
-                                      BindingResult result) {
+                                      BindingResult result, RedirectAttributes redirectAttributes) {
         System.out.println("Entry");
         User_ existing = userService.findByEmail(userDto.getEmail());
         if (existing != null) {
@@ -48,7 +49,9 @@ public class UserRegistrationController {
             return "register";
         }
         userService.save(userDto);
+        redirectAttributes.addFlashAttribute("success","User reated successfully!");
 
-        return "redirect:/register?success";
+
+        return "redirect:/register";
     }
 }
