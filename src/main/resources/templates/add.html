@@ -17,9 +17,9 @@
                     <div class="table-responsive" style="height: 600px;overflow: scroll;">
                             <div style="margin-left:20px;margin-right:20px;">
                                 <h3 style="margin-top:15px;font-weight:bold;">Add Member</h3>
-                                <div style ="color:green;" th:if="${param.success}">
-                                    <div>You've successfully added a member!</div>
-                                </div>
+                                <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                                <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+
                                 <p th:text="${response2}" style="color:green;"></p>
                                 <form th:action="@{/add}" class="my-login-validation" th:object="${memberCreationDto}" method="POST">
                                    <p style="color:red" th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error

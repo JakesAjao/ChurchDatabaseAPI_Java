@@ -49,7 +49,7 @@ public class UserRegistrationController {
             return "register";
         }
         userService.save(userDto);
-        redirectAttributes.addFlashAttribute("success","User reated successfully!");
+        redirectAttributes.addFlashAttribute("success","User created successfully!");
 
 
         return "redirect:/register";
