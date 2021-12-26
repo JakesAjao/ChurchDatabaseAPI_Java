@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -61,7 +62,7 @@ public class MemberController {
 
     @PostMapping("/add")
     public String addNewMember(@ModelAttribute @Valid MemberCreationDto memberCreationDto,
-                               BindingResult result,Model model) {
+                               BindingResult result,Model model, RedirectAttributes redirectAttributes) {
         System.out.println("Entry member");
         Member existing = memberService.findByMobilePhone1(memberCreationDto.getMobilephone1());
         if (existing != null) {
@@ -69,6 +70,7 @@ public class MemberController {
             String msg = "There is already a member created with that mobile phone.";
             result.rejectValue("mobilephone1", null, msg);
             model.addAttribute("error",msg);
+            redirectAttributes.addFlashAttribute("error",msg);
             return "add";
         }
         if (result.hasErrors()) {
@@ -76,12 +78,14 @@ public class MemberController {
             model.addAttribute("error1","Error: "+result.toString());
             model.addAttribute("error",result.toString());
             System.out.println("Error:: "+result.toString());
+            redirectAttributes.addFlashAttribute("error",result.toString());
             return "add";
         }
         memberService.save(memberCreationDto);
-        model.addAttribute("success","You've successfully updated the attendance!");
+        //model.addAttribute("success","You've successfully added a member!");
+        redirectAttributes.addFlashAttribute("success","You've successfully added a member!");
 
-        return "add";
+        return "redirect:/add";
 
     }
 }

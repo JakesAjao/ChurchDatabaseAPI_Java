@@ -91,13 +91,6 @@ public class AttendanceController {
         memberAttendList2.forEach(memberAttend -> {
             attendDto.addMemberAttend(memberAttend);
         });
-
-//        LoginControllerUtility loginUtility = new LoginControllerUtility();
-//        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
-//        String name = user.getFirstName();
-//        String email = user.getEmail();
-//        model.addAttribute("firstName",name);
-
         System.out.println("attendDto List: " + attendDto);
         model.addAttribute("form", attendDto);
         return "attendance";
@@ -133,12 +126,6 @@ public class AttendanceController {
         attendanceServiceImpl.SaveMemberAttendance_NewWeek();
         List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();
         List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark,memberAttendList);
-
-//        LoginControllerUtility loginUtility = new LoginControllerUtility();
-//        User_ user = loginUtility.GetUsername(userRepository);//GetUsername
-//        String name = user.getFirstName();
-//        String email = user.getEmail();
-
 
             System.out.println("memberAttendList3 List: " + memberAttendList3);
             model.addAttribute("memberAttendList3", memberAttendList3);
