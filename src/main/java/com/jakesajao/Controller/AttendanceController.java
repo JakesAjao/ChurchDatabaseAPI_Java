@@ -114,23 +114,30 @@ public class AttendanceController {
     }
     @GetMapping("/charts")
     public String getCharts(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUserName = authentication.getName();
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (!(authentication instanceof AnonymousAuthenticationToken)) {
+                String currentUserName = authentication.getName();
 
-            model.addAttribute("firstName", currentUserName);
-        }
-        else{
-            return "/login";
-        }
-        attendanceServiceImpl.SaveMemberAttendance_NewWeek();
-        List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();
-        List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark,memberAttendList);
+                model.addAttribute("firstName", currentUserName);
+            } else {
+                return "/login";
+            }
+            attendanceServiceImpl.SaveMemberAttendance_NewWeek();
+            List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();
+            List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark, memberAttendList);
 
-            System.out.println("memberAttendList3 List: " + memberAttendList3);
+            // System.out.println("memberAttendList3 List: " + memberAttendList3);
+            if (memberAttendList3 == null)
+                memberAttendList3 = null;
             model.addAttribute("memberAttendList3", memberAttendList3);
 
             return "/charts";
+        }
+        catch(Exception e){
+            System.out.println("Exception "+e);
+            return "/charts";
+        }
 
     }
 
