@@ -123,13 +123,13 @@ public class AttendanceController {
             } else {
                 return "/login";
             }
-            attendanceServiceImpl.SaveMemberAttendance_NewWeek();
+           /* attendanceServiceImpl.SaveMemberAttendance_NewWeek();
             List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();
             List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark, memberAttendList);
 
             System.out.println("memberAttendList3 List: " + memberAttendList3);
 
-            model.addAttribute("memberAttendList3", memberAttendList3);
+            model.addAttribute("memberAttendList3", memberAttendList3);*/
 
             return "/charts";
         }
