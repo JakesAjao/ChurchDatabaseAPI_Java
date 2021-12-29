@@ -75,50 +75,49 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div style="overflow-y: auto; max-height: 400px;">
-                                    <table id="myTable" class="table table-bordered">
-                                        <thead>
-                                        <tr>
-<!--                                            <th scope="col">Present</th>-->
-                                            <th scope="col">Id</th>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-<!--                                            <th scope="col">Mobilephone</th>-->
-                                            <th scope="col">Week 1</th>
-                                            <th scope="col">Week 2</th>
-                                            <th scope="col">Week 3</th>
-                                            <th scope="col">Week 4</th>
-<!--                                            <th scope="col">Percentage(100%)</th>-->
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="attend  : ${memberAttendList3}">
+<!--                                    <table id="myTable" class="table table-bordered">-->
+<!--                                        <thead>-->
+<!--                                        <tr>-->
+<!--&lt;!&ndash;                                            <th scope="col">Present</th>&ndash;&gt;-->
+<!--                                            <th scope="col">Id</th>-->
+<!--                                            <th scope="col">Title</th>-->
+<!--                                            <th scope="col">First Name</th>-->
+<!--                                            <th scope="col">Last Name</th>-->
+<!--&lt;!&ndash;                                            <th scope="col">Mobilephone</th>&ndash;&gt;-->
+<!--                                            <th scope="col">Week 1</th>-->
+<!--                                            <th scope="col">Week 2</th>-->
+<!--                                            <th scope="col">Week 3</th>-->
+<!--                                            <th scope="col">Week 4</th>-->
+<!--&lt;!&ndash;                                            <th scope="col">Percentage(100%)</th>&ndash;&gt;-->
+<!--                                        </tr>-->
+<!--                                        </thead>-->
+<!--                                        <tbody>-->
+<!--                                        <tr th:each="attend  : ${memberAttendList3}">-->
+<!--&lt;!&ndash;                                            <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <input type="checkbox"  disabled="disabled" th:checked="${attend.present}" th:value="${attend.id}" />&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </td>&ndash;&gt;-->
+<!--                                            <td th:text="${attend.id}">Title</td>-->
+<!--                                            <td th:text="${attend.title}">Title</td>-->
+<!--                                            <td th:text="${attend.firstName}">First Name</td>-->
+<!--                                            <td th:text="${attend.lastName}">last Name</td>-->
+<!--&lt;!&ndash;                                            <td th:text="${attend.mobilephone1}">Mobilephone1</td>&ndash;&gt;-->
 <!--                                            <td>-->
-<!--                                                <input type="checkbox"  disabled="disabled" th:checked="${attend.present}" th:value="${attend.id}" />-->
+<!--                                                <input type="checkbox" disabled="disabled"  th:checked="${attend.week1}" th:value="${attend.id}" />-->
 <!--                                            </td>-->
-                                            <td th:text="${attend.id}">Title</td>
-                                            <td th:text="${attend.title}">Title</td>
-                                            <td th:text="${attend.firstName}">First Name</td>
-                                            <td th:text="${attend.lastName}">last Name</td>
-<!--                                            <td th:text="${attend.mobilephone1}">Mobilephone1</td>-->
-                                            <td>
-                                                <input type="checkbox" disabled="disabled"  th:checked="${attend.week1}" th:value="${attend.id}" />
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" disabled="disabled" th:checked="${attend.week2}" th:value="${attend.id}" />
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" disabled="disabled" th:checked="${attend.week3}" th:value="${attend.id}" />
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" disabled="disabled"  th:checked="${attend.week4}" th:value="${attend.id}" />
-                                            </td>
-<!--                                            <td th:text="${attend.percentage}">Percentage</td>-->
-                                        </tr>
+<!--                                            <td>-->
+<!--                                                <input type="checkbox" disabled="disabled" th:checked="${attend.week2}" th:value="${attend.id}" />-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <input type="checkbox" disabled="disabled" th:checked="${attend.week3}" th:value="${attend.id}" />-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <input type="checkbox" disabled="disabled"  th:checked="${attend.week4}" th:value="${attend.id}" />-->
+<!--                                            </td>-->
+<!--&lt;!&ndash;                                            <td th:text="${attend.percentage}">Percentage</td>&ndash;&gt;-->
+<!--                                        </tr>-->
 
-
-                                        </tbody>
-                                    </table>
+<!--                                        </tbody>-->
+<!--                                    </table>-->
                                 </div>
                                 </div>
                             </div>
