@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/charts**",
                         "/layout**",
                         "/adminlayout**",
-                        "/adminhome**",
+                        "/adminindex**",
                         "/edituser**",
                         "/details**",
                         "/absentee**",
