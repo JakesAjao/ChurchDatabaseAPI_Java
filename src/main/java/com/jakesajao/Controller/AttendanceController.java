@@ -124,19 +124,18 @@ public class AttendanceController {
                 return "/login";
             }
             attendanceServiceImpl.SaveMemberAttendance_NewWeek();
-            List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();
-            List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark, memberAttendList);
+            //List<MemberAttend> memberAttendList = attendanceRepository.findMemberAttend();
+           // List memberAttendList3 = attendanceServiceImpl.ProcessChart(mark, memberAttendList);
 
             // System.out.println("memberAttendList3 List: " + memberAttendList3);
-            if (memberAttendList3 == null)
-                memberAttendList3 = null;
-            model.addAttribute("memberAttendList3", memberAttendList3);
 
-            return "charts";
+            model.addAttribute("memberAttendList3", null);
+
+            return "/charts";
         }
         catch(Exception e){
             System.out.println("Exception "+e);
-            return "charts";
+            return "/charts";
         }
 
     }
