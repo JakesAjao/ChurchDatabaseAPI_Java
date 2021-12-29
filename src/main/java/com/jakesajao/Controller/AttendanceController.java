@@ -132,11 +132,11 @@ public class AttendanceController {
                 memberAttendList3 = null;
             model.addAttribute("memberAttendList3", memberAttendList3);
 
-            return "/charts";
+            return "charts";
         }
         catch(Exception e){
             System.out.println("Exception "+e);
-            return "/charts";
+            return "charts";
         }
 
     }
